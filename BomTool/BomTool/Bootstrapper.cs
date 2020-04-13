@@ -12,7 +12,7 @@ namespace BomTool.Core
 {
     public class Bootstrapper
     {
-
+        public static QCoreApplication Application { get; set; }
         public readonly static string AppDir = Path.GetDirectoryName(typeof(Bootstrapper).Assembly.Location);
 
         internal Action ResolveQtRuntime { get; set; } = () => RuntimeManager.DiscoverOrDownloadSuitableQtRuntime();
@@ -35,6 +35,7 @@ namespace BomTool.Core
                     DoRegisterTypes?.Invoke();
                     DoAutoRegisterTypes();
                     qmlEngine.Load(MainQml);
+                    Application = application;
                     return application.Exec();
                 }
             }

@@ -20,6 +20,7 @@
     <EmbeddedResource Include="runtime\qt.tar.gz" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="DotNetCore.NPOI" Version="1.2.2" />
     <PackageReference Include="Qml.Net" Version="0.10.1" />
     <PackageReference Include="Qml.Net.LinuxBinaries" Version="0.10.1" />
     <PackageReference Include="Qml.Net.OSXBinaries" Version="0.10.1" />
