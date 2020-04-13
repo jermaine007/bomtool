@@ -11,9 +11,11 @@ namespace BomTool.Models
     {
         public string Folder { get; set; }
 
-        public List<ExcelData> Data { get; set; }
+        public IEnumerable<ExcelData> Data { get; set; }
 
         public Action<string> Log { get; set; }
+        public IEnumerable<ExcelData> PthData { get; private set; }
+        public IEnumerable<ExcelData> SmdData { get; private set; }
 
         public ExcelWriter(IEnumerable<ExcelData> data, string folder, Action<string> Log)
         {
@@ -27,9 +29,13 @@ namespace BomTool.Models
             Log("Generating BOM...");
             var header = Data.ElementAt(0);
             var pthCode = header.Pth.Replace("(PTH)", "");
-            var smdCode = header.Pth.Replace("(SMD)", "");
-            WriteFile(pthCode, GenerateData("PTH"));
-            WriteFile(smdCode, GenerateData("SMD"));
+            var smdCode = header.Smd.Replace("(SMD)", "");
+
+            this.PthData = GenerateData("PTH");
+            this.SmdData = GenerateData("SMD");
+            
+            WriteFile(pthCode, this.PthData);
+            WriteFile(smdCode, this.SmdData);
             Log("Generated BOM successfully.");
         }
 
@@ -56,8 +62,11 @@ namespace BomTool.Models
                 row.CreateCell(3).SetCellValue(item.Value);
                 row.CreateCell(4).SetCellValue(item.Reference);
             }
-
-            workbook.Write(File.Create(path));
+            using (var fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            {
+                workbook.Write(fs);
+            }
+            
         }
 
         private IEnumerable<ExcelData> GenerateData(string line)
@@ -73,7 +82,7 @@ namespace BomTool.Models
             foreach (var group in filteredData)
             {
                 var first = group.First();
-                var references = string.Join(",", group.AsEnumerable());
+                var references = string.Join(",", group.AsEnumerable().Select(o => o.Reference));
                 result.Add(new ExcelData
                 {
                     Reference = references,

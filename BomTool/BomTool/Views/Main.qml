@@ -123,107 +123,266 @@ ApplicationWindow {
             topPadding :10
             ScrollBar.horizontal.policy: ScrollBar.AsNeeded
             ScrollBar.vertical.policy: ScrollBar.AsNeeded
-            contentWidth: rightContent.implicitWidth
-		    contentHeight: rightContent.implicitHeight
+            contentWidth: readContent.implicitWidth
+		    contentHeight: readContent.implicitHeight
             
             
             Column {
-                id : rightContent
+                id : readContent
                 Repeater {
                     id: gridView
-                     Row {
-                Column {
-				   
-                    Label {
-					    padding : 10
-                        width: 80
-						background : Rectangle {
-						  color : '#2C313A'
-						  border.color: "gray"
-						  border.width: 1
-						}
-                        text :  modelData.reference
+                    Row {
+                        Column {
+                            Label {
+				        	    padding : 10
+                                width: 80
+				        		background : Rectangle {
+				        		  color : '#2C313A'
+				        		  border.color: "gray"
+				        		  border.width: 1
+				        		}
+                                text :  modelData.reference
+                            }
+                        }
+                        Column {
+				           
+                            Label {
+                                padding : 10
+                                width: 120
+				        		background : Rectangle {
+				        		  color : '#2C313A'
+				        		  border.color: "gray"
+				        		  border.width: 1
+				        		}
+                                text : modelData.code
+                            }
+                        }
+                        Column {
+				           
+                            Label {
+				        	    padding : 10
+                                width: 80
+				        		background : Rectangle {
+				        		  color : '#2C313A'
+				        		  border.color: "gray"
+				        		  border.width: 1
+				        		}
+                                text :  modelData.type
+                            }
+                        }
+                        Column {
+				           
+                            Label {
+				        	    padding : 10
+                                width: 240
+				        		background : Rectangle {
+				        		  color : '#2C313A'
+				        		  border.color: "gray"
+				        		  border.width: 1
+				        		}
+                                text :  modelData.description
+                            }
+                        }
+                        Column {
+				            
+                            Label {
+                                padding : 10
+                                width: 160
+				        		background : Rectangle {
+				        		  color : '#2C313A'
+				        		  border.color: "gray"
+				        		  border.width: 1
+				        		}
+                                text :  modelData.value
+                            }
+                        }
+                        Column {
+				            
+                            Label {
+                                padding : 10
+                                width: 125
+				        		background : Rectangle {
+				        		  color : '#2C313A'
+				        		  border.color: "gray"
+				        		  border.width: 1
+				        		}
+                                text :  modelData.pth
+                            }
+                        }
+                        Column {
+				            
+                            Label {
+                                padding : 10
+                                width: 125
+				        		background : Rectangle {
+				        		  color : '#2C313A'
+				        		  border.color: "gray"
+				        		  border.width: 1
+				        		}
+                                text :  modelData.smd
+                            }
+                        }
                     }
                 }
-                Column {
-				   
-                    Label {
-                        padding : 10
-                        width: 120
-						background : Rectangle {
-						  color : '#2C313A'
-						  border.color: "gray"
-						  border.width: 1
-						}
-                        text : modelData.code
-                    }
-                }
-                Column {
-				   
-                    Label {
-					    padding : 10
-                        width: 80
-						background : Rectangle {
-						  color : '#2C313A'
-						  border.color: "gray"
-						  border.width: 1
-						}
-                        text :  modelData.type
-                    }
-                }
-                Column {
-				   
-                    Label {
-					    padding : 10
-                        width: 240
-						background : Rectangle {
-						  color : '#2C313A'
-						  border.color: "gray"
-						  border.width: 1
-						}
-                        text :  modelData.description
-                    }
-                }
-                Column {
-				    
-                    Label {
-                        padding : 10
-                        width: 160
-						background : Rectangle {
-						  color : '#2C313A'
-						  border.color: "gray"
-						  border.width: 1
-						}
-                        text :  modelData.value
-                    }
-                }
-                Column {
-				    
-                    Label {
-                        padding : 10
-                        width: 125
-						background : Rectangle {
-						  color : '#2C313A'
-						  border.color: "gray"
-						  border.width: 1
-						}
-                        text :  modelData.pth
-                    }
-                }
-                Column {
-				    
-                    Label {
-                        padding : 10
-                        width: 125
-						background : Rectangle {
-						  color : '#2C313A'
-						  border.color: "gray"
-						  border.width: 1
-						}
-                        text :  modelData.smd
-                    }
-                }
+                
             }
+
+            Column {
+                id : writeContent
+                visible : false
+                Label {
+                    padding :10
+                    text : qsTr("PTH")
+                    font.weight: Font.Bold
+                    font.pointSize : 14
+                }
+                Repeater {
+                    id: pthView
+                    Row {
+                        
+                        Column {
+				           
+                            Label {
+                                padding : 10
+                                width: 120
+				        		background : Rectangle {
+				        		  color : '#2C313A'
+				        		  border.color: "gray"
+				        		  border.width: 1
+				        		}
+                                text : modelData.code
+                            }
+                        }
+                        Column {
+				           
+                            Label {
+				        	    padding : 10
+                                width: 80
+				        		background : Rectangle {
+				        		  color : '#2C313A'
+				        		  border.color: "gray"
+				        		  border.width: 1
+				        		}
+                                text :  modelData.type
+                            }
+                        }
+                        Column {
+				           
+                            Label {
+				        	    padding : 10
+                                width: 240
+				        		background : Rectangle {
+				        		  color : '#2C313A'
+				        		  border.color: "gray"
+				        		  border.width: 1
+				        		}
+                                text :  modelData.description
+                            }
+                        }
+                        Column {
+				            
+                            Label {
+                                padding : 10
+                                width: 160
+				        		background : Rectangle {
+				        		  color : '#2C313A'
+				        		  border.color: "gray"
+				        		  border.width: 1
+				        		}
+                                text :  modelData.value
+                            }
+                        }
+
+                        Column {
+                            Label {
+				        	    padding : 10
+                                width: 250
+				        		background : Rectangle {
+				        		  color : '#2C313A'
+				        		  border.color: "gray"
+				        		  border.width: 1
+				        		}
+                                text :  modelData.reference
+                            }
+                        }
+                    }
+                }
+                Label {
+                    padding :10
+                    text : qsTr("SMD")
+                    font.weight: Font.Bold
+                    font.pointSize : 14
+                }
+                Repeater {
+                    id: smdView
+                    Row {
+                        
+                        Column {
+				           
+                            Label {
+                                padding : 10
+                                width: 120
+				        		background : Rectangle {
+				        		  color : '#2C313A'
+				        		  border.color: "gray"
+				        		  border.width: 1
+				        		}
+                                text : modelData.code
+                            }
+                        }
+                        Column {
+				           
+                            Label {
+				        	    padding : 10
+                                width: 80
+				        		background : Rectangle {
+				        		  color : '#2C313A'
+				        		  border.color: "gray"
+				        		  border.width: 1
+				        		}
+                                text :  modelData.type
+                            }
+                        }
+                        Column {
+				           
+                            Label {
+				        	    padding : 10
+                                width: 240
+				        		background : Rectangle {
+				        		  color : '#2C313A'
+				        		  border.color: "gray"
+				        		  border.width: 1
+				        		}
+                                text :  modelData.description
+                            }
+                        }
+                        Column {
+				            
+                            Label {
+                                padding : 10
+                                width: 160
+				        		background : Rectangle {
+				        		  color : '#2C313A'
+				        		  border.color: "gray"
+				        		  border.width: 1
+				        		}
+                                text :  modelData.value
+                            }
+                        }
+
+                        Column {
+                            Label {
+				        	    padding : 10
+                                width: 250
+				        		background : Rectangle {
+				        		  color : '#2C313A'
+				        		  border.color: "gray"
+				        		  border.width: 1
+				        		}
+                                text :  modelData.reference
+                            }
+                        }
+                    }
                 }
             }
             background : Rectangle {
@@ -283,10 +442,12 @@ ApplicationWindow {
         folder: shortcuts.home
         onAccepted: {
             console.log("You chose: " + folderDialog.fileUrl)
-            var task = mainVM.writeAsync(path)
+            var task = mainVM.writeAsync(folderDialog.fileUrl)
             Net.await(task, function(result) {
+               showView(false)
+               pthView.model = Net.toListModel(mainVM.pthData)
+               smdView.model = Net.toListModel(mainVM.smdData)
                mainVM.isBusy = false
-               
             })
         }
         onRejected: {
@@ -296,13 +457,22 @@ ApplicationWindow {
     }
 
     function bindData(path){
+        
         var task = mainVM.readAsync(path)
         Net.await(task, function(result) {
+               showView(true)
                gridView.model = Net.toListModel(mainVM.dataRead)
                repeater.model = Net.toListModel(mainVM.paths)
                mainVM.isBusy = false
                
         })
+    }
+
+    function showView(isRead){
+        
+        readContent.visible = isRead 
+        writeContent.visible = !isRead
+
     }
 
 }
