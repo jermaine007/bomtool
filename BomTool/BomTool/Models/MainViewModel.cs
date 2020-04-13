@@ -55,6 +55,11 @@ namespace BomTool.Models
             }
         }
 
+        public MainViewModel()
+        {
+            this.Paths = HistoryEntries.Read().ToList();
+        }
+
         public List<string> Paths { get; } = new List<string>();
 
         public IEnumerable<ExcelData> DataRead { get; private set; } = new List<ExcelData>();
@@ -69,7 +74,7 @@ namespace BomTool.Models
             var reader = new ExcelReader(path, msg => this.StatusText = msg);
             this.DataRead = reader.Read();
             AddPath(path);
-            
+
         });
 
         public Task WriteAsync(string path) => Task.Factory.StartNew(() =>
@@ -84,7 +89,7 @@ namespace BomTool.Models
             this.IsBusy = true;
             var writer = new ExcelWriter(DataRead, path, msg => this.StatusText = msg);
             writer.Write();
-           
+
             this.PthData = writer.PthData;
             this.SmdData = writer.SmdData;
         });
@@ -95,6 +100,7 @@ namespace BomTool.Models
             if (!Paths.Contains(path))
             {
                 Paths.Add(path);
+                HistoryEntries.Write(Paths);
             }
         }
     }
