@@ -68,12 +68,25 @@ namespace BomTool.Models
 
         public Task ReadAsync(string path) => Task.Factory.StartNew(() =>
         {
-            var uri = new Uri(path);
-            path = uri.LocalPath;
-            this.IsBusy = true;
-            var reader = new ExcelReader(path, msg => this.StatusText = msg);
-            this.DataRead = reader.Read();
-            AddPath(path);
+            try
+            {
+                var uri = new Uri(path);
+                path = uri.LocalPath;
+                this.IsBusy = true;
+                WaitSometime();
+                var reader = new ExcelReader(path, msg => this.StatusText = msg);
+                this.DataRead = reader.Read();
+                if (this.DataRead.Count() == 0)
+                {
+                    this.StatusText = "No suitable data present";
+                    return;
+                }
+                AddPath(path);
+            }
+            catch
+            {
+                this.StatusText = $"Open {path} failed";
+            }
 
         });
 
@@ -84,14 +97,22 @@ namespace BomTool.Models
                 this.StatusText = "No data present, please choose a bom xls first.";
                 return;
             }
-            var uri = new Uri(path);
-            path = uri.LocalPath;
-            this.IsBusy = true;
-            var writer = new ExcelWriter(DataRead, path, msg => this.StatusText = msg);
-            writer.Write();
+            try
+            {
+                var uri = new Uri(path);
+                path = uri.LocalPath;
+                this.IsBusy = true;
+                WaitSometime();
+                var writer = new ExcelWriter(DataRead, path, msg => this.StatusText = msg);
+                writer.Write();
 
-            this.PthData = writer.PthData;
-            this.SmdData = writer.SmdData;
+                this.PthData = writer.PthData;
+                this.SmdData = writer.SmdData;
+            }
+            catch
+            {
+                this.StatusText = "Generate BOM failed";
+            }
         });
 
         public void AddPath(string path)
@@ -103,5 +124,13 @@ namespace BomTool.Models
                 HistoryEntries.Write(Paths);
             }
         }
+
+        public void ClearHistory()
+        {
+            this.Paths.Clear();
+            HistoryEntries.Write(Paths);
+        }
+
+        void WaitSometime() => Thread.Sleep((int)(new Random().NextDouble() * 1500));
     }
 }

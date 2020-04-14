@@ -21,6 +21,6 @@ namespace BomTool.Models
         public static IEnumerable<string> Read() => File.ReadAllLines(HistoryFile);
 
         public static void Write(IEnumerable<string> data) => File.WriteAllLines(HistoryFile, data);
-        
+
     }
 }

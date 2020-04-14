@@ -13,6 +13,7 @@ namespace BomTool.Core
     public class Bootstrapper
     {
         public static QCoreApplication Application { get; set; }
+
         public readonly static string AppDir = Path.GetDirectoryName(typeof(Bootstrapper).Assembly.Location);
 
         internal Action ResolveQtRuntime { get; set; } = () => RuntimeManager.DiscoverOrDownloadSuitableQtRuntime();
@@ -23,6 +24,7 @@ namespace BomTool.Core
 
         internal string MainQml { get; set; } = Path.Combine(AppDir, "Main.qml");
 
+        internal List<string> ImportPath = new List<string>();
 
         public int Launch(string[] args = null)
         {
@@ -32,12 +34,26 @@ namespace BomTool.Core
             {
                 using (var qmlEngine = new QQmlApplicationEngine())
                 {
+
                     DoRegisterTypes?.Invoke();
                     DoAutoRegisterTypes();
+                    AddImportPath(qmlEngine);
                     qmlEngine.Load(MainQml);
                     Application = application;
                     return application.Exec();
                 }
+            }
+        }
+
+        protected void AddImportPath(QQmlApplicationEngine engine)
+        {
+            if (ImportPath.Count() == 0)
+            {
+                return;
+            }
+            foreach (var path in ImportPath)
+            {
+                engine.AddImportPath(path);
             }
         }
 
@@ -90,9 +106,37 @@ namespace BomTool.Core
             bootstrapper.MainQml = mainQml;
             return bootstrapper;
         }
+
+        public static Bootstrapper SetAttribute(this Bootstrapper bootstrapper, ApplicationAttribute attribute)
+        {
+            QCoreApplication.SetAttribute(attribute, true);
+            return bootstrapper;
+        }
+
+        public static Bootstrapper AddImportPath(this Bootstrapper bootstrapper, params string[] importPath)
+        {
+            if (importPath != null && importPath.Length != 0)
+            {
+                bootstrapper.ImportPath.AddRange(importPath);
+            }
+            return bootstrapper;
+        }
+
+        public static Bootstrapper RegisterResource(this Bootstrapper bootstrapper, params string[] rccs)
+        {
+            if (rccs == null)
+            {
+                return bootstrapper;
+            }
+            foreach (var rcc in rccs)
+            {
+                QResource.RegisterResource(rcc);
+            }
+            return bootstrapper;
+        }
     }
 
-    
+
 
     class QtRuntimeLoader
     {

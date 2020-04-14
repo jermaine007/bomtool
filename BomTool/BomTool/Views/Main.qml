@@ -45,7 +45,20 @@ ApplicationWindow {
                 onTriggered: folderDialog.open()
             }
             MenuSeparator { }
-            Action { text: qsTr("&Quit") }
+            Action {
+                text : qsTr("&Clear History")
+                onTriggered: {
+                    mainVM.clearHistory()
+                    repeater.model = Net.toListModel(mainVM.paths)
+                }
+            }
+
+            MenuSeparator { }
+            Action { 
+                text: qsTr("&Quit")
+                onTriggered: Qt.quit()
+            
+            }
         }
 
         Menu {
@@ -397,7 +410,7 @@ ApplicationWindow {
         }
     }
 
-    Rectangle{
+    Rectangle {
         color: Material.dialogColor
         anchors.bottom: parent.bottom
         height: 30
@@ -413,12 +426,12 @@ ApplicationWindow {
     }
 
 
-   MainViewModel {
-       id: mainVM
-       Component.onCompleted : {
-           repeater.model = Net.toListModel(mainVM.paths)
-       }
-   }
+    MainViewModel {
+        id: mainVM
+        Component.onCompleted : {
+            repeater.model = Net.toListModel(mainVM.paths)
+        }
+    }
 
     FileDialog {
         id: fileDialog
@@ -444,9 +457,15 @@ ApplicationWindow {
             console.log("You chose: " + folderDialog.fileUrl)
             var task = mainVM.writeAsync(folderDialog.fileUrl)
             Net.await(task, function(result) {
-               showView(false)
-               pthView.model = Net.toListModel(mainVM.pthData)
-               smdView.model = Net.toListModel(mainVM.smdData)
+               if(mainVM.pthData.length != 0 
+                 || mainVM.smdData.length !=0){
+                    showView(false)
+                    pthView.model = Net.toListModel(mainVM.pthData)
+                    smdView.model = Net.toListModel(mainVM.smdData)
+               }
+               mainVM.isBusy = false
+            }, function(result) {
+               console.log('Save failed')
                mainVM.isBusy = false
             })
         }
@@ -465,14 +484,15 @@ ApplicationWindow {
                repeater.model = Net.toListModel(mainVM.paths)
                mainVM.isBusy = false
                
+        }, function(error){
+            console.log('Open file failed')
+            mainVM.isBusy = false
         })
     }
 
-    function showView(isRead){
-        
+    function showView(isRead) {
         readContent.visible = isRead 
         writeContent.visible = !isRead
-
     }
 
 }
