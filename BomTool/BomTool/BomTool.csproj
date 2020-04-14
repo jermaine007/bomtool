@@ -1,34 +1,31 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <RunWorkingDirectory>$(MSBuildProjectDirectory)</RunWorkingDirectory>
-    <UseWindowsForms>true</UseWindowsForms>
     <SelfContained>true</SelfContained>
     <PublishTrimmed>true</PublishTrimmed>
     <PublishReadyToRun>true</PublishReadyToRun>
     <PublishSingleFile>true</PublishSingleFile>
+    <ApplicationIcon>Bom.ico</ApplicationIcon>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <ApplicationIcon>Bom.ico</ApplicationIcon>
-    <StartupObject />
+    <StartupObject>BomTool.Program</StartupObject>
   </PropertyGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="runtime\qt.tar.gz" />
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DotNetCore.NPOI" Version="1.2.2" />
     <PackageReference Include="Qml.Net" Version="0.10.1" />
-    <PackageReference Include="Qml.Net.LinuxBinaries" Version="0.10.1" />
-    <PackageReference Include="Qml.Net.OSXBinaries" Version="0.10.1" />
     <PackageReference Include="Qml.Net.WindowsBinaries" Version="0.10.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Views\**" CopyToPublishDirectory="Always" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NooneUI\NooneUI.csproj" />
   </ItemGroup>
 
 </Project>

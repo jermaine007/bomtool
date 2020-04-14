@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BomTool", "BomTool\BomTool.csproj", "{8C2D617C-C9D9-4DC4-9414-F0C65957B02A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BomTool", "BomTool\BomTool.csproj", "{8C2D617C-C9D9-4DC4-9414-F0C65957B02A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NooneUI", "NooneUI\NooneUI.csproj", "{6EBDDF62-0B2A-4F5E-8D6B-652EFB57D3BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{8C2D617C-C9D9-4DC4-9414-F0C65957B02A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C2D617C-C9D9-4DC4-9414-F0C65957B02A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C2D617C-C9D9-4DC4-9414-F0C65957B02A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EBDDF62-0B2A-4F5E-8D6B-652EFB57D3BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EBDDF62-0B2A-4F5E-8D6B-652EFB57D3BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EBDDF62-0B2A-4F5E-8D6B-652EFB57D3BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EBDDF62-0B2A-4F5E-8D6B-652EFB57D3BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

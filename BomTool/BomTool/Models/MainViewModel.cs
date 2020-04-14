@@ -1,4 +1,5 @@
-﻿using BomTool.Core;
+﻿
+using NooneUI.Core;
 using Qml.Net;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 namespace BomTool.Models
 {
     [AutoRegisterType]
-    public class MainViewModel
+    public class MainViewModel : Dispatchable
     {
         private string statusText = string.Empty;
         private bool isBusy = false;
@@ -26,7 +27,7 @@ namespace BomTool.Models
                 {
                     return;
                 }
-                Bootstrapper.Application.Dispatch(() =>
+                Dispatch(() =>
                 {
                     isBusy = value;
                     this.ActivateNotifySignal("IsBusy");
@@ -47,7 +48,7 @@ namespace BomTool.Models
                 }
 
 
-                Bootstrapper.Application.Dispatch(() =>
+                Dispatch(() =>
                 {
                     statusText = value;
                     this.ActivateNotifySignal("StatusText");

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BomTool
+namespace NooneUI.Core
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
     public class AutoRegisterTypeAttribute : Attribute
     {
-        public string Uri { get; set; } = "DotNet";
+        public string Uri { get; set; } = "NooneUI";
 
         public int MajorVersion { get; set; } = 1;
 
@@ -17,17 +17,14 @@ namespace BomTool
 
         public AutoRegisterTypeAttribute()
         {
-
         }
 
         public AutoRegisterTypeAttribute(string uri) : this(uri, false)
         {
-
         }
 
-        public AutoRegisterTypeAttribute(bool isSingleton) : this("DotNet", isSingleton)
+        public AutoRegisterTypeAttribute(bool isSingleton) : this("NooneUI", isSingleton)
         {
-
         }
 
         public AutoRegisterTypeAttribute(string uri, bool isSingleton)
