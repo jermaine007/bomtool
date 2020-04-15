@@ -1,0 +1,20 @@
+<Project>
+  <PropertyGroup>
+    <BuiltFor>Windows</BuiltFor>
+  </PropertyGroup>
+  <ItemGroup Condition="$(BuiltFor) == 'Windows'">
+    <ProjectReference Include="..\NooneUI.QtRuntime.Windows\NooneUI.QtRuntime.Windows.csproj" />
+    <PackageReference Include="Qml.Net.WindowsBinaries" Version="0.10.1" />
+    <TrimmerRootAssembly Include="NooneUI.QtRuntime.Windows" />
+  </ItemGroup>
+  <ItemGroup Condition="$(BuiltFor) == 'Linux'">
+    <ProjectReference Include="..\NooneUI.QtRuntime.Linux\NooneUI.QtRuntime.Linux.csproj" />
+    <PackageReference Include="Qml.Net.LinuxBinaries" Version="0.10.1" />
+    <TrimmerRootAssembly Include="NooneUI.QtRuntime.Linux" />
+  </ItemGroup>
+  <ItemGroup Condition="$(BuiltFor) == 'Osx'">
+    <ProjectReference Include="..\NooneUI.QtRuntime.Osx\NooneUI.QtRuntime.Osx.csproj" />
+    <PackageReference Include="Qml.Net.OSXBinaries" Version="0.10.1" />
+    <TrimmerRootAssembly Include="NooneUI.QtRuntime.Osx" />
+  </ItemGroup>
+</Project>

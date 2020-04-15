@@ -7,7 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BomTool", "BomTool\BomTool.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NooneUI", "NooneUI\NooneUI.csproj", "{6EBDDF62-0B2A-4F5E-8D6B-652EFB57D3BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NooneUI.QtRuntime", "NooneUI.QtRuntime\NooneUI.QtRuntime.csproj", "{724907F2-51F3-432D-9564-8AB340257BB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NooneUI.QtRuntime.Windows", "NooneUI.QtRuntime.Windows\NooneUI.QtRuntime.Windows.csproj", "{724907F2-51F3-432D-9564-8AB340257BB3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NooneUI.QtRuntime.Linux", "NooneUI.QtRuntime.Linux\NooneUI.QtRuntime.Linux.csproj", "{78C570A0-2C09-4FFD-8251-77D700043771}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NooneUI.QtRuntime.Osx", "NooneUI.QtRuntime.Osx\NooneUI.QtRuntime.Osx.csproj", "{F169965D-7977-4A4A-AB49-8440085D2B85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{724907F2-51F3-432D-9564-8AB340257BB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{724907F2-51F3-432D-9564-8AB340257BB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{724907F2-51F3-432D-9564-8AB340257BB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78C570A0-2C09-4FFD-8251-77D700043771}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78C570A0-2C09-4FFD-8251-77D700043771}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78C570A0-2C09-4FFD-8251-77D700043771}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78C570A0-2C09-4FFD-8251-77D700043771}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F169965D-7977-4A4A-AB49-8440085D2B85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F169965D-7977-4A4A-AB49-8440085D2B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F169965D-7977-4A4A-AB49-8440085D2B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F169965D-7977-4A4A-AB49-8440085D2B85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
