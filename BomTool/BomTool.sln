@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BomTool", "BomTool\BomTool.csproj", "{8C2D617C-C9D9-4DC4-9414-F0C65957B02A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NooneUI", "NooneUI\NooneUI.csproj", "{6EBDDF62-0B2A-4F5E-8D6B-652EFB57D3BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NooneUI", "NooneUI\NooneUI.csproj", "{6EBDDF62-0B2A-4F5E-8D6B-652EFB57D3BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NooneUI.QtRuntime", "NooneUI.QtRuntime\NooneUI.QtRuntime.csproj", "{724907F2-51F3-432D-9564-8AB340257BB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{6EBDDF62-0B2A-4F5E-8D6B-652EFB57D3BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6EBDDF62-0B2A-4F5E-8D6B-652EFB57D3BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6EBDDF62-0B2A-4F5E-8D6B-652EFB57D3BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{724907F2-51F3-432D-9564-8AB340257BB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{724907F2-51F3-432D-9564-8AB340257BB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{724907F2-51F3-432D-9564-8AB340257BB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{724907F2-51F3-432D-9564-8AB340257BB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

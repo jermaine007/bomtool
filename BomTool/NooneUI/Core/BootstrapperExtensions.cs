@@ -10,9 +10,9 @@ namespace NooneUI.Core
         public static Bootstrapper DetectQtRuntime(this Bootstrapper bootstrapper)
         {
             var loader = new QtRuntimeLoader();
-            if (loader.HasBuiltIn)
+            if (loader.HasBuiltInRuntime)
             {
-                bootstrapper.ResolveQtRuntime = loader.LoadBuiltIn;
+                bootstrapper.ResolveQtRuntime = loader.Load;
             }
             return bootstrapper;
         }
@@ -29,7 +29,7 @@ namespace NooneUI.Core
             return bootstrapper;
         }
 
-        public static Bootstrapper SetMainMainQml(this Bootstrapper bootstrapper, string mainQml)
+        public static Bootstrapper SetMainQml(this Bootstrapper bootstrapper, string mainQml)
         {
             bootstrapper.MainQml = mainQml;
             return bootstrapper;

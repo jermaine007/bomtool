@@ -14,7 +14,7 @@ namespace NooneUI.Core
     {
         public static QCoreApplication Application { get; set; }
 
-        public readonly static string AppDir = Path.GetDirectoryName(typeof(Bootstrapper).Assembly.Location);
+        public readonly static string ApplicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
         internal Action ResolveQtRuntime { get; set; } = () => RuntimeManager.DiscoverOrDownloadSuitableQtRuntime();
 
@@ -22,7 +22,7 @@ namespace NooneUI.Core
 
         internal string Style { get; set; } = "Material";
 
-        internal string MainQml { get; set; } = Path.Combine(AppDir, "Main.qml");
+        internal string MainQml { get; set; } = Path.Combine(ApplicationDirectory, "Main.qml");
 
         internal List<string> ImportPath = new List<string>();
 
@@ -40,12 +40,13 @@ namespace NooneUI.Core
                     AddImportPath(qmlEngine);
                     qmlEngine.Load(MainQml);
                     Application = application;
+                    
                     return application.Exec();
                 }
             }
         }
 
-        protected void AddImportPath(QQmlApplicationEngine engine)
+        protected virtual void AddImportPath(QQmlApplicationEngine engine)
         {
             if (ImportPath.Count() == 0)
             {

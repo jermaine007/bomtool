@@ -7,14 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Qml.Net" Version="0.10.1" />
-    <PackageReference Include="Qml.Net.WindowsBinaries" Version="0.10.1" />
+    <None Remove="Runtime\qt.tar.gz" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NooneUI.QtRuntime\NooneUI.QtRuntime.csproj" />
+    <EmbeddedResource Include="Runtime\qt.tar.gz" />
   </ItemGroup>
-  <ItemGroup>
-    <TrimmerRootAssembly Include="NooneUI.QtRuntime" />
-  </ItemGroup>
+
 </Project>

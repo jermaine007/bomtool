@@ -9,28 +9,42 @@ using System.Text;
 namespace NooneUI.Core
 {
 
-
     class QtRuntimeLoader
     {
-        private static readonly string ResourceName = "NooneUI.runtime.qt.tar.gz";
-        private static readonly Assembly ThisAssembly = typeof(Bootstrapper).Assembly;
+        private static readonly string ResourceName = "NooneUI.QtRuntime.Runtime.qt.tar.gz";
+        private static readonly string AssemblyName = "NooneUI.QtRuntime.dll";
 
-        public bool HasBuiltIn { get; }
+        public Assembly Assembly { get; private set; }
 
-        public QtRuntimeLoader()
+        public bool HasBuiltInRuntime => new Func<bool>(() =>
         {
-            HasBuiltIn = ThisAssembly.GetManifestResourceNames().Any(n => n == ResourceName);
-        }
+            var dll = Path.Combine(Bootstrapper.ApplicationDirectory, AssemblyName);
+            if (!File.Exists(dll))
+            {
+                return false;
+            }
+            try
+            {
+                Assembly = Assembly.LoadFrom(dll);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                return false;
+            }
+            return Assembly.GetManifestResourceNames().Any(n => n == ResourceName);
+        })();
 
-        public void LoadBuiltIn()
+        public void Load() => new Action(() =>
         {
-            var runtimeDir = Path.Combine(Bootstrapper.AppDir, "qmlnet-qt-runtimes");
+            var runtimeDir = Path.Combine(Bootstrapper.ApplicationDirectory, "qmlnet-qt-runtimes");
             if (!Directory.Exists(runtimeDir))
             {
-                var stream = ThisAssembly.GetManifestResourceStream(ResourceName);
+                var stream = Assembly.GetManifestResourceStream(ResourceName);
                 RuntimeManager.ExtractTarGZStream(stream, runtimeDir);
             }
             RuntimeManager.ConfigureRuntimeDirectory(runtimeDir);
-        }
+        })();
+
     }
 }

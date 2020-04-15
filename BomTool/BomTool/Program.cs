@@ -15,7 +15,7 @@ namespace BomTool
         [STAThread]
         static int Main(string[] args)
         {
-            var mainQml = Path.Combine(Bootstrapper.AppDir, "Views", "Main.qml");
+            var mainQml = Path.Combine(Bootstrapper.ApplicationDirectory, "Views", "Main.qml");
             return new Bootstrapper()
                   .DetectQtRuntime()
                   .SetStyle("Material")
@@ -23,7 +23,7 @@ namespace BomTool
                   {
 
                   })
-                  .SetMainMainQml(mainQml)
+                  .SetMainQml(mainQml)
                   .Launch(args);
                   
         }
