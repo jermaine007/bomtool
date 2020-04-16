@@ -263,6 +263,20 @@ ApplicationWindow {
            
             onLinkActivated: Qt.openUrlExternally(link)
         }
+        Label {
+            width: aboutDialog.availableWidth
+            textFormat: Text.RichText
+            text: "NLog: <a href=\"https://nlog-project.org/\" style=\"color:white\">https://nlog-project.org/</a>."
+           
+            onLinkActivated: Qt.openUrlExternally(link)
+        }
+        Label {
+            width: aboutDialog.availableWidth
+            textFormat: Text.RichText
+            text: "NInject: <a href=\"http://www.ninject.org/\" style=\"color:white\">http://www.ninject.org/</a>."
+           
+            onLinkActivated: Qt.openUrlExternally(link)
+        }
         }
         
         standardButtons: Dialog.Ok
