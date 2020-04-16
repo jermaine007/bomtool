@@ -1,4 +1,6 @@
-﻿using Qml.Net;
+﻿using NooneUI.Logging;
+using NooneUI.Services;
+using Qml.Net;
 using Qml.Net.Runtimes;
 using System;
 using System.Collections.Generic;
@@ -6,15 +8,18 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using Qml_ = Qml.Net.Qml;
 
-namespace NooneUI.Core
+namespace NooneUI
 {
-    public class Bootstrapper
+    abstract public class Bootstrapper : IBootstrapper
     {
         public static QCoreApplication Application { get; set; }
 
-        public readonly static string ApplicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        public string ApplicationDirectory => AppDomain.CurrentDomain.BaseDirectory;
+
+        public ServicesContainer ServicesContainer => ServicesContainer.Instance;
 
         internal Action ResolveQtRuntime { get; set; } = () => RuntimeManager.DiscoverOrDownloadSuitableQtRuntime();
 
@@ -22,25 +27,34 @@ namespace NooneUI.Core
 
         internal string Style { get; set; } = "Material";
 
-        internal string MainQml { get; set; } = Path.Combine(ApplicationDirectory, "Main.qml");
+        internal string MainQml { get; set; }
 
         internal List<string> ImportPath = new List<string>();
+
+        public Bootstrapper() { this.MainQml = Path.Combine(ApplicationDirectory, "Main.qml"); }
+
+        internal bool EnableLogging
+        {
+            set
+            {
+                ServicesContainer.Get<ILogger>().EnableLogging = value;
+            }
+        }
 
         public int Launch(string[] args = null)
         {
             ResolveQtRuntime();
             QQuickStyle.SetStyle(this.Style);
+            RegisterServices();
             using (var application = new QGuiApplication(args))
             {
                 using (var qmlEngine = new QQmlApplicationEngine())
                 {
-
                     DoRegisterTypes?.Invoke();
                     DoAutoRegisterTypes();
                     AddImportPath(qmlEngine);
                     qmlEngine.Load(MainQml);
                     Application = application;
-                    
                     return application.Exec();
                 }
             }
@@ -76,9 +90,8 @@ namespace NooneUI.Core
                 }
             });
 
+        protected virtual void RegisterServices() { }
+
     }
-
-    
-
 
 }

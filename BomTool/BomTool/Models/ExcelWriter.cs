@@ -7,7 +7,7 @@ using System.Text;
 
 namespace BomTool.Models
 {
-    class ExcelWriter
+    class ExcelWriter : Loggable
     {
         public string Folder { get; set; }
 
@@ -17,8 +17,7 @@ namespace BomTool.Models
 
         public Action<string> Log { get; set; }
      
-
-        public ExcelWriter(IEnumerable<ExcelData> data, string folder, Action<string> Log)
+        public void Initialize(IEnumerable<ExcelData> data, string folder, Action<string> Log)
         {
             this.Folder = folder;
             this.Data = data;

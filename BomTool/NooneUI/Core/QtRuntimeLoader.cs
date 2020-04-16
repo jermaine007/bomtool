@@ -1,4 +1,5 @@
-﻿using Qml.Net.Runtimes;
+﻿using NooneUI.Services;
+using Qml.Net.Runtimes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,6 +13,7 @@ namespace NooneUI.Core
 
     class QtRuntimeLoader
     {
+        public ServicesContainer Container => ServicesContainer.Instance;
         private string qtRuntimeAssembly = null;
 
         public Assembly Assembly { get; private set; }
@@ -41,7 +43,7 @@ namespace NooneUI.Core
             {
                 return false;
             }
-            var dll = Path.Combine(Bootstrapper.ApplicationDirectory, $"{QtRuntimeAssembly}.dll");
+            var dll = Path.Combine(Container.Get<IBootstrapper>().ApplicationDirectory, $"{QtRuntimeAssembly}.dll");
             if (!File.Exists(dll))
             {
                 return false;
@@ -60,7 +62,7 @@ namespace NooneUI.Core
 
         public void Load() => new Action(() =>
         {
-            var runtimeDir = Path.Combine(Bootstrapper.ApplicationDirectory, "qmlnet-qt-runtimes");
+            var runtimeDir = Path.Combine(Container.Get<IBootstrapper>().ApplicationDirectory, "qmlnet-qt-runtimes");
             if (!Directory.Exists(runtimeDir))
             {
                 var stream = Assembly.GetManifestResourceStream(ResourceName);

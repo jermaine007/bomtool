@@ -9,12 +9,12 @@ using System.Text;
 
 namespace BomTool.Models
 {
-    class ExcelReader
+    class ExcelReader : Loggable
     {
         public string XlsPath { get; private set; }
         public Action<string> Log { get; set; }
 
-        public ExcelReader(string xlsPath, Action<string> Log)
+        public void Initialize(string xlsPath, Action<string> Log)
         {
 
             this.Log = Log;

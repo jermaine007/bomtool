@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NooneUI.Core
+namespace NooneUI
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
     public class AutoRegisterTypeAttribute : Attribute

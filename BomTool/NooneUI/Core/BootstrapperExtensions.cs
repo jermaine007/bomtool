@@ -7,50 +7,50 @@ namespace NooneUI.Core
 {
     public static class BootstrapperExtensions
     {
-        public static Bootstrapper DetectQtRuntime(this Bootstrapper bootstrapper)
+        public static IBootstrapper DetectQtRuntime(this IBootstrapper bootstrapper)
         {
             var loader = new QtRuntimeLoader();
             if (loader.HasBuiltInRuntime)
             {
-                bootstrapper.ResolveQtRuntime = loader.Load;
+                (bootstrapper as Bootstrapper).ResolveQtRuntime = loader.Load;
             }
             return bootstrapper;
         }
 
-        public static Bootstrapper RegisterTypes(this Bootstrapper bootstrapper, Action doRegisterTypes)
+        public static IBootstrapper RegisterTypes(this IBootstrapper bootstrapper, Action doRegisterTypes)
         {
-            bootstrapper.DoRegisterTypes = doRegisterTypes;
+            (bootstrapper as Bootstrapper).DoRegisterTypes = doRegisterTypes;
             return bootstrapper;
         }
 
-        public static Bootstrapper SetStyle(this Bootstrapper bootstrapper, string style = "Materail")
+        public static IBootstrapper SetStyle(this IBootstrapper bootstrapper, string style = "Materail")
         {
-            bootstrapper.Style = style;
+            (bootstrapper as Bootstrapper).Style = style;
             return bootstrapper;
         }
 
-        public static Bootstrapper SetMainQml(this Bootstrapper bootstrapper, string mainQml)
+        public static IBootstrapper SetMainQml(this IBootstrapper bootstrapper, string mainQml)
         {
-            bootstrapper.MainQml = mainQml;
+            (bootstrapper as Bootstrapper).MainQml = mainQml;
             return bootstrapper;
         }
 
-        public static Bootstrapper SetAttribute(this Bootstrapper bootstrapper, ApplicationAttribute attribute)
+        public static IBootstrapper SetAttribute(this IBootstrapper bootstrapper, ApplicationAttribute attribute)
         {
             QCoreApplication.SetAttribute(attribute, true);
             return bootstrapper;
         }
 
-        public static Bootstrapper AddImportPath(this Bootstrapper bootstrapper, params string[] importPath)
+        public static IBootstrapper AddImportPath(this IBootstrapper bootstrapper, params string[] importPath)
         {
             if (importPath != null && importPath.Length != 0)
             {
-                bootstrapper.ImportPath.AddRange(importPath);
+                (bootstrapper as Bootstrapper).ImportPath.AddRange(importPath);
             }
             return bootstrapper;
         }
 
-        public static Bootstrapper RegisterResource(this Bootstrapper bootstrapper, params string[] rccs)
+        public static IBootstrapper RegisterResource(this IBootstrapper bootstrapper, params string[] rccs)
         {
             if (rccs == null)
             {
@@ -60,6 +60,13 @@ namespace NooneUI.Core
             {
                 QResource.RegisterResource(rcc);
             }
+            return bootstrapper;
+        }
+
+
+        public static IBootstrapper EnableLogging(this IBootstrapper bootstrapper, bool enable = true)
+        {
+            (bootstrapper as Bootstrapper).EnableLogging = enable;
             return bootstrapper;
         }
     }

@@ -104,7 +104,6 @@ ScrollView {
                     }
                 }
                 Component.onCompleted: {
-                    console.log("OK")
                     subView.model = __subData
                 }
             }

@@ -1,4 +1,6 @@
+using NooneUI;
 using NooneUI.Core;
+using NooneUI.Services;
 using Qml.Net;
 using System;
 using System.Collections.Generic;
@@ -16,26 +18,18 @@ namespace BomTool
         [STAThread]
         static int Main(string[] args)
         {
-            var mainQml = Path.Combine(Bootstrapper.ApplicationDirectory, "Views", "Main.qml");
-            QmlNetConfig.UnhandledTaskException += QmlNetConfig_UnhandledTaskException;
-            return new Bootstrapper()
-                  .DetectQtRuntime()
-                  .SetStyle("Material")
-                  .RegisterTypes(() =>
-                  {
+            ServicesContainer.Instance.Bind<IBootstrapper, BomToolBootstrapper>();
+            var bootstapper = ServicesContainer.Instance.Get<IBootstrapper>();
+            var mainQml = Path.Combine(bootstapper.ApplicationDirectory, "Views", "Main.qml");
+            
 
-                  })
+            return bootstapper
+                  .DetectQtRuntime()
+                  .EnableLogging(true)
+                  .SetStyle("Material")
                   .SetMainQml(mainQml)
                   .Launch(args);
                   
-        }
-
-        private static void QmlNetConfig_UnhandledTaskException(AggregateException obj)
-        {
-            foreach (var ex in obj.InnerExceptions)
-            {
-                Console.WriteLine(ex.StackTrace);
-            }
         }
     }
 }

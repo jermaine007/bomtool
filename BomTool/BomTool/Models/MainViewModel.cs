@@ -1,5 +1,5 @@
 ﻿
-using NooneUI.Core;
+using NooneUI;
 using Qml.Net;
 using System;
 using System.Collections.Generic;
@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using NooneUI.Services;
 
 namespace BomTool.Models
 {
@@ -15,6 +16,8 @@ namespace BomTool.Models
     {
         private string statusText = string.Empty;
         private bool isBusy = false;
+
+        internal HistoryEntry HistoryEntry => Container.Get<HistoryEntry>();
 
         [NotifySignal]
         public bool IsBusy
@@ -58,7 +61,7 @@ namespace BomTool.Models
 
         public MainViewModel()
         {
-            this.Paths = HistoryEntries.Read().ToList();
+            this.Paths = HistoryEntry.Read().ToList();
         }
 
         public List<string> Paths { get; } = new List<string>();
@@ -75,7 +78,8 @@ namespace BomTool.Models
                 path = uri.LocalPath;
                 this.IsBusy = true;
                 WaitSometime();
-                var reader = new ExcelReader(path, msg => this.StatusText = msg);
+                var reader = Container.Get<ExcelReader>();
+                reader.Initialize(path, msg => this.StatusText = msg);
                 this.DataRead = reader.Read();
                 if (this.DataRead.Count() == 0)
                 {
@@ -86,8 +90,7 @@ namespace BomTool.Models
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.StackTrace);
+                Logger.Error("Open xls failed", ex);
                 this.StatusText = $"Open {path} failed";
             }
 
@@ -106,14 +109,14 @@ namespace BomTool.Models
                 path = uri.LocalPath;
                 this.IsBusy = true;
                 WaitSometime();
-                var writer = new ExcelWriter(DataRead, path, msg => this.StatusText = msg);
+                var writer = Container.Get<ExcelWriter>();
+                writer.Initialize(DataRead, path, msg => this.StatusText = msg);
                 writer.Write();
                 this.GrouppedData = writer.GrouppedData;
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.StackTrace);
+                Logger.Error("Generate BOM Failed", ex);
                 this.StatusText = "Generate BOM failed";
             }
         });
@@ -124,14 +127,14 @@ namespace BomTool.Models
             if (!Paths.Contains(path))
             {
                 Paths.Add(path);
-                HistoryEntries.Write(Paths);
+                HistoryEntry.Write(Paths);
             }
         }
 
         public void ClearHistory()
         {
             this.Paths.Clear();
-            HistoryEntries.Write(Paths);
+            HistoryEntry.Write(Paths);
         }
 
         void WaitSometime() => Thread.Sleep((int)(new Random().NextDouble() * 1500));
