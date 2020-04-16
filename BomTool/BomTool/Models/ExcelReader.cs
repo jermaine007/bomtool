@@ -46,10 +46,7 @@ namespace BomTool.Models
                     Code = rowData.GetCell(1)?.StringCellValue,
                     Type = rowData.GetCell(2)?.StringCellValue,
                     Description = rowData.GetCell(3)?.StringCellValue,
-                    Value = rowData.GetCell(4)?.StringCellValue,
-
-                    Pth = rowData.GetCell(5)?.StringCellValue,
-                    Smd = rowData.GetCell(6)?.StringCellValue
+                    Value = rowData.GetCell(4)?.StringCellValue
 
                 };
                 for (int columnIndex = 5; columnIndex < lastColumnIndex + 1; columnIndex++)
@@ -62,14 +59,13 @@ namespace BomTool.Models
             var header = result.First();
             var aboveRow = worksheet.GetRow(startRowIndex - 1);
 
-            for (int columnIndex = 5; columnIndex < lastColumnIndex - columnIndex + 1; columnIndex++)
+            for (int columnIndex = 5; columnIndex < lastColumnIndex + 1; columnIndex++)
             {
 
                 var line = aboveRow.GetCell(columnIndex)?.StringCellValue;
                 header.Lines[columnIndex - 5] = $"({line}){header.Lines[columnIndex - 5]}";
             }
-            header.Pth = $"{header.Pth}(PTH)";
-            header.Smd = $"{header.Smd}(SMD)";
+           
             Log("Opened successfully.");
             return result;
         }

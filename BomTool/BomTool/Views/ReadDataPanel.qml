@@ -15,18 +15,19 @@ ScrollView {
     id: rightPane
     leftPadding: 10
     topPadding: 10
-    ScrollBar.horizontal.policy: ScrollBar.AsNeeded
+    ScrollBar.horizontal.policy: ScrollBar.AlwaysOn
     ScrollBar.vertical.policy: ScrollBar.AsNeeded
     contentWidth: readContent.implicitWidth
     contentHeight: readContent.implicitHeight
-
+    Layout.minimumWidth: 680
+    
     Column {
         id: readContent
         Repeater {
             id: gridView
 
             Row {
-                property var __lines : Net.toListModel(modelData.lines)
+                property var __lines: Net.toListModel(modelData.lines)
                 Column {
                     Label {
                         padding: 10
@@ -98,30 +99,22 @@ ScrollView {
                     }
                 }
 
-                Column {
-                    Label {
-                        padding: 10
-                        width: 125
-                        background: Rectangle {
-                            color: '#2C313A'
-                            border.color: "gray"
-                            border.width: 1
+                Repeater {
+                    id: subView
+                    Column {
+                        Label {
+                            padding: 10
+                            width: 120
+                            background: Rectangle {
+                                color: '#2C313A'
+                                border.color: "gray"
+                                border.width: 1
+                            }
+                            text: modelData
                         }
-                        text: __lines.at(0)
                     }
-                }
-
-                Column {
-
-                    Label {
-                        padding: 10
-                        width: 125
-                        background: Rectangle {
-                            color: '#2C313A'
-                            border.color: "gray"
-                            border.width: 1
-                        }
-                        text: __lines.at(1)
+                    Component.onCompleted : {
+                        subView.model = __lines
                     }
                 }
             }

@@ -64,8 +64,8 @@ namespace BomTool.Models
         public List<string> Paths { get; } = new List<string>();
 
         public IEnumerable<ExcelData> DataRead { get; private set; } = new List<ExcelData>();
-        public IEnumerable<ExcelData> PthData { get; private set; } = new List<ExcelData>();
-        public IEnumerable<ExcelData> SmdData { get; private set; } = new List<ExcelData>();
+
+        public IEnumerable<ExcelGrouppedData> GrouppedData { get; private set; } = new List<ExcelGrouppedData>();
 
         public Task ReadAsync(string path) => Task.Factory.StartNew(() =>
         {
@@ -108,12 +108,12 @@ namespace BomTool.Models
                 WaitSometime();
                 var writer = new ExcelWriter(DataRead, path, msg => this.StatusText = msg);
                 writer.Write();
-
-                this.PthData = writer.PthData;
-                this.SmdData = writer.SmdData;
+                this.GrouppedData = writer.GrouppedData;
             }
-            catch
+            catch(Exception ex)
             {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
                 this.StatusText = "Generate BOM failed";
             }
         });

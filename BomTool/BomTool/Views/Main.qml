@@ -518,11 +518,8 @@ ApplicationWindow {
                 __rightPanelView = RightPanel.view.createObject()
                 mainLayout.addItem(__rightPanelView)
 
-                if (mainVM.pthData.length != 0
-                    || mainVM.smdData.length != 0) {
-                    __rightPanelView.views.pth.model = Net.toListModel(mainVM.pthData)
-                    __rightPanelView.views.smd.model = Net.toListModel(mainVM.smdData)
-                }
+                __rightPanelView.view.model = Net.toListModel(mainVM.grouppedData)
+                
                 mainVM.isBusy = false
             }
             RightPanel.createWritePanel()

@@ -16,10 +16,6 @@ namespace BomTool.Models
 
         public string Value { get; set; }
 
-        public string Pth { get; set; }
-
-        public string Smd { get; set; }
-
         public List<string> Lines { get; set; } = new List<string>();
     }
 }

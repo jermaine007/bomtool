@@ -10,7 +10,7 @@ import QtQuick.Controls.Styles 1.4
 // right place holder
 ScrollView {
 
-    property var views : {'pth': pthView, 'smd' : smdView}
+    property var view: gridView
     id: rightPane
     leftPadding: 10
     topPadding: 10
@@ -21,161 +21,95 @@ ScrollView {
 
     Column {
         id: writeContent
-        visible: true
-        Label {
-            padding: 10
-            text: qsTr("PTH")
-            font.weight: Font.Bold
-            font.pointSize : 14
-        }
         Repeater {
-            id: pthView
-            Row {
+            id: gridView
+            Column {
 
-                Column {
+                property var __subData: Net.toListModel(modelData.data)
+                
+                Label {
+                    padding: 10
+                    text: qsTr(modelData.line)
+                    font.weight: Font.Bold
+                    font.pointSize : 14
+                }
+                Repeater {
+                    id: subView
+                    Row {
+                        Column {
 
-                    Label {
-                        padding: 10
-                        width: 120
-                        background: Rectangle {
-                            color: '#2C313A'
-                            border.color: "gray"
-                            border.width: 1
+                            Label {
+                                padding: 10
+                                width: 120
+                                background: Rectangle {
+                                    color: '#2C313A'
+                                    border.color: "gray"
+                                    border.width: 1
+                                }
+                                text: modelData.code
+                            }
                         }
-                        text: modelData.code
+                        Column {
+
+                            Label {
+                                padding: 10
+                                width: 80
+                                background: Rectangle {
+                                    color: '#2C313A'
+                                    border.color: "gray"
+                                    border.width: 1
+                                }
+                                text: modelData.type
+                            }
+                        }
+                        Column {
+
+                            Label {
+                                padding: 10
+                                width: 240
+                                background: Rectangle {
+                                    color: '#2C313A'
+                                    border.color: "gray"
+                                    border.width: 1
+                                }
+                                text: modelData.description
+                            }
+                        }
+                        Column {
+
+                            Label {
+                                padding: 10
+                                width: 160
+                                background: Rectangle {
+                                    color: '#2C313A'
+                                    border.color: "gray"
+                                    border.width: 1
+                                }
+                                text: modelData.value
+                            }
+                        }
+                        Column {
+                            Label {
+                                padding: 10
+                                width: 250
+                                background: Rectangle {
+                                    color: '#2C313A'
+                                    border.color: "gray"
+                                    border.width: 1
+                                }
+                                text: modelData.reference
+                            }
+                        }
+                       
                     }
                 }
-                Column {
-
-                    Label {
-                        padding: 10
-                        width: 80
-                        background: Rectangle {
-                            color: '#2C313A'
-                            border.color: "gray"
-                            border.width: 1
-                        }
-                        text: modelData.type
-                    }
-                }
-                Column {
-
-                    Label {
-                        padding: 10
-                        width: 240
-                        background: Rectangle {
-                            color: '#2C313A'
-                            border.color: "gray"
-                            border.width: 1
-                        }
-                        text: modelData.description
-                    }
-                }
-                Column {
-
-                    Label {
-                        padding: 10
-                        width: 160
-                        background: Rectangle {
-                            color: '#2C313A'
-                            border.color: "gray"
-                            border.width: 1
-                        }
-                        text: modelData.value
-                    }
-                }
-
-                Column {
-                    Label {
-                        padding: 10
-                        width: 250
-                        background: Rectangle {
-                            color: '#2C313A'
-                            border.color: "gray"
-                            border.width: 1
-                        }
-                        text: modelData.reference
-                    }
+                Component.onCompleted: {
+                    console.log("OK")
+                    subView.model = __subData
                 }
             }
         }
-        Label {
-            padding: 10
-            text: qsTr("SMD")
-            font.weight: Font.Bold
-            font.pointSize : 14
-        }
-        Repeater {
-            id: smdView
-            Row {
 
-                Column {
-
-                    Label {
-                        padding: 10
-                        width: 120
-                        background: Rectangle {
-                            color: '#2C313A'
-                            border.color: "gray"
-                            border.width: 1
-                        }
-                        text: modelData.code
-                    }
-                }
-                Column {
-
-                    Label {
-                        padding: 10
-                        width: 80
-                        background: Rectangle {
-                            color: '#2C313A'
-                            border.color: "gray"
-                            border.width: 1
-                        }
-                        text: modelData.type
-                    }
-                }
-                Column {
-
-                    Label {
-                        padding: 10
-                        width: 240
-                        background: Rectangle {
-                            color: '#2C313A'
-                            border.color: "gray"
-                            border.width: 1
-                        }
-                        text: modelData.description
-                    }
-                }
-                Column {
-
-                    Label {
-                        padding: 10
-                        width: 160
-                        background: Rectangle {
-                            color: '#2C313A'
-                            border.color: "gray"
-                            border.width: 1
-                        }
-                        text: modelData.value
-                    }
-                }
-
-                Column {
-                    Label {
-                        padding: 10
-                        width: 250
-                        background: Rectangle {
-                            color: '#2C313A'
-                            border.color: "gray"
-                            border.width: 1
-                        }
-                        text: modelData.reference
-                    }
-                }
-            }
-        }
     }
     background: Rectangle {
         color: '#2C313A'

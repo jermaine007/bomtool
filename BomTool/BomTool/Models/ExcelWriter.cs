@@ -13,9 +13,10 @@ namespace BomTool.Models
 
         public IEnumerable<ExcelData> Data { get; set; }
 
+        public IEnumerable<ExcelGrouppedData> GrouppedData { get; set; }
+
         public Action<string> Log { get; set; }
-        public IEnumerable<ExcelData> PthData { get; private set; }
-        public IEnumerable<ExcelData> SmdData { get; private set; }
+     
 
         public ExcelWriter(IEnumerable<ExcelData> data, string folder, Action<string> Log)
         {
@@ -28,54 +29,67 @@ namespace BomTool.Models
         {
             Log("Generating BOM...");
             var header = Data.ElementAt(0);
-            var pthCode = header.Pth.Replace("(PTH)", "");
-            var smdCode = header.Smd.Replace("(SMD)", "");
+    
+            var grouppedData = new List<ExcelGrouppedData>();
+            int index = 0;
 
-            this.PthData = GenerateData("PTH");
-            this.SmdData = GenerateData("SMD");
-            
-            WriteFile(pthCode, this.PthData);
-            WriteFile(smdCode, this.SmdData);
+            foreach (var line in header.Lines)
+            {
+                grouppedData.Add(GroupData(index, line));
+                index++;
+            }
+
+            WriteData(grouppedData);
+
+            this.GrouppedData = grouppedData;
+
+
             Log("Generated BOM successfully.");
         }
 
-        public void WriteFile(string code, IEnumerable<ExcelData> data)
-        {
-            var path = Path.Combine(Folder, $"{code}.xls");
-            var workbook = new HSSFWorkbook();
-            var sheet = workbook.CreateSheet();
-            var headerRow = sheet.CreateRow(0);
-            
-            headerRow.CreateCell(0).SetCellValue("Code");
-            headerRow.CreateCell(1).SetCellValue("Type");
-            headerRow.CreateCell(2).SetCellValue("Description");
-            headerRow.CreateCell(3).SetCellValue("Value");
-            headerRow.CreateCell(4).SetCellValue("References");
+       
 
-            for (int i = 0; i < data.Count(); i++)
+        private void WriteData(IEnumerable<ExcelGrouppedData> grouppedData)
+        {
+            var path = Path.Combine(Folder, $"Bom-{DateTime.Now.ToString("yyyyMMddHHmmss")}.xls");
+            var workbook = new HSSFWorkbook();
+
+            foreach (var data in grouppedData)
             {
-                var row = sheet.CreateRow(i+1);
-                var item = data.ElementAt(i);
-                row.CreateCell(0).SetCellValue(item.Code);
-                row.CreateCell(1).SetCellValue(item.Type);
-                row.CreateCell(2).SetCellValue(item.Description);
-                row.CreateCell(3).SetCellValue(item.Value);
-                row.CreateCell(4).SetCellValue(item.Reference);
+                var sheet = workbook.CreateSheet($"{ data.Line}@Col{data.ColumnIndex}");
+                var headerRow = sheet.CreateRow(0);
+
+                headerRow.CreateCell(0).SetCellValue("Code");
+                headerRow.CreateCell(1).SetCellValue("Type");
+                headerRow.CreateCell(2).SetCellValue("Description");
+                headerRow.CreateCell(3).SetCellValue("Value");
+                headerRow.CreateCell(4).SetCellValue("References");
+
+                for (int i = 0; i < data.Data.Count(); i++)
+                {
+                    var row = sheet.CreateRow(i + 1);
+                    var item = data.Data.ElementAt(i);
+                    row.CreateCell(0).SetCellValue(item.Code);
+                    row.CreateCell(1).SetCellValue(item.Type);
+                    row.CreateCell(2).SetCellValue(item.Description);
+                    row.CreateCell(3).SetCellValue(item.Value);
+                    row.CreateCell(4).SetCellValue(item.Reference);
+                }
             }
+
             using (var fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite))
             {
                 workbook.Write(fs);
             }
-            
         }
 
-        private IEnumerable<ExcelData> GenerateData(string line)
+        private ExcelGrouppedData GroupData(int index, string line)
         {
             Log($"Parsing data for {line}...");
             var result = new List<ExcelData>();
             var filteredData = Data.Where(o =>
             {
-                var l = line == "PTH" ? o.Pth : o.Smd;
+                var l = o.Lines[index];
                 return string.IsNullOrEmpty(l);
             }).GroupBy(o => o.Code);
 
@@ -93,8 +107,8 @@ namespace BomTool.Models
 
                 });
             }
-            return result;
-
+            return new ExcelGrouppedData(line, index, result);
         }
+
     }
 }
