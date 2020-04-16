@@ -26,7 +26,7 @@ ScrollView {
             id: gridView
 
             Row {
-
+                property var __lines : Net.toListModel(modelData.lines)
                 Column {
                     Label {
                         padding: 10
@@ -99,7 +99,6 @@ ScrollView {
                 }
 
                 Column {
-
                     Label {
                         padding: 10
                         width: 125
@@ -108,7 +107,7 @@ ScrollView {
                             border.color: "gray"
                             border.width: 1
                         }
-                        text: modelData.pth
+                        text: __lines.at(0)
                     }
                 }
 
@@ -122,7 +121,7 @@ ScrollView {
                             border.color: "gray"
                             border.width: 1
                         }
-                        text: modelData.smd
+                        text: __lines.at(1)
                     }
                 }
             }

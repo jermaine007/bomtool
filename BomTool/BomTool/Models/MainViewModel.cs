@@ -84,8 +84,10 @@ namespace BomTool.Models
                 }
                 AddPath(path);
             }
-            catch
+            catch(Exception ex)
             {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
                 this.StatusText = $"Open {path} failed";
             }
 

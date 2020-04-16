@@ -488,7 +488,7 @@ ApplicationWindow {
                 __rightPanelView = RightPanel.view.createObject()
                 mainLayout.addItem(__rightPanelView)
 
-                console.log(mainVM.dataRead)
+                console.log(mainVM.dataRead.count)
                 __rightPanelView.dataGrid.model = Net.toListModel(mainVM.dataRead)
                 
                 repeater.model = Net.toListModel(mainVM.paths)
