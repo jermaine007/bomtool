@@ -10,7 +10,7 @@ namespace NooneUI.Services
     {
         public override void Load()
         {
-            Bind<ILogger>().To<NooneUILogger>().InSingletonScope();
+            Bind<NooneUILogger, ILogger>().To<NooneUILogger>().InSingletonScope();
         }
     }
 }
