@@ -75,7 +75,7 @@ ScrollView {
 
                     Label {
                         padding: 10
-                        width: 240
+                        width: 270
                         background: Rectangle {
                             color: '#2C313A'
                             border.color: "gray"

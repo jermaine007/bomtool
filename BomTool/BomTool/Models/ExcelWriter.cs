@@ -62,20 +62,22 @@ namespace BomTool.Models
                 var headerRow = sheet.CreateRow(0);
 
                 headerRow.CreateCell(0).SetCellValue("Code");
-                headerRow.CreateCell(1).SetCellValue("Type");
-                headerRow.CreateCell(2).SetCellValue("Description");
-                headerRow.CreateCell(3).SetCellValue("Value");
-                headerRow.CreateCell(4).SetCellValue("References");
+                //headerRow.CreateCell(1).SetCellValue("Type");
+                headerRow.CreateCell(1).SetCellValue("Description");
+                headerRow.CreateCell(2).SetCellValue("Value");
+                headerRow.CreateCell(3).SetCellValue("References");
+                headerRow.CreateCell(4).SetCellValue("Count");
 
                 for (int i = 0; i < data.Data.Count(); i++)
                 {
                     var row = sheet.CreateRow(i + 1);
                     var item = data.Data.ElementAt(i);
                     row.CreateCell(0).SetCellValue(item.Code);
-                    row.CreateCell(1).SetCellValue(item.Type);
-                    row.CreateCell(2).SetCellValue(item.Description);
-                    row.CreateCell(3).SetCellValue(item.Value);
-                    row.CreateCell(4).SetCellValue(item.Reference);
+                    //row.CreateCell(1).SetCellValue(item.Type);
+                    row.CreateCell(1).SetCellValue(item.Description);
+                    row.CreateCell(2).SetCellValue(item.Value);
+                    row.CreateCell(3).SetCellValue(item.Reference);
+                    row.CreateCell(4).SetCellValue(item.Count);
                 }
             }
 
@@ -106,7 +108,8 @@ namespace BomTool.Models
                     Code = first.Code,
                     Type = first.Type,
                     Description = first.Description,
-                    Value = first.Value
+                    Value = first.Value,
+                    Count = group.Count()
 
                 };
                 Logger.Debug($"Groupped Data: {data}");

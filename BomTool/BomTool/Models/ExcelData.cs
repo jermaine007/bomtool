@@ -18,6 +18,8 @@ namespace BomTool.Models
 
         public List<string> Lines { get; set; } = new List<string>();
 
+        public int Count { get; set; }
+
         public override string ToString() =>
             string.Join(",", new[] {
                 this.Reference,

@@ -11,6 +11,9 @@ namespace BomTool.Models
 {
     class ExcelReader : Loggable
     {
+        private static readonly string InsertType = "INSERT";
+        private static readonly string SurfaceType = "SURFACE";
+
         public string XlsPath { get; private set; }
         public Action<string> Log { get; set; }
 
@@ -42,13 +45,22 @@ namespace BomTool.Models
             for (int row = startRowIndex; row <= rowCount; row++)
             {
                 var rowData = worksheet.GetRow(row);
+                var type = rowData.GetCell(2)?.StringCellValue;
+                var description = rowData.GetCell(3)?.StringCellValue;
+                var value = rowData.GetCell(4)?.StringCellValue;
+                if (type == SurfaceType)
+                {
+                    description = $"{description}  {value}";
+                    value = string.Empty;
+                }
+
                 var data = new ExcelData
                 {
                     Reference = rowData.GetCell(0)?.StringCellValue,
                     Code = rowData.GetCell(1)?.StringCellValue,
-                    Type = rowData.GetCell(2)?.StringCellValue,
-                    Description = rowData.GetCell(3)?.StringCellValue,
-                    Value = rowData.GetCell(4)?.StringCellValue
+                    Type = type,
+                    Description = description,
+                    Value = value
 
                 };
                 for (int columnIndex = 5; columnIndex < lastColumnIndex + 1; columnIndex++)

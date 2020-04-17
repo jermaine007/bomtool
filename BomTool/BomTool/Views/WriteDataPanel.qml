@@ -53,19 +53,6 @@ ScrollView {
 
                             Label {
                                 padding: 10
-                                width: 80
-                                background: Rectangle {
-                                    color: '#2C313A'
-                                    border.color: "gray"
-                                    border.width: 1
-                                }
-                                text: modelData.type
-                            }
-                        }
-                        Column {
-
-                            Label {
-                                padding: 10
                                 width: 240
                                 background: Rectangle {
                                     color: '#2C313A'
@@ -98,6 +85,18 @@ ScrollView {
                                     border.width: 1
                                 }
                                 text: modelData.reference
+                            }
+                        }
+						Column {
+                            Label {
+                                padding: 10
+                                width: 40
+                                background: Rectangle {
+                                    color: '#2C313A'
+                                    border.color: "gray"
+                                    border.width: 1
+                                }
+                                text: modelData.count
                             }
                         }
                        
