@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Content Include="Views\**" CopyToPublishDirectory="Always" CopyToOutputDirectory="Always" />
+    <Content Include="License.txt" CopyToPublishDirectory="Always" CopyToOutputDirectory="Always" />
   </ItemGroup>
 
   <ItemGroup>

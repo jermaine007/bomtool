@@ -11,6 +11,7 @@ namespace NooneUI.Logging
         void Debug(string message, params object[] args);
 
         void Warn(string message, params object[] args);
+
         void Error(string message, params object[] args);
 
         void Error(string message, Exception ex, params object[] args);

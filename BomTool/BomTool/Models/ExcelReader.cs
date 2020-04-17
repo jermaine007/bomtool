@@ -11,8 +11,8 @@ namespace BomTool.Models
 {
     class ExcelReader : Loggable
     {
-        private static readonly string InsertType = "INSERT";
-        private static readonly string SurfaceType = "SURFACE";
+        public static readonly string InsertType = "INSERT";
+        public static readonly string SurfaceType = "SURFACE";
 
         public string XlsPath { get; private set; }
         public Action<string> Log { get; set; }
