@@ -7,6 +7,6 @@ namespace BomTool.Models
 {
     public abstract class Dispatchable : Loggable
     {
-        protected void Dispatch(Action action) => Bootstrapper.Application.Dispatch(action);
+        protected void Dispatch(Action action) => this.Container.Get<IBootstrapper>().Application.Dispatch(action);
     }
 }

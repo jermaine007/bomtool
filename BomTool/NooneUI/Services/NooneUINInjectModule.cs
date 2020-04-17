@@ -6,7 +6,7 @@ using System.Text;
 
 namespace NooneUI.Services
 {
-    internal class NooneUIInjectModule : NinjectModule
+    internal class NooneUINInjectModule : NinjectModule
     {
         public override void Load()
         {

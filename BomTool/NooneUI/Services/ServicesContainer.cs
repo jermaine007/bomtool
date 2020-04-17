@@ -16,15 +16,20 @@ namespace NooneUI.Services
         private ServicesContainer()
         {
             var settings = new NinjectSettings { LoadExtensions = false };
-            Kernel = new StandardKernel(settings, new NooneUIInjectModule());
+            Kernel = new StandardKernel(settings, new NooneUINInjectModule());
         }
+
 
         public void Bind<TInterface, TImplementation>(bool isSingletone = false) where TImplementation : TInterface
         {
-            var o = Kernel.Bind<TInterface>().To<TImplementation>();
+            //https://github.com/ninject/Ninject/issues/243
             if (isSingletone)
             {
-                o.InSingletonScope();
+                Kernel.Bind<TImplementation, TInterface>().To<TImplementation>().InSingletonScope();
+            }
+            else
+            {
+                Kernel.Bind<TInterface>().To<TImplementation>();
             }
         }
 
@@ -38,6 +43,11 @@ namespace NooneUI.Services
             {
                 o.InSingletonScope();
             }
+        }
+
+        public void Bind<T>(T o)
+        {
+            Kernel.Bind<T>().ToConstant(o);
         }
 
         public void BindToMethod<TDelegate>(Func<TDelegate> func) => Kernel.Bind<TDelegate>().ToMethod(context => func());

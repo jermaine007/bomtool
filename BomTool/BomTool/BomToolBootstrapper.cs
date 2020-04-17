@@ -15,6 +15,7 @@ namespace BomTool
             var logger = ServicesContainer.Get<ILogger>();
             logger.Info("Welcome to use Bom tool");
             logger.Info("Begin to register services");
+
             this.ServicesContainer.Bind<ExcelData>();
             this.ServicesContainer.Bind<ExcelGrouppedData>();
             this.ServicesContainer.Bind<ExcelReader>(true);

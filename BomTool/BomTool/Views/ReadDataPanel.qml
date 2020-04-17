@@ -126,4 +126,4 @@ ScrollView {
         width: rightPane.width
     }
 }
-        // modify splitter style
+

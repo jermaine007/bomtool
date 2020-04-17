@@ -1,4 +1,5 @@
-﻿using NooneUI.Logging;
+﻿using NooneUI.Core;
+using NooneUI.Logging;
 using NooneUI.Services;
 using Qml.Net;
 using Qml.Net.Runtimes;
@@ -15,58 +16,23 @@ namespace NooneUI
 {
     abstract public class Bootstrapper : IBootstrapper
     {
-        public static QCoreApplication Application { get; set; }
+        public QCoreApplication Application { get; private set; }
 
         public string ApplicationDirectory => AppDomain.CurrentDomain.BaseDirectory;
 
         public ServicesContainer ServicesContainer => ServicesContainer.Instance;
 
-        internal Action ResolveQtRuntime { get; set; } = () => RuntimeManager.DiscoverOrDownloadSuitableQtRuntime();
+        internal BootstrapperBuilder Builder { get; private set; }
 
-        internal Action DoRegisterTypes { get; set; }
-
-        internal string Style { get; set; } = "Material";
-
-        internal string MainQml { get; set; }
-
-        internal List<string> ImportPath = new List<string>();
-
-        public Bootstrapper() { this.MainQml = Path.Combine(ApplicationDirectory, "Main.qml"); }
-
-        internal bool EnableLogging
-        {
-            set
-            {
-                ServicesContainer.Get<ILogger>().EnableLogging = value;
-            }
-        }
-
-        public int Launch(string[] args = null)
-        {
-            ResolveQtRuntime();
-            QQuickStyle.SetStyle(this.Style);
-            RegisterServices();
-            using (var application = new QGuiApplication(args))
-            {
-                using (var qmlEngine = new QQmlApplicationEngine())
-                {
-                    DoRegisterTypes?.Invoke();
-                    DoAutoRegisterTypes();
-                    AddImportPath(qmlEngine);
-                    qmlEngine.Load(MainQml);
-                    Application = application;
-                    return application.Exec();
-                }
-            }
-        }
+        internal void Bind(BootstrapperBuilder builder) => Builder = builder;
 
         protected virtual void AddImportPath(QQmlApplicationEngine engine)
         {
-            if (ImportPath.Count() == 0)
+            if (Builder.ImportPath.Count() == 0)
             {
                 return;
             }
-            foreach (var path in ImportPath)
+            foreach (var path in Builder.ImportPath)
             {
                 engine.AddImportPath(path);
             }
@@ -92,6 +58,29 @@ namespace NooneUI
 
         protected virtual void RegisterServices() { }
 
+        public void Dispatch(Action action) => Application.Dispatch(action);
+
+        public Task DispatchAsync(Func<Task> action) => Application.DispatchAsync(action);
+
+
+        public int Launch(string[] args)
+        {
+            Builder.ResolveQtRuntime();
+            QQuickStyle.SetStyle(Builder.Style);
+            RegisterServices();
+            using (var application = new QGuiApplication(args))
+            {
+                using (var qmlEngine = new QQmlApplicationEngine())
+                {
+                    Builder.DoRegisterTypes?.Invoke();
+                    DoAutoRegisterTypes();
+                    AddImportPath(qmlEngine);
+                    qmlEngine.Load(Builder.MainQml);
+                    Application = application;
+                    return application.Exec();
+                }
+            }
+        }
     }
 
 }

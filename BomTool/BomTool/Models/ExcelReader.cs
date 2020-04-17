@@ -16,7 +16,6 @@ namespace BomTool.Models
 
         public void Initialize(string xlsPath, Action<string> Log)
         {
-
             this.Log = Log;
             this.XlsPath = xlsPath;
         }
@@ -25,6 +24,8 @@ namespace BomTool.Models
         {
             var result = new List<ExcelData>();
             Log($"Opening {this.XlsPath} ...");
+            Logger.Debug($"Reading file {this.XlsPath} ..");
+
             IWorkbook workbook = Path.GetExtension(this.XlsPath) == ".xls" ?
                 (IWorkbook)new HSSFWorkbook(File.OpenRead(this.XlsPath)) : new XSSFWorkbook(File.OpenRead(this.XlsPath));
 
@@ -37,6 +38,7 @@ namespace BomTool.Models
             }
             int rowCount = worksheet.LastRowNum;
             var lastColumnIndex = FindLastColumnIndex(startRowIndex, worksheet);
+            Logger.Debug($"Last column:{lastColumnIndex}");
             for (int row = startRowIndex; row <= rowCount; row++)
             {
                 var rowData = worksheet.GetRow(row);
@@ -53,6 +55,7 @@ namespace BomTool.Models
                 {
                     data.Lines.Add(rowData.GetCell(columnIndex)?.StringCellValue);
                 }
+                Logger.Debug($"Read data: {data}");
                 result.Add(data);
             }
 
@@ -61,11 +64,10 @@ namespace BomTool.Models
 
             for (int columnIndex = 5; columnIndex < lastColumnIndex + 1; columnIndex++)
             {
-
                 var line = aboveRow.GetCell(columnIndex)?.StringCellValue;
                 header.Lines[columnIndex - 5] = $"({line}){header.Lines[columnIndex - 5]}";
             }
-           
+
             Log("Opened successfully.");
             return result;
         }
@@ -74,11 +76,13 @@ namespace BomTool.Models
 
         private int FindStartRowIndex(string identity, ISheet worksheet)
         {
+            Logger.Debug($"Try to find the start row.");
             int rowCount = worksheet.LastRowNum;
             for (int row = 1; row < rowCount; row++)
             {
                 if (worksheet.GetRow(row).GetCell(0)?.StringCellValue == identity)
                 {
+                    Logger.Debug($"Start row found: {row}");
                     return row;
                 }
             }

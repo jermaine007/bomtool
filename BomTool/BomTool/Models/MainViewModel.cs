@@ -33,7 +33,7 @@ namespace BomTool.Models
                 Dispatch(() =>
                 {
                     isBusy = value;
-                    this.ActivateNotifySignal("IsBusy");
+                    this.ActivateNotifySignal(nameof(IsBusy));
                 });
             }
         }
@@ -54,7 +54,7 @@ namespace BomTool.Models
                 Dispatch(() =>
                 {
                     statusText = value;
-                    this.ActivateNotifySignal("StatusText");
+                    this.ActivateNotifySignal(nameof(StatusText));
                 });
             }
         }
@@ -83,12 +83,13 @@ namespace BomTool.Models
                 this.DataRead = reader.Read();
                 if (this.DataRead.Count() == 0)
                 {
+                    Logger.Debug("No data read.");
                     this.StatusText = "No suitable data present";
                     return;
                 }
                 AddPath(path);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error("Open xls failed", ex);
                 this.StatusText = $"Open {path} failed";
@@ -114,7 +115,7 @@ namespace BomTool.Models
                 writer.Write();
                 this.GrouppedData = writer.GrouppedData;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error("Generate BOM Failed", ex);
                 this.StatusText = "Generate BOM failed";

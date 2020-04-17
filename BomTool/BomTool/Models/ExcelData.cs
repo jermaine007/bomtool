@@ -17,5 +17,15 @@ namespace BomTool.Models
         public string Value { get; set; }
 
         public List<string> Lines { get; set; } = new List<string>();
+
+        public override string ToString() =>
+            string.Join(",", new[] {
+                this.Reference,
+                this.Code,
+                this.Type,
+                this.Description,
+                this.Value,
+                string.Join(",", this.Lines)
+            });
     }
 }

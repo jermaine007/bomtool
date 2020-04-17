@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace BomTool.Models
@@ -18,7 +19,7 @@ namespace BomTool.Models
             }
         }
 
-        public IEnumerable<string> Read() => File.ReadAllLines(HistoryFile);
+        public IEnumerable<string> Read() => File.ReadAllLines(HistoryFile).Where(f => File.Exists(f)).ToList();
 
         public void Write(IEnumerable<string> data) => File.WriteAllLines(HistoryFile, data);
 

@@ -6,6 +6,7 @@ import QtQuick.Controls.Material 2.1
 import QtQuick.Dialogs 1.3 as Dialogs
 import QtQuick.Controls.Styles 1.4
 import NooneUI 1.0
+import NooneUI.Trace 1.0
 import "RightPanel.js" as RightPanel
 
 ApplicationWindow {
@@ -175,11 +176,11 @@ ApplicationWindow {
         nameFilters: ["Excel files (*.xls *.xlsx)", "All files (*)"]
         folder: shortcuts.home
         onAccepted: {
-            console.log("You chose: " + fileDialog.fileUrl)
+            trace.debug("You choose: " + fileDialog.fileUrl)
             bindReadData(fileDialog.fileUrl)
         }
         onRejected: {
-            console.log("Canceled")
+            trace.debug("Canceled")
         }
         //Component.onCompleted: visible = true
     }
@@ -190,11 +191,11 @@ ApplicationWindow {
         selectFolder: true
         folder: shortcuts.home
         onAccepted: {
-            console.log("You chose: " + folderDialog.fileUrl)
+            trace.debug("You choose: " + folderDialog.fileUrl)
             bindWriteData(folderDialog.fileUrl)
         }
         onRejected: {
-            console.log("Canceled")
+            trace.debug("Canceled")
         }
 
     }
@@ -282,6 +283,15 @@ ApplicationWindow {
         standardButtons: Dialog.Ok
     }
 
+    Trace {
+        id: trace
+        Component.onCompleted: {
+            RightPanel.log = function(msg) {
+                trace.debug(msg)
+            }
+        }
+    }
+
     function bindReadData(path) {
         var task = mainVM.readAsync(path)
         Net.await(task, function (result) {
@@ -297,7 +307,7 @@ ApplicationWindow {
                 __rightPanelView = RightPanel.view.createObject()
                 mainLayout.addItem(__rightPanelView)
 
-                console.log(mainVM.dataRead.count)
+                trace.debug("data count: " + mainVM.dataRead.count)
                 __rightPanelView.dataGrid.model = Net.toListModel(mainVM.dataRead)
                 
                 repeater.model = Net.toListModel(mainVM.paths)
@@ -307,7 +317,7 @@ ApplicationWindow {
             RightPanel.createReadPanel()
 
         }, function (error) {
-            console.log('Open file failed')
+            trace.error('Open file failed')
             mainVM.isBusy = false
         })
     }
@@ -334,7 +344,7 @@ ApplicationWindow {
             RightPanel.createWritePanel()
 
         }, function (result) {
-            console.log('Save failed')
+            trace.error('Save file failed')
             mainVM.isBusy = false
         })
     }

@@ -6,8 +6,10 @@ using System.Text;
 
 namespace NooneUI
 {
-    public interface IBootstrapper 
+    public interface IBootstrapper : IDispatchable
     {
+        QCoreApplication Application { get; }
+
         string ApplicationDirectory { get; }
 
         ServicesContainer ServicesContainer { get; }

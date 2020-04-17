@@ -52,10 +52,13 @@ namespace BomTool.Models
         {
             var path = Path.Combine(Folder, $"Bom-{DateTime.Now.ToString("yyyyMMddHHmmss")}.xls");
             var workbook = new HSSFWorkbook();
+            Logger.Debug($"Generate file to : {path}");
 
             foreach (var data in grouppedData)
             {
-                var sheet = workbook.CreateSheet($"{ data.Line}@Col{data.ColumnIndex}");
+                var name = $"{data.Line}@Col{data.ColumnIndex}";
+                Logger.Debug($"Writing worksheet: {name}");
+                var sheet = workbook.CreateSheet(name);
                 var headerRow = sheet.CreateRow(0);
 
                 headerRow.CreateCell(0).SetCellValue("Code");
@@ -89,6 +92,7 @@ namespace BomTool.Models
             var filteredData = Data.Where(o =>
             {
                 var l = o.Lines[index];
+                Logger.Debug($"Filtering data for line: {line}");
                 return string.IsNullOrEmpty(l);
             }).GroupBy(o => o.Code);
 
@@ -96,7 +100,7 @@ namespace BomTool.Models
             {
                 var first = group.First();
                 var references = string.Join(",", group.AsEnumerable().Select(o => o.Reference));
-                result.Add(new ExcelData
+                var data = new ExcelData
                 {
                     Reference = references,
                     Code = first.Code,
@@ -104,7 +108,9 @@ namespace BomTool.Models
                     Description = first.Description,
                     Value = first.Value
 
-                });
+                };
+                Logger.Debug($"Groupped Data: {data}");
+                result.Add(data);
             }
             return new ExcelGrouppedData(line, index, result);
         }

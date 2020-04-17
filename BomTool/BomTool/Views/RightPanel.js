@@ -1,5 +1,6 @@
 var view;
 var callback;
+var log
 
 function createReadPanel() {
     __createPanel(true)
@@ -11,10 +12,10 @@ function createWritePanel() {
 
 function __createPanel(isRead) {
     var qml = isRead ? 'ReadDataPanel.qml' : 'WriteDataPanel.qml';
-    console.log(qml)
+    log('qml file: ' + qml)
     view = Qt.createComponent(qml);
     if (view.status == Component.Ready) {
-        console.log('creation completed')
+        log('Creation completed')
         __finishCreation();
     }
     else {

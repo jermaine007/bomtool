@@ -18,17 +18,17 @@ namespace BomTool
         [STAThread]
         static int Main(string[] args)
         {
-            ServicesContainer.Instance.Bind<IBootstrapper, BomToolBootstrapper>();
-            var bootstapper = ServicesContainer.Instance.Get<IBootstrapper>();
-            var mainQml = Path.Combine(bootstapper.ApplicationDirectory, "Views", "Main.qml");
-            
-
-            return bootstapper
+            var mainQml = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Main.qml");
+            var bootstapper = new BootstrapperBuilder<BomToolBootstrapper>()
                   .DetectQtRuntime()
                   .EnableLogging(true)
                   .SetStyle("Material")
                   .SetMainQml(mainQml)
-                  .Launch(args);
+                  .Build();
+            
+            return bootstapper.Launch(args);
+            
+
                   
         }
     }
