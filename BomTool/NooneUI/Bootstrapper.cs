@@ -72,6 +72,7 @@ namespace NooneUI
             {
                 using (var qmlEngine = new QQmlApplicationEngine())
                 {
+                    QQmlApplicationEngine.ActivateMVVMBehavior();
                     Builder.DoRegisterTypes?.Invoke();
                     DoAutoRegisterTypes();
                     AddImportPath(qmlEngine);

@@ -17,7 +17,7 @@ namespace BomTool
         /// </summary>
         [STAThread]
         static int Main(string[] args)
-            => new BootstrapperBuilder<BomToolBootstrapper>()
+            => BootstrapperBuilder.Create<BomToolBootstrapper>()
                   .DetectQtRuntime()
                   .EnableLogging(true)
                   .SetStyle("Material")

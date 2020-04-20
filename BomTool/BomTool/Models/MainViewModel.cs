@@ -12,51 +12,52 @@ using NooneUI.Services;
 namespace BomTool.Models
 {
     [AutoRegisterType]
-    public class MainViewModel : Dispatchable
+    public class MainViewModel : NotifyPropertyChangedBase
     {
         private string statusText = string.Empty;
         private bool isBusy = false;
 
         internal HistoryEntry HistoryEntry => Container.Get<HistoryEntry>();
 
-        [NotifySignal]
+        //[NotifySignal]
         public bool IsBusy
         {
             get => isBusy;
-
-            set
-            {
-                if (isBusy == value)
-                {
-                    return;
-                }
-                Dispatch(() =>
-                {
-                    isBusy = value;
-                    this.ActivateNotifySignal(nameof(IsBusy));
-                });
-            }
+            set => SetProperty(ref isBusy, value, nameof(IsBusy));
+            //set
+            //{
+            //    if (isBusy == value)
+            //    {
+            //        return;
+            //    }
+            //    Dispatch(() =>
+            //    {
+            //        isBusy = value;
+            //        this.ActivateNotifySignal(nameof(IsBusy));
+            //    });
+            //}
         }
 
-        [NotifySignal]
+        //[NotifySignal]
         public string StatusText
         {
             get => statusText;
 
-            set
-            {
-                if (statusText == value)
-                {
-                    return;
-                }
+            //set
+            //{
+            //    if (statusText == value)
+            //    {
+            //        return;
+            //    }
 
 
-                Dispatch(() =>
-                {
-                    statusText = value;
-                    this.ActivateNotifySignal(nameof(StatusText));
-                });
-            }
+            //    Dispatch(() =>
+            //    {
+            //        statusText = value;
+            //        this.ActivateNotifySignal(nameof(StatusText));
+            //    });
+            //}
+            set => SetProperty(ref statusText, value, nameof(StatusText));
         }
 
         public MainViewModel()

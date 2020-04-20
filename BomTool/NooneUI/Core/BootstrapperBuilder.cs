@@ -35,8 +35,13 @@ namespace NooneUI.Core
             }
         }
 
-
         public abstract IBootstrapper Build();
+
+        public static BootstrapperBuilder<T> Create<T>() where T : IBootstrapper
+        {
+            ServicesContainer.Instance.Bind<BootstrapperBuilder<T>>();
+            return ServicesContainer.Instance.Get<BootstrapperBuilder<T>>();
+        }
     }
 
     public class BootstrapperBuilder<T> : BootstrapperBuilder where T : IBootstrapper
