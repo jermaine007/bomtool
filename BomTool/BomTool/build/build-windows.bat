@@ -1,5 +1,6 @@
 @echo off
-cd /d %~dp0
+set PROJECT_DIR=%~dp0..\
+cd /d %PROJECT_DIR%
 dotnet publish^
  -c Release^
  -f netcoreapp3.0^
@@ -13,6 +14,6 @@ dotnet publish^
  /p:BuiltFor=Windows
 
 call "%VS140COMNTOOLS%vsvars32.bat"
-editbin.exe /subsystem:windows "%~dp0bin\Publish\Windows\BomTool.exe"
+editbin.exe /subsystem:windows "%PROJECT_DIR%bin\Publish\Windows\BomTool.exe"
 
 pause

@@ -1,12 +1,13 @@
 @echo off
-cd /d %~dp0
+set PROJECT_DIR=%~dp0..\
+cd /d %PROJECT_DIR%
 dotnet publish^
  -c Release^
  -f netcoreapp3.0^
- -r linux-x64^
+ -r osx-x64^
  --self-contained^
- -o bin\Publish\Linux^
+ -o bin\Publish\Osx^
  /p:PublishSingleFile=true^
- /p:BuiltFor=Linux
+ /p:BuiltFor=Osx
 
 pause
