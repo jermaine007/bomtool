@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<title>BOM PDF</title>
+	<style type="text/css">
+		body {
+			width: 1183px;
+			height: 834px;
+			overflow: hidden;
+			margin: 5px;
+			font: 10px arial, verdna;
+		}
+
+		.container {
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			border: 2px solid black;
+		}
+
+		.box {
+			width: 47%;
+			margin: 1%;
+		}
+
+		.wrap {
+			padding: 3px;
+			margin: 3px;
+			word-break: break-all;
+		}
+
+		.bom-table {
+			line-height: 1.3em;
+		}
+
+		.bom-cell {
+			min-width: 10%;
+			max-width: 33%;
+		}
+
+		.bom-header {
+			text-align: center;
+			font-weight: bold;
+			border-bottom: 3px dashed black;
+		}
+
+		.nowrap {
+			padding: 3px;
+			margin: 3px;
+			word-break: keep-all;
+		}
+
+		.float-left {
+			float: left;
+		}
+
+		.right-fixed {
+			width: 580px;
+			height: 70px;
+			border: 1px solid black;
+			margin-left: 612px;
+			margin-top: -80px;
+		}
+
+		.float-clear {
+			clear: both;
+		}
+
+		.content-fit {
+			width: 100%
+		}
+
+		.img-fit {
+			width: 85%;
+			height: 85%;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="float-left box">
+			<div id="diagramContainer"><img class="img-fit" src="{{info.picture}}" /></div>
+			{{ firstItem = (bom| array.first) }}
+			<table id="firstBomTable" class="content-fit bom-table">
+				<tr>
+					<th class="bom-header" colspan="3"><b>{{firstItem.line}}</b></th>
+				</tr>
+				{{ for subItem in firstItem.data}}
+				<tr>
+					<td class="nowrap bom-cell">{{subItem.code}}</td>
+					<td class="nowrap bom-cell">{{subItem.description}}</td>
+					<td class="wrap bom-cell">{{subItem.reference}}</td>
+				</tr>
+				{{ end }}
+			</table>
+		</div>
+		<div class="float-left box">
+			{{ for item in (bom | array.offset 1 )}}
+			<table class="content-fit bom-table">
+				<tr>
+					<th class="bom-header" colspan="3"><b>{{item.line}}</b></th>
+				</tr>
+				{{ for subItem in item.data}}
+				<tr>
+					<td class="nowrap bom-cell">{{subItem.code}}</td>
+					<td class="nowrap bom-cell">{{subItem.description}}</td>
+					<td class="wrap bom-cell">{{subItem.reference}}</td>
+				</tr>
+				{{ end }}
+			</table>
+			{{ end }}
+		</div>
+		<div class="float-clear"></div>
+		<div id="infoPanel" class="right-fixed">
+
+			<div class="float-left">
+				<img src="logo.png" />
+			</div>
+			<div class="float-left">
+				<table>
+					{{for o in history}}
+					<tr>
+						<td>{{o.version}}</td>
+						<td>{{o.reason}}</td>
+						<td>{{o.signature}}</td>
+						<td>{{o.date}}</td>
+					</tr>
+					{{end}}
+				</table>
+			</div>
+			<div class="float-left">
+				<table>
+
+					<tr>
+						<td>PreparedBy</td>
+						<td>{{info.prepared_by}}</td>
+						<td>Prepared Date</td>
+						<td>{{info.prepared_date}}</td>
+					</tr>
+					<tr>
+						<td>Approver</td>
+						<td>{{info.approver}}</td>
+						<td>Approve Date</td>
+						<td>{{info.approve_date}}</td>
+					</tr>
+					<tr>
+						<td>Drawing No.</td>
+						<td>{{info.drawing_no}}</td>
+						<td>Version</td>
+						<td>{{info.version}}</td>
+					</tr>
+
+				</table>
+			</div>
+
+
+		</div>
+	</div>
+	<script type="text/javascript">
+		var FULL_HEIGHT = document.body.clientHeight - 14;
+		var FULL_WIDTH = document.body.clientHeight - 14;
+		var HALF_HEIGHT = FULL_HEIGHT / 2;
+		var HALF_WIDTH = FULL_WIDTH / 2;
+
+		var resizeImg = function () {
+			var firstBomTable = document.getElementById('firstBomTable');
+			var diagramContainer = document.getElementById('diagramContainer');
+			var tableHeight = firstBomTable.clientHeight;
+			if (tableHeight > HALF_HEIGHT) {
+				diagramContainer.style.height = (FULL_HEIGHT - tableHeight) + 'px';
+			} else {
+				diagramContainer.style.height = HALF_WIDTH + 'px';
+				firstBomTable.style.height = HALF_WIDTH + 'px';
+			}
+		};
+
+		resizeImg();
+		
+	</script>
+</body>
+
+</html>

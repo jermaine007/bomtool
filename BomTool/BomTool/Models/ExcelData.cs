@@ -4,30 +4,23 @@ using System.Text;
 
 namespace BomTool.Models
 {
+    /// <summary>
+    /// All excel data read from excel file
+    /// </summary>
     public class ExcelData
     {
-        public string Reference { get; set; }
+        /// <summary>
+        /// Bom data
+        /// </summary>
+        public IEnumerable<BomData> BomData { get; set; }
+        /// <summary>
+        /// History data
+        /// </summary>
+        public IEnumerable<HistoryData> HistoryData { get; set; }
+        /// <summary>
+        /// All other information
+        /// </summary>
+        public Information Information { get; set; }
 
-        public string Code { get; set; }
-
-        public string Type { get; set; }
-
-        public string Description { get; set; }
-
-        public string Value { get; set; }
-
-        public List<string> Lines { get; set; } = new List<string>();
-
-        public int Count { get; set; }
-
-        public override string ToString() =>
-            string.Join(",", new[] {
-                this.Reference,
-                this.Code,
-                this.Type,
-                this.Description,
-                this.Value,
-                string.Join(",", this.Lines)
-            });
     }
 }

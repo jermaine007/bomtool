@@ -7,6 +7,9 @@ using System.Text;
 
 namespace BomTool.Models
 {
+    /// <summary>
+    /// Class provides ServicesContainer and Logger features
+    /// </summary>
     abstract public class Loggable
     {
         public ServicesContainer Container => ServicesContainer.Instance;

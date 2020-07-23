@@ -12,10 +12,7 @@ namespace NooneUI.Core
 
     abstract public class BootstrapperBuilder
     {
-        public BootstrapperBuilder()
-        {
-            this.MainQml = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Main.qml");
-        }
+        public BootstrapperBuilder() => this.MainQml = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Main.qml");
 
         internal Action ResolveQtRuntime { get; set; }
 
@@ -29,10 +26,7 @@ namespace NooneUI.Core
 
         internal bool EnableLogging
         {
-            set
-            {
-                ServicesContainer.Instance.Get<ILogger>().EnableLogging = value;
-            }
+            set => ServicesContainer.Instance.Get<ILogger>().EnableLogging = value;
         }
 
         public abstract IBootstrapper Build();
@@ -46,10 +40,7 @@ namespace NooneUI.Core
 
     public class BootstrapperBuilder<T> : BootstrapperBuilder where T : IBootstrapper
     {
-        public BootstrapperBuilder() : base()
-        {
-            ServicesContainer.Instance.Bind<IBootstrapper, T>(true);
-        }
+        public BootstrapperBuilder() : base() => ServicesContainer.Instance.Bind<IBootstrapper, T>(true);
 
         public override IBootstrapper Build()
         {

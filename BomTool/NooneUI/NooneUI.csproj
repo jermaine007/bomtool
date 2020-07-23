@@ -9,7 +9,12 @@
   <ItemGroup>
     <PackageReference Include="Ninject" Version="3.3.4" />
     <PackageReference Include="NLog" Version="4.7.0" />
-    <PackageReference Include="NLog.Config" Version="4.7.0" />
     <PackageReference Include="Qml.Net" Version="0.10.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

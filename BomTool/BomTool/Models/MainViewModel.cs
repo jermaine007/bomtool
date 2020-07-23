@@ -8,69 +8,71 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using NooneUI.Services;
+using NooneUI.Pdf;
 
 namespace BomTool.Models
 {
+    /// <summary>
+    /// Main view model for main window
+    /// </summary>
     [AutoRegisterType]
-    public class MainViewModel : NotifyPropertyChangedBase
+    [Signal("openFolderDialogSignal")]
+    public class MainViewModel : BindableBase
     {
         private string statusText = string.Empty;
         private bool isBusy = false;
 
         internal HistoryEntry HistoryEntry => Container.Get<HistoryEntry>();
 
-        //[NotifySignal]
+        public Action<string> OnPdfDialogAccept { get; private set; }
+
+        public Action OnPdfDialogRejected { get; private set; }
+
+        /// <summary>
+        /// Indicate if it is busy
+        /// </summary>
         public bool IsBusy
         {
             get => isBusy;
             set => SetProperty(ref isBusy, value, nameof(IsBusy));
-            //set
-            //{
-            //    if (isBusy == value)
-            //    {
-            //        return;
-            //    }
-            //    Dispatch(() =>
-            //    {
-            //        isBusy = value;
-            //        this.ActivateNotifySignal(nameof(IsBusy));
-            //    });
-            //}
         }
 
-        //[NotifySignal]
+        /// <summary>
+        /// Status Text
+        /// </summary>
         public string StatusText
         {
             get => statusText;
-
-            //set
-            //{
-            //    if (statusText == value)
-            //    {
-            //        return;
-            //    }
-
-
-            //    Dispatch(() =>
-            //    {
-            //        statusText = value;
-            //        this.ActivateNotifySignal(nameof(StatusText));
-            //    });
-            //}
             set => SetProperty(ref statusText, value, nameof(StatusText));
         }
 
-        public MainViewModel()
-        {
-            this.Paths = HistoryEntry.Read().ToList();
-        }
+        public MainViewModel() => this.Paths = HistoryEntry.Read().ToList();
 
+        /// <summary>
+        /// Opened xls file path
+        /// </summary>
         public List<string> Paths { get; } = new List<string>();
 
-        public IEnumerable<ExcelData> DataRead { get; private set; } = new List<ExcelData>();
+        /// <summary>
+        /// Bom Data Read
+        /// </summary>
+        public IEnumerable<BomData> DataRead { get; private set; } = new List<BomData>();
 
-        public IEnumerable<ExcelGrouppedData> GrouppedData { get; private set; } = new List<ExcelGrouppedData>();
+        /// <summary>
+        /// Bom data groupped
+        /// </summary>
+        public IEnumerable<GrouppedBomData> GrouppedData { get; private set; } = new List<GrouppedBomData>();
 
+        /// <summary>
+        /// All data from excel
+        /// </summary>
+        public ExcelData ExcelDataRead { get; private set; }
+
+        /// <summary>
+        /// Read excel async
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public Task ReadAsync(string path) => Task.Factory.StartNew(() =>
         {
             try
@@ -81,7 +83,8 @@ namespace BomTool.Models
                 WaitSometime();
                 var reader = Container.Get<ExcelReader>();
                 reader.Initialize(path, msg => this.StatusText = msg);
-                this.DataRead = reader.Read();
+                this.ExcelDataRead = reader.Read();
+                this.DataRead = ExcelDataRead.BomData;
                 if (this.DataRead.Count() == 0)
                 {
                     Logger.Debug("No data read.");
@@ -98,6 +101,11 @@ namespace BomTool.Models
 
         });
 
+        /// <summary>
+        /// Write excel async
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public Task WriteAsync(string path) => Task.Factory.StartNew(() =>
         {
             if (this.DataRead.Count() == 0)
@@ -112,7 +120,7 @@ namespace BomTool.Models
                 this.IsBusy = true;
                 WaitSometime();
                 var writer = Container.Get<ExcelWriter>();
-                writer.Initialize(DataRead, path, msg => this.StatusText = msg);
+                writer.Initialize(ExcelDataRead.BomData, path, msg => this.StatusText = msg);
                 writer.Write();
                 this.GrouppedData = writer.GrouppedData;
             }
@@ -123,6 +131,10 @@ namespace BomTool.Models
             }
         });
 
+        /// <summary>
+        /// Add xls path
+        /// </summary>
+        /// <param name="path"></param>
         public void AddPath(string path)
         {
 
@@ -133,12 +145,59 @@ namespace BomTool.Models
             }
         }
 
+        /// <summary>
+        /// Clear history
+        /// </summary>
         public void ClearHistory()
         {
             this.Paths.Clear();
             HistoryEntry.Write(Paths);
         }
 
+        /// <summary>
+        /// Preview pdf
+        /// </summary>
+        /// <param name="path"></param>
+        public void PreviewPdf()
+        {
+            try
+            {
+                if (DataRead.Count() == 0)
+                {
+                    this.StatusText = "No data";
+                    return;
+                }
+                this.IsBusy = true;
+
+                var generator = Container.Get<PdfDataGenerator>();
+                generator.Initialize(ExcelDataRead, msg => this.StatusText = msg);
+                var data = generator.Generate();
+
+                Container.Get<PdfPreviewer>().Preview(data,
+                    () => this.ActivateSignal("openFolderDialogSignal"),
+                    onAccept => this.OnPdfDialogAccept = onAccept,
+                    onRejected => this.OnPdfDialogRejected = onRejected);
+
+                this.StatusText = "Genrate PDF Successfully";
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Preview PDF Failed", ex);
+                this.StatusText = "Preview PDF failed";
+            }
+            finally
+            {
+                this.IsBusy = false;
+            }
+        }
+
+        public void GeneratePdf(string pdf) => this.OnPdfDialogAccept?.Invoke(pdf);
+
+        public void CancelGenerate() => this.OnPdfDialogRejected?.Invoke();
+
+        /// <summary>
+        /// Simulate to wait some time
+        /// </summary>
         void WaitSometime() => Thread.Sleep((int)(new Random().NextDouble() * 1500));
     }
 }

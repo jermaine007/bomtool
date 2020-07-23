@@ -77,6 +77,7 @@ ScrollView {
                         }
                         Column {
                             Label {
+                                wrapMode: Text.Wrap
                                 padding: 10
                                 width: 250
                                 background: Rectangle {

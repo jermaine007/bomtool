@@ -47,6 +47,10 @@ ApplicationWindow {
                 text: qsTr("Generate &BOM...")
                 onTriggered: folderDialog.open()
             }
+            Action {
+                text: qsTr("Generate &PDF")
+                onTriggered: mainVM.previewPdf()
+            }
             MenuSeparator { }
             Action {
                 text: qsTr("&Clear History")
@@ -167,6 +171,9 @@ ApplicationWindow {
         id: mainVM
         Component.onCompleted : {
             repeater.model = Net.toListModel(mainVM.paths)
+            mainVM.openFolderDialogSignal.connect(function(){
+                pdfFolderDialog.open()
+            })
         }
     }
 
@@ -200,13 +207,29 @@ ApplicationWindow {
 
     }
 
+    Dialogs.FileDialog {
+        id: pdfFolderDialog
+        title: "Please choose a folder"
+        selectFolder: true
+        folder: shortcuts.home
+        onAccepted: {
+            trace.debug("You choose: " + pdfFolderDialog.fileUrl)
+            mainVM.generatePdf(pdfFolderDialog.fileUrl)
+        }
+        onRejected: {
+            mainVM.cancelGenerate()
+            trace.debug("Canceled")
+        }
+
+    }
+
     Dialog {
        id: aboutDialog
         modal: true
         focus: true
         title: "About"
         anchors.centerIn: parent
-        width: 350
+        width: 400
         font.pointSize:10
         header: Row {
             Label {
@@ -214,7 +237,7 @@ ApplicationWindow {
             text: "BOM Tool"
             horizontalAlignment: Text.AlignHCenter
             topPadding : 10
-            font.pointSize: 12
+            font.pointSize: 14
             font.weight: Font.Bold
             }
         }
@@ -224,28 +247,31 @@ ApplicationWindow {
             text: "Information:"
             topPadding :10
             bottomPadding : 10
+            font.pointSize: 12
             font.weight: Font.Bold
         }
            Label {
             width: aboutDialog.availableWidth
-            text: "Version: 1.0.0"
+            text: "<b>Version:</b> 1.0.1"
 
         }
         Label {
             width: aboutDialog.availableWidth
-            text: "Author: Jermaine"
+            textFormat: Text.RichText
+            text: "<b>Author:</b> Jermaine"
 
            
         }
         Label {
             width: aboutDialog.availableWidth
-            text: "Platform: .NetCore 3.0.100"
+            text: "<b>Platform:</b> .NetCore 3.0.100"
 
            
         }
         Label {
             width: aboutDialog.availableWidth
             text: "Creadits:"
+            font.pointSize: 12
             topPadding: 10
             bottomPadding : 10
             font.weight: Font.Bold
@@ -253,28 +279,50 @@ ApplicationWindow {
         Label {
             width: aboutDialog.availableWidth
             textFormat: Text.RichText
-            text: "Qml.Net: <a href=\"https://github.com/qmlnet/qmlnet\" style=\"color:white\">https://github.com/qmlnet/qmlnet</a>."
+            text: "<b>Qml.Net:</b> <a href=\"https://github.com/qmlnet/qmlnet\" style=\"color:white\">https://github.com/qmlnet/qmlnet</a>."
            
             onLinkActivated: Qt.openUrlExternally(link)
         }
          Label {
             width: aboutDialog.availableWidth
             textFormat: Text.RichText
-            text: "NPOI.NetCore: <a href=\"https://github.com/dotnetcore/NPOI\" style=\"color:white\">https://github.com/dotnetcore/NPOI</a>."
+            text: "<b>NPOI.NetCore:</b> <a href=\"https://github.com/dotnetcore/NPOI\" style=\"color:white\">https://github.com/dotnetcore/NPOI</a>."
            
             onLinkActivated: Qt.openUrlExternally(link)
         }
         Label {
             width: aboutDialog.availableWidth
             textFormat: Text.RichText
-            text: "NLog: <a href=\"https://nlog-project.org/\" style=\"color:white\">https://nlog-project.org/</a>."
+            text: "<b>NLog:</b> <a href=\"https://nlog-project.org/\" style=\"color:white\">https://nlog-project.org/</a>."
            
             onLinkActivated: Qt.openUrlExternally(link)
         }
         Label {
             width: aboutDialog.availableWidth
             textFormat: Text.RichText
-            text: "NInject: <a href=\"http://www.ninject.org/\" style=\"color:white\">http://www.ninject.org/</a>."
+            text: "<b>NInject:</b> <a href=\"http://www.ninject.org/\" style=\"color:white\">http://www.ninject.org/</a>."
+           
+            onLinkActivated: Qt.openUrlExternally(link)
+        }
+        Label {
+            width: aboutDialog.availableWidth
+            textFormat: Text.RichText
+            text: "<b>MvvmLight:</b> <a href=\"http://www.mvvmlight.net/\" style=\"color:white\">http://www.mvvmlight.net/</a>."
+           
+            onLinkActivated: Qt.openUrlExternally(link)
+        }
+        Label {
+            width: aboutDialog.availableWidth
+            textFormat: Text.RichText
+            text: "<b>Scriban:</b> <a href=\"https://github.com/lunet-io/scriban\" style=\"color:white\">https://github.com/lunet-io/scriban</a>."
+           
+            onLinkActivated: Qt.openUrlExternally(link)
+        }
+        Label {
+            width: aboutDialog.availableWidth
+            wrapMode: Text.Wrap
+            textFormat: Text.RichText
+            text: "<b>Select.HtmlToPdf.NetCore:</b> <a href=\"https://selectpdf.com/community-edition/\" style=\"color:white\">https://selectpdf.com/community-edition/</a>."
            
             onLinkActivated: Qt.openUrlExternally(link)
         }

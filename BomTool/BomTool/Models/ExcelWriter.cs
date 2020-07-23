@@ -7,48 +7,61 @@ using System.Text;
 
 namespace BomTool.Models
 {
+    /// <summary>
+    /// Excel writer, to generate bom data
+    /// </summary>
     class ExcelWriter : Loggable
     {
+        /// <summary>
+        /// Destination folder
+        /// </summary>
         public string Folder { get; set; }
 
-        public IEnumerable<ExcelData> Data { get; set; }
+        /// <summary>
+        /// Original bom data
+        /// </summary>
+        public IEnumerable<BomData> Data { get; set; }
 
-        public IEnumerable<ExcelGrouppedData> GrouppedData { get; set; }
+        /// <summary>
+        /// Group bom data
+        /// </summary>
+        public IEnumerable<GrouppedBomData> GrouppedData { get; set; }
 
+        /// <summary>
+        /// Log something to show on the status bar
+        /// </summary>
         public Action<string> Log { get; set; }
-     
-        public void Initialize(IEnumerable<ExcelData> data, string folder, Action<string> Log)
+
+        /// <summary>
+        /// Initialize writer
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="folder"></param>
+        /// <param name="Log"></param>
+        public void Initialize(IEnumerable<BomData> data, string folder, Action<string> Log)
         {
             this.Folder = folder;
             this.Data = data;
             this.Log = Log;
         }
 
+        /// <summary>
+        /// Write the new bom data to xls
+        /// </summary>
         public void Write()
         {
             Log("Generating BOM...");
-            var header = Data.ElementAt(0);
-    
-            var grouppedData = new List<ExcelGrouppedData>();
-            int index = 0;
+            this.GrouppedData = this.Data.Group(Log);
 
-            foreach (var line in header.Lines)
-            {
-                grouppedData.Add(GroupData(index, line));
-                index++;
-            }
-
-            WriteData(grouppedData);
-
-            this.GrouppedData = grouppedData;
-
-
+            WriteData(this.GrouppedData);
             Log("Generated BOM successfully.");
         }
 
-       
-
-        private void WriteData(IEnumerable<ExcelGrouppedData> grouppedData)
+        /// <summary>
+        /// WriteData
+        /// </summary>
+        /// <param name="grouppedData"></param>
+        private void WriteData(IEnumerable<GrouppedBomData> grouppedData)
         {
             var path = Path.Combine(Folder, $"Bom-{DateTime.Now.ToString("yyyyMMddHHmmss")}.xls");
             var workbook = new HSSFWorkbook();
@@ -85,37 +98,6 @@ namespace BomTool.Models
             {
                 workbook.Write(fs);
             }
-        }
-
-        private ExcelGrouppedData GroupData(int index, string line)
-        {
-            Log($"Parsing data for {line}...");
-            var result = new List<ExcelData>();
-            var filteredData = Data.Where(o =>
-            {
-                var l = o.Lines[index];
-                Logger.Debug($"Filtering data for line: {line}");
-                return string.IsNullOrEmpty(l);
-            }).GroupBy(o => o.Code);
-
-            foreach (var group in filteredData)
-            {
-                var first = group.First();
-                var references = string.Join(",", group.AsEnumerable().Select(o => o.Reference));
-                var data = new ExcelData
-                {
-                    Reference = references,
-                    Code = first.Code,
-                    Type = first.Type,
-                    Description = first.Description,
-                    Value = first.Value,
-                    Count = group.Count()
-
-                };
-                Logger.Debug($"Groupped Data: {data}");
-                result.Add(data);
-            }
-            return new ExcelGrouppedData(line, index, result);
         }
 
     }

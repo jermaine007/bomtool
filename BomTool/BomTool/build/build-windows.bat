@@ -5,12 +5,9 @@ dotnet publish^
  -c Release^
  -f netcoreapp3.0^
  -r win-x64^
- --self-contained^
+ --self-contained true^
  -o bin\Publish\Windows^
  /p:PublishSingleFile=true^
- /p:PublishTrimmed=true^
- /p:PublishReadyToRun=true^
- /p:PublishReadyToRunShowWarnings=true^
  /p:BuiltFor=Windows
 
 call "%VS140COMNTOOLS%vsvars32.bat"

@@ -1,0 +1,174 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:NooneUI.Pdf.View">
+    <Style x:Key="NormalButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Foreground" Value="LightGray" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border
+                        x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        SnapsToDevicePixels="true">
+                        <ContentPresenter
+                            x:Name="contentPresenter"
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Focusable="False"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsDefaulted" Value="true">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="border" Property="Background" Value="#333842" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="#333842" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CloseButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Foreground" Value="LightGray" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border
+                        x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        SnapsToDevicePixels="true">
+                        <ContentPresenter
+                            x:Name="contentPresenter"
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Focusable="False"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsDefaulted" Value="true">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="border" Property="Background" Value="Red" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="Red" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="DefaultWindows" TargetType="{x:Type Window}">
+        <Setter Property="WindowStyle" Value="None" />
+        <!--<Setter Property="AllowsTransparency" Value="True"/>-->
+        <!--<Setter Property="Background" Value="#2C313A" />-->
+        <Setter Property="ResizeMode" Value="CanResizeWithGrip" />
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome CaptionHeight="0" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect
+                    BlurRadius="10"
+                    Direction="270"
+                    Opacity="0.4"
+                    ShadowDepth="10"
+                    Color="#2C313A" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Window}">
+
+                    <Grid Background="#2C313A">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid x:Name="HeaderBar" Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Margin="10,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontWeight="ExtraBlack"
+                                Foreground="LightGray"
+                                Text="{Binding Title, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" />
+                            <StackPanel
+                                Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                Panel.ZIndex="1"
+                                Orientation="Horizontal">
+                                <Button
+                                    Name="btnMin"
+                                    Width="40"
+                                    Height="30"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}"
+                                    Content="─"
+                                    Foreground="LightGray"
+                                    Style="{StaticResource NormalButtonStyle}"
+                                    WindowChrome.IsHitTestVisibleInChrome="True" />
+                                <Button
+                                    Name="btnMax"
+                                    Width="40"
+                                    Height="30"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Content="☐"
+                                    Foreground="LightGray"
+                                    Style="{StaticResource NormalButtonStyle}"
+                                    WindowChrome.IsHitTestVisibleInChrome="True" />
+                                <Button
+                                    Name="btnClose"
+                                    Width="40"
+                                    Height="30"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}"
+                                    Content="✕"
+                                    Foreground="LightGray"
+                                    Style="{StaticResource CloseButtonStyle}"
+                                    WindowChrome.IsHitTestVisibleInChrome="True" />
+                            </StackPanel>
+                        </Grid>
+                        <ContentPresenter
+                            Grid.Row="1"
+                            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                            ScrollViewer.VerticalScrollBarVisibility="Hidden" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="WindowState" Value="Normal">
+                            <Setter TargetName="btnMax" Property="Command" Value="{Binding Source={x:Static SystemCommands.MaximizeWindowCommand}}" />
+                        </Trigger>
+                        <Trigger Property="WindowState" Value="Maximized">
+                            <Setter TargetName="btnMax" Property="Command" Value="{Binding Source={x:Static SystemCommands.RestoreWindowCommand}}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers />
+    </Style>
+</ResourceDictionary>

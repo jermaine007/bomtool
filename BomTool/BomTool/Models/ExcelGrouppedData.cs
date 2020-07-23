@@ -4,14 +4,27 @@ using System.Text;
 
 namespace BomTool.Models
 {
-    public class ExcelGrouppedData
+    /// <summary>
+    /// Bom data which has been groupped
+    /// </summary>
+    public class GrouppedBomData
     {
+        /// <summary>
+        /// Line name (PTH, SMD)
+        /// </summary>
         public string Line { get; private set; }
-        public IEnumerable<ExcelData> Data { get; private set; }
 
+        /// <summary>
+        /// Group bom data
+        /// </summary>
+        public IEnumerable<BomData> Data { get; private set; }
+
+        /// <summary>
+        /// ColumnIndex used for generated sheet name
+        /// </summary>
         public int ColumnIndex { get; private set; }
 
-        public ExcelGrouppedData(string line, int index, IEnumerable<ExcelData> data)
+        public GrouppedBomData(string line, int index, IEnumerable<BomData> data)
         {
             this.Line = line;
             this.ColumnIndex = index;

@@ -1,0 +1,41 @@
+﻿<local:NooneWindow
+    x:Class="NooneUI.Pdf.View.PreviewWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:NooneUI.Pdf.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="PreviewWindow"
+    Width="960"
+    Height="750"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/NooneUI.Pdf;component/View/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <local:NooneHtmlControl
+            DataSource="{Binding DataSource}"
+            HtmlDocument="{Binding Document, Mode=OneWayToSource}"
+            IsCompleted="{Binding IsCompleted, Mode=OneWayToSource}" />
+
+
+        <Button
+            Grid.Row="1"
+            Width="80"
+            Margin="0,0,20,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Command="{Binding CmdGenerate}"
+            Content="Generate"
+            Style="{StaticResource NormalButtonStyle}" />
+    </Grid>
+</local:NooneWindow>
