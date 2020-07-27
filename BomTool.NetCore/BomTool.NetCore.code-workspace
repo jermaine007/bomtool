@@ -4,5 +4,12 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"editor.fontFamily": "'Cascadia Code PL' ,Consolas, 'Courier New', monospace",
+		"files.exclude": {
+			"**/bin": true,
+			"**/obj": true
+		},
+		"workbench.colorTheme": "Atom One Dark"
+	}
 }

@@ -7,7 +7,13 @@ namespace BomTool.NetCore.Framework
 {
     public class LightWindowBase : Window, IContainerProvider, ILoggerProvider
     {
-        protected LightWindowBase() => EnableDevelopTools();
+        protected readonly ILogger logger;
+
+        protected LightWindowBase()
+        {
+            logger = (this as ILoggerProvider).Logger;
+            EnableDevelopTools();
+        }
 
         [Conditional("DEBUG")]
         protected void EnableDevelopTools() => this.AttachDevTools();

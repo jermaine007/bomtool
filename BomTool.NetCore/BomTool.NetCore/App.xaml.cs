@@ -13,7 +13,7 @@ namespace BomTool.NetCore
     [MainWindow(typeof(MainWindow))]
     public class App : LightApplicationBase
     {
-
+        
         public override void Initialize()
         {
             base.Initialize();
