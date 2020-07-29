@@ -10,6 +10,7 @@
 			"**/bin": true,
 			"**/obj": true
 		},
-		"workbench.colorTheme": "Atom One Dark"
+		"workbench.colorTheme": "Atom One Dark",
+		"editor.fontWeight": "500"
 	}
 }
