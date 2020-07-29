@@ -1,6 +1,6 @@
 using System;
 
-namespace BomTool.NetCore.Framework
+namespace NooneUI.Framework
 {
     public interface ILogger
     {

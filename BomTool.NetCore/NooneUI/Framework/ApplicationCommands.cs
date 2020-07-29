@@ -3,7 +3,7 @@ using Avalonia;
 using Avalonia.Controls;
 using ReactiveUI;
 
-namespace BomTool.NetCore.Framework
+namespace NooneUI.Framework
 {
     public class ApplicationCommands
     {

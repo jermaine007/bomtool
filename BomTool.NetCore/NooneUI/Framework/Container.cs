@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Ninject;
 
-namespace BomTool.NetCore.Framework
+namespace NooneUI.Framework
 {
     public class Container
     {
@@ -16,7 +16,7 @@ namespace BomTool.NetCore.Framework
         private Container()
         {
             var settings = new NinjectSettings { LoadExtensions = false };
-            Kernel = new StandardKernel(settings, new Moudle());
+            Kernel = new StandardKernel(settings, new LightMoudle());
         }
 
         public void Bind(Type type) => Kernel.Bind(type).ToSelf();

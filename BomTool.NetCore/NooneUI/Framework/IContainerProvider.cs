@@ -1,4 +1,4 @@
-namespace BomTool.NetCore.Framework
+namespace NooneUI.Framework
 {
     public interface IContainerProvider
     {

@@ -1,7 +1,7 @@
 using System;
 using Avalonia.Controls;
 
-namespace BomTool.NetCore.Framework
+namespace NooneUI.Framework
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
     public class MainEntryAttribute : Attribute, IContainerProvider

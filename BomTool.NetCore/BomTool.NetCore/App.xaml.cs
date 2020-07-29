@@ -4,9 +4,9 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using BomTool.NetCore.Framework;
 using BomTool.NetCore.ViewModels;
 using BomTool.NetCore.Views;
+using NooneUI.Framework;
 
 namespace BomTool.NetCore
 {

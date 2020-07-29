@@ -10,7 +10,7 @@ using Avalonia.Media.Imaging;
 using Avalonia.Styling;
 using Avalonia.VisualTree;
 
-namespace BomTool.NetCore.Framework
+namespace NooneUI.Framework
 {
     public class LightWindowBase : Window, IContainerProvider, ILoggerProvider, IStyleable
     {

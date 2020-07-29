@@ -1,7 +1,7 @@
 using System;
 using NLog;
 
-namespace BomTool.NetCore.Framework
+namespace NooneUI.Framework
 {
     internal class LightLogger : ILogger
     {

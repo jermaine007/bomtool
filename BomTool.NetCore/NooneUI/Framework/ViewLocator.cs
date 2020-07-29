@@ -4,12 +4,10 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using BomTool.NetCore.Framework;
-using BomTool.NetCore.ViewModels;
 
-namespace BomTool.NetCore.Framework
+namespace NooneUI.Framework
 {
-    public class ViewLocator : IDataTemplate
+    internal class ViewLocator : IDataTemplate
     {
         public bool SupportsRecycling => false;
 

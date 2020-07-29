@@ -1,9 +1,9 @@
 using Avalonia.Markup.Xaml;
 using Ninject.Modules;
 
-namespace BomTool.NetCore.Framework
+namespace NooneUI.Framework
 {
-    public class Moudle : NinjectModule
+    internal class LightMoudle : NinjectModule
     {
         public override void Load() =>
             Bind<LightLogger, ILogger>().To<LightLogger>().InSingletonScope();

@@ -1,12 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <AppendTargetFrameworkToOuputPath>false</AppendTargetFrameworkToOuputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <Compile Update="**\*.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
@@ -14,18 +12,20 @@
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.9.9" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.9.9" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.9.9" />
-    <PackageReference Include="Ninject" Version="3.3.4" />
-    <PackageReference Include="NLog" Version="4.7.0" />
+    <PackageReference Include="Avalonia"
+      Version="0.9.9" />
+    <PackageReference Include="Avalonia.Desktop"
+      Version="0.9.9" />
+    <PackageReference Include="Avalonia.ReactiveUI"
+      Version="0.9.9" />
+    <PackageReference Include="Ninject"
+      Version="3.3.4" />
+    <PackageReference Include="NLog"
+      Version="4.7.0" />
   </ItemGroup>
   <ItemGroup>
     <None Update="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\NooneUI\NooneUI.csproj" />
   </ItemGroup>
 </Project>

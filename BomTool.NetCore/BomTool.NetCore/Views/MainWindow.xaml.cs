@@ -1,7 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
-using BomTool.NetCore.Framework;
 using Avalonia.Markup.Xaml;
+using NooneUI.Framework;
 using System;
 
 namespace BomTool.NetCore.Views

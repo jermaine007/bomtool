@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using BomTool.NetCore.Framework;
+using NooneUI.Framework;
 
 namespace BomTool.NetCore.ViewModels
 {

@@ -4,14 +4,31 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Markup.Xaml.Styling;
 
-namespace BomTool.NetCore.Framework
+
+namespace NooneUI.Framework
 {
     public class LightApplicationBase : Application, IContainerProvider, ILoggerProvider
     {
         protected readonly ILogger logger;
 
-        protected LightApplicationBase() => logger = (this as ILoggerProvider).Logger;
+        protected LightApplicationBase()
+        {
+            logger = (this as ILoggerProvider).Logger;
+            this.Styles.AddRange(new[] {
+                new StyleInclude(new Uri("avares://NooneUI/Styles")){
+                    Source = new Uri("avares://Avalonia.Themes.Default/DefaultTheme.xaml")
+                },
+                new StyleInclude(new Uri("avares://NooneUI/Styles")){
+                    Source = new Uri("avares://Avalonia.Themes.Default/Accents/BaseDark.xaml")
+                },
+                new StyleInclude(new Uri("avares://NooneUI/Styles")){
+                    Source = new Uri("avares://NooneUI/Framework/LightWindowBaseStyle.xaml")
+                }
+            });
+            this.DataTemplates.Add(new ViewLocator());
+        }
 
         public override void Initialize() => RegisterServices((this as IContainerProvider).Container);
 

@@ -4,7 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:BomTool.NetCore.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:fx="clr-namespace:BomTool.NetCore.Framework" mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" x:Class="BomTool.NetCore.Views.MainWindow" Icon="/Assets/Icon.png" Logo="/Assets/Icon.png" Title="Bom Tool">
+    xmlns:fx="clr-namespace:NooneUI.Framework;assembly=NooneUI" mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" x:Class="BomTool.NetCore.Views.MainWindow" Icon="/Assets/Icon.png" Logo="/Assets/Icon.png" Title="Bom Tool">
     <!-- <Grid>
     </Grid> -->
     <Design.DataContext>

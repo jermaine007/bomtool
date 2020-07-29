@@ -1,6 +1,6 @@
 using System;
 
-namespace BomTool.NetCore.Framework
+namespace NooneUI.Framework
 {
     [Flags]
     public enum SystemButtons : ulong
