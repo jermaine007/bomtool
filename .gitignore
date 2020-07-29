@@ -2,3 +2,4 @@ BomTool/.vs/
 bin/
 obj/
 qt.tar.gz
+.ionide
