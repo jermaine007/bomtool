@@ -52,22 +52,22 @@
                             <ContentControl Name="PART_MenuBar" Content="{TemplateBinding MenuBar}" Grid.Column="1" VerticalAlignment="Center"/>
                             <!--system button-->
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="2" Background="Transparent">
-                                <Button Classes="systemButton" Command="{x:Static fx:ApplicationCommands.MinimizeWindow}" CommandParameter="{Binding $parent[fx:LightWindowBase]}">
+                                <Button Name="MinimizeButton" Classes="systemButton" Command="{x:Static fx:ApplicationCommands.MinimizeWindow}" CommandParameter="{Binding $parent[fx:LightWindowBase]}">
                                     <Button.Content>
                                         <TextBlock Classes="systemButtonText" Text="&#xe664;" />
                                     </Button.Content>
                                 </Button>
-                                <Button Classes="systemButton" Command="{x:Static fx:ApplicationCommands.MaximizeWindow}" CommandParameter="{Binding $parent[fx:LightWindowBase]}">
+                                <Button Name="MaximizeButton" Classes="systemButton" Command="{x:Static fx:ApplicationCommands.MaximizeWindow}" CommandParameter="{Binding $parent[fx:LightWindowBase]}">
                                     <Button.Content>
                                         <TextBlock Classes="systemButtonText" Text="&#xe62b;" />
                                     </Button.Content>
                                 </Button>
-                                <Button Classes="systemButton" Command="{x:Static fx:ApplicationCommands.RestoreWindow}" CommandParameter="{Binding $parent[fx:LightWindowBase]}">
+                                <Button Name="RestoreButton" Classes="systemButton" Command="{x:Static fx:ApplicationCommands.RestoreWindow}" CommandParameter="{Binding $parent[fx:LightWindowBase]}">
                                     <Button.Content>
                                         <TextBlock Classes="systemButtonText" Text="&#xe534;" />
                                     </Button.Content>
                                 </Button>
-                                <Button Classes="systemButton closeButton" Command="{x:Static fx:ApplicationCommands.CloseWindow}" CommandParameter="{Binding $parent[fx:LightWindowBase]}">
+                                <Button Name="CloseButton" Classes="systemButton closeButton" Command="{x:Static fx:ApplicationCommands.CloseWindow}" CommandParameter="{Binding $parent[fx:LightWindowBase]}">
                                     <Button.Content>
                                         <TextBlock Classes="systemButtonText" Text="&#xe607;" />
                                     </Button.Content>
