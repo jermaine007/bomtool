@@ -34,7 +34,6 @@ namespace NooneUI.Framework
 
         protected virtual void RegisterServices(Container container) { }
 
-
         public override void OnFrameworkInitializationCompleted()
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
