@@ -37,12 +37,42 @@
     </Style>
     <Style Selector="fx|LightWindowBase">
         <Setter Property="Background" Value="#21252B" />
-        <Setter Property="Foreground" Value="LightGray"/>
+        <Setter Property="Foreground" Value="#ABB2BF"/>
         <Setter Property="FontSize" Value="{DynamicResource ContentControlFontSize}"/>
-        <Setter Property="FontFamily" Value="{DynamicResource ContentControlThemeFontFamily}" />
+        <Setter Property="FontFamily" Value="Microsoft YaHei UI, Microsoft MHei, Verdana" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Panel Background="#21252B" Margin="0">
+                    <Panel.Styles>
+                        <Style Selector="Menu">
+                            <Setter Property="Height" Value="32" />
+                            <Setter Property="Background" Value="#21252B" />
+                            <Setter Property="BorderThickness" Value="0" />
+                        </Style>
+                        <Style Selector="Menu > MenuItem">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="Height" Value="32" />
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="Padding" Value="8 0" />
+                        </Style>
+                        <Style Selector="MenuItem:selected /template/ Border#root">
+                            <Setter Property="Background" Value="#333842"/>
+                        </Style>
+                        <Style Selector="MenuItem /template/ ContentPresenter#PART_HeaderPresenter">
+                            <Setter Property="Margin" Value="0"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                        </Style>
+                        <Style Selector="Popup">
+                            <Setter Property="Margin" Value="0"/>
+                            <Setter Property="StaysOpen" Value="False"/>
+                        </Style>
+                         <Style Selector="PopupRoot">
+                            <Setter Property="Background" Value="#333842"/>
+                        </Style>
+                    </Panel.Styles>
                     <Grid RowDefinitions="32,*,auto">
                         <!--Header bar-->
                         <Grid Name="PART_HeaderBar" ColumnDefinitions="28,*,*" Margin="0">
