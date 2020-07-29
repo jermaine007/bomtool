@@ -19,6 +19,8 @@ namespace BomTool.NetCore.Framework
             Kernel = new StandardKernel(settings, new Moudle());
         }
 
+        public void Bind(Type type) => Kernel.Bind(type).ToSelf();
+
         public void Bind<TInterface, TImplementation>(bool isSingletone = false) where TImplementation : TInterface
         {
             //https://github.com/ninject/Ninject/issues/243
@@ -54,6 +56,8 @@ namespace BomTool.NetCore.Framework
         public T Get<T>() => Kernel.Get<T>();
 
         public IEnumerable<T> GetAll<T>() => Kernel.GetAll<T>();
+
+        public object Get(Type type) => Kernel.Get(type);
 
     }
 }

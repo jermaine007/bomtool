@@ -12,7 +12,6 @@ namespace BomTool.NetCore.Framework
 {
     public class LightWindowBase : Window, IContainerProvider, ILoggerProvider, IStyleable
     {
-
         public static readonly StyledProperty<IBitmap> LogoProperty =
             AvaloniaProperty.Register<LightWindowBase, IBitmap>(nameof(Logo));
 
@@ -50,7 +49,7 @@ namespace BomTool.NetCore.Framework
             this.logger = (this as ILoggerProvider).Logger;
             EnableDevelopTools();
         }
-        
+
         protected void OnPointerPressed(object sender, PointerPressedEventArgs e) => this.BeginMoveDrag(e);
 
         [Conditional("DEBUG")]

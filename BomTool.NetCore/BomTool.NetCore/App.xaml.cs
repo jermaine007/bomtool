@@ -10,7 +10,7 @@ using BomTool.NetCore.Views;
 
 namespace BomTool.NetCore
 {
-    [MainWindow(typeof(MainWindow))]
+    [MainEntry(typeof(MainWindow), typeof(MainWindowViewModel))]
     public class App : LightApplicationBase
     {
         public override void Initialize()
@@ -19,31 +19,31 @@ namespace BomTool.NetCore
             AvaloniaXamlLoader.Load(this);
         }
 
-        protected override void RegisterServices(Container container)
-        {
-            container.Bind<MainWindowViewModel>(true);
-        }
+        // protected override void RegisterServices(Container container)
+        // {
+        //     container.Bind<MainWindowViewModel>(true);
+        // }
 
-        public override void OnFrameworkInitializationCompleted()
-        {
-            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-            {
-                InitializeMainWindow(desktop);
-            }
+        // public override void OnFrameworkInitializationCompleted()
+        // {
+        //     if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        //     {
+        //         InitializeMainWindow(desktop);
+        //     }
 
-            base.OnFrameworkInitializationCompleted();
-        }
+        //     base.OnFrameworkInitializationCompleted();
+        // }
 
-        private void InitializeMainWindow(IClassicDesktopStyleApplicationLifetime desktop)
-        {
-            var mainWindowAttribute = this.GetType().GetCustomAttribute<MainWindowAttribute>();
-            if (mainWindowAttribute == null)
-            {
-                throw new InvalidOperationException("No main window has been registered");
-            }
-            var window = (Window)Activator.CreateInstance(mainWindowAttribute?.Type);
-            window.DataContext = (this as IContainerProvider).Container.Get<MainWindowViewModel>();
-            desktop.MainWindow = window;
-        }
+        // private void InitializeMainWindow(IClassicDesktopStyleApplicationLifetime desktop)
+        // {
+        //     var mainWindowAttribute = this.GetType().GetCustomAttribute<MainWindowAttribute>();
+        //     if (mainWindowAttribute == null)
+        //     {
+        //         throw new InvalidOperationException("No main window has been registered");
+        //     }
+        //     var window = (Window)Activator.CreateInstance(mainWindowAttribute?.Type);
+        //     window.DataContext = (this as IContainerProvider).Container.Get<MainWindowViewModel>();
+        //     desktop.MainWindow = window;
+        // }
     }
 }

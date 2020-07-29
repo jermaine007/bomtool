@@ -4,7 +4,7 @@ using System.Text;
 using BomTool.NetCore.Framework;
 using ReactiveUI;
 
-namespace BomTool.NetCore.ViewModels
+namespace BomTool.NetCore.Framework
 {
     public class ViewModelBase : ReactiveObject, IContainerProvider, ILoggerProvider
     {

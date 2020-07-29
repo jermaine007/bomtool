@@ -4,9 +4,10 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
+using BomTool.NetCore.Framework;
 using BomTool.NetCore.ViewModels;
 
-namespace BomTool.NetCore
+namespace BomTool.NetCore.Framework
 {
     public class ViewLocator : IDataTemplate
     {

@@ -1,4 +1,8 @@
+using System;
+using System.Reflection;
 using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 
 namespace BomTool.NetCore.Framework
@@ -7,10 +11,34 @@ namespace BomTool.NetCore.Framework
     {
         protected readonly ILogger logger;
 
-        protected LightApplicationBase()  => logger = (this as ILoggerProvider).Logger;
-        
+        protected LightApplicationBase() => logger = (this as ILoggerProvider).Logger;
+
         public override void Initialize() => RegisterServices((this as IContainerProvider).Container);
-        
+
         protected virtual void RegisterServices(Container container) { }
+
+
+        public override void OnFrameworkInitializationCompleted()
+        {
+            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                InitializeMainWindow(desktop);
+            }
+
+            base.OnFrameworkInitializationCompleted();
+        }
+
+        private void InitializeMainWindow(IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            var mainEntry = this.GetType().GetCustomAttribute<MainEntryAttribute>();
+            if (mainEntry == null)
+            {
+                throw new InvalidOperationException("No main window has been registered");
+            }
+            var container = (this as IContainerProvider).Container;
+            var window = (Window)container.Get(mainEntry.ViewType);
+            window.DataContext = container.Get(mainEntry.ViewModelType);
+            desktop.MainWindow = window;
+        }
     }
 }
