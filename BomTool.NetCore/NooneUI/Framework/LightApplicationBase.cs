@@ -11,6 +11,8 @@ namespace NooneUI.Framework
 {
     public abstract class LightApplicationBase : Application, IContainerProvider, ILoggerProvider
     {
+        public IClassicDesktopStyleApplicationLifetime Desktop => this.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop ? desktop : null;
+
         protected readonly ILogger logger;
 
         protected LightApplicationBase()
@@ -56,17 +58,7 @@ namespace NooneUI.Framework
             base.OnFrameworkInitializationCompleted();
         }
 
-        private void InitializeMainWindow(IClassicDesktopStyleApplicationLifetime desktop)
-        {
-            // var mainEntry = this.GetType().GetCustomAttribute<MainEntryAttribute>();
-            // if (mainEntry == null)
-            // {
-            //     throw new InvalidOperationException("No main window has been registered");
-            // }
-            //var container = (this as IContainerProvider).Container;
-            desktop.MainWindow = LookupMainEntry();
-
-        }
+        private void InitializeMainWindow(IClassicDesktopStyleApplicationLifetime desktop) => desktop.MainWindow = LookupMainEntry();
 
         protected abstract Window LookupMainEntry();
     }

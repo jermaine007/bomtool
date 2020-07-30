@@ -5,7 +5,7 @@ using NooneUI.Framework;
 
 namespace BomTool.NetCore.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel : WindowViewModelBase
     {
         public MenuViewModel MenuBar { get; }
 

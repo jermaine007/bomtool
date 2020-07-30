@@ -15,7 +15,7 @@ namespace NooneUI.Framework
             logger = (this as ILoggerProvider).Logger;
             container = (this as IContainerProvider).Container;
         }
-        
-        public IView View { get;set;}
+
+        public IView View { get; set; }
     }
 }
