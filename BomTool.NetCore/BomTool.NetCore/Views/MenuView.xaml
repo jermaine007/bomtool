@@ -5,8 +5,10 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" x:Class="BomTool.NetCore.Views.MenuView">
   <Panel>
     <Menu Name="MainMenu">
-      <MenuItem Header="File">
-        <MenuItem Header="Exit" Command="{Binding ExitCommand}" />
+      <MenuItem Header="_File">
+        <MenuItem Header="_Open" Command="{Binding ExitCommand}" />
+        <MenuItem Header="Generate _Bom" Command="{Binding ExitCommand}" />
+        <MenuItem Header="Generate _Pdf" Command="{Binding ExitCommand}" />
       </MenuItem>
       <MenuItem Header="Help">
         <MenuItem Header="About" Command="{Binding AboutCommand}" />
