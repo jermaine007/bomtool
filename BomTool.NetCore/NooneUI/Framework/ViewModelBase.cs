@@ -5,7 +5,7 @@ using ReactiveUI;
 
 namespace NooneUI.Framework
 {
-    public class ViewModelBase : ReactiveObject, IContainerProvider, ILoggerProvider
+    public class ViewModelBase : ReactiveObject, IContainerProvider, ILoggerProvider, IViewModel
     {
         protected readonly ILogger logger;
         protected readonly Container container;
@@ -15,5 +15,7 @@ namespace NooneUI.Framework
             logger = (this as ILoggerProvider).Logger;
             container = (this as IContainerProvider).Container;
         }
+        
+        public IView View { get;set;}
     }
 }

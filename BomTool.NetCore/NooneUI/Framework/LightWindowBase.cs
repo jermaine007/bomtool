@@ -12,7 +12,7 @@ using Avalonia.VisualTree;
 
 namespace NooneUI.Framework
 {
-    public class LightWindowBase : Window, IContainerProvider, ILoggerProvider, IStyleable
+    public abstract class LightWindowBase : Window, IContainerProvider, ILoggerProvider, IStyleable, IView
     {
         private Button minimizeButton;
         private Button maximizeButton;
@@ -56,6 +56,8 @@ namespace NooneUI.Framework
 
         Type IStyleable.StyleKey => typeof(LightWindowBase);
 
+        public virtual string Id => this.GetType().FullName;
+        
         protected readonly ILogger logger;
 
         protected LightWindowBase()
@@ -100,6 +102,22 @@ namespace NooneUI.Framework
             closeButton = buttons.FirstOrDefault(x => x.Name == "CloseButton");
             HandleSystemButtons();
 
+        }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            var type = Relationship.Current.Lookup(this.GetType());
+            if (type == null)
+            {
+                return;
+            }
+            IViewModel vm = (this as IContainerProvider).Container.Get(type) as IViewModel;
+            if (vm != null)
+            {
+                vm.View = this;
+                this.DataContext = vm;
+            }
         }
     }
 }

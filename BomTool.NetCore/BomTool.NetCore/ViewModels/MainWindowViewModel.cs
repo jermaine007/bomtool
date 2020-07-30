@@ -7,6 +7,11 @@ namespace BomTool.NetCore.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public string Greeting => "Hello World!";
+        public MenuViewModel MenuBar { get; }
+
+        public MainWindowViewModel()
+        {
+            this.MenuBar = container.Get<MenuViewModel>();
+        }
     }
 }

@@ -1,15 +1,15 @@
 using System;
+using System.Linq;
 using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Markup.Xaml;
 using Avalonia.Markup.Xaml.Styling;
 
 
 namespace NooneUI.Framework
 {
-    public class LightApplicationBase : Application, IContainerProvider, ILoggerProvider
+    public abstract class LightApplicationBase : Application, IContainerProvider, ILoggerProvider
     {
         protected readonly ILogger logger;
 
@@ -30,7 +30,19 @@ namespace NooneUI.Framework
             this.DataTemplates.Add(new ViewLocator());
         }
 
-        public override void Initialize() => RegisterServices((this as IContainerProvider).Container);
+        public override void Initialize()
+        {
+            // register view and view model
+            Container container = (this as IContainerProvider).Container;
+            var types = AppDomain.CurrentDomain.GetAssemblies()
+                .Where(assembly => !assembly.IsDynamic && assembly != typeof(LightApplicationBase).Assembly)
+                .SelectMany(assembly => assembly.GetExportedTypes())
+                .Where(type => typeof(IView).IsAssignableFrom(type) || typeof(IViewModel).IsAssignableFrom(type))
+                .ToList();
+            Relationship.Current.AddRegistration(types);
+            types.ForEach(type => container.Bind(type));
+            RegisterServices(container);
+        }
 
         protected virtual void RegisterServices(Container container) { }
 
@@ -46,15 +58,30 @@ namespace NooneUI.Framework
 
         private void InitializeMainWindow(IClassicDesktopStyleApplicationLifetime desktop)
         {
-            var mainEntry = this.GetType().GetCustomAttribute<MainEntryAttribute>();
-            if (mainEntry == null)
+            // var mainEntry = this.GetType().GetCustomAttribute<MainEntryAttribute>();
+            // if (mainEntry == null)
+            // {
+            //     throw new InvalidOperationException("No main window has been registered");
+            // }
+            //var container = (this as IContainerProvider).Container;
+            desktop.MainWindow = LookupMainEntry();
+
+        }
+
+        protected abstract Window LookupMainEntry();
+    }
+
+    public abstract class LightApplicationBase<TView> : LightApplicationBase
+        where TView : Window
+    {
+        protected override Window LookupMainEntry()
+        {
+            TView view = (this as IContainerProvider).Container.Get<TView>();
+            if (view == null)
             {
-                throw new InvalidOperationException("No main window has been registered");
+                throw new InvalidOperationException("MainWindow must implement IView");
             }
-            var container = (this as IContainerProvider).Container;
-            var window = (Window)container.Get(mainEntry.ViewType);
-            window.DataContext = container.Get(mainEntry.ViewModelType);
-            desktop.MainWindow = window;
+            return view;
         }
     }
 }

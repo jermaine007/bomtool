@@ -10,8 +10,7 @@ using NooneUI.Framework;
 
 namespace BomTool.NetCore
 {
-    [MainEntry(typeof(MainWindow), typeof(MainWindowViewModel))]
-    public class App : LightApplicationBase
+    public class App : LightApplicationBase<MainWindow>
     {
         public override void Initialize()
         {
