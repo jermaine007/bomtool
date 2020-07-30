@@ -33,7 +33,7 @@
         <Setter Property="Background" Value="Red"/>
     </Style>
     <Style Selector="TextBlock.systemButtonText">
-        <Setter Property="FontFamily" Value="avares://BomTool.NetCore/Assets/#iconfont" />
+        <Setter Property="FontFamily" Value="avares://NooneUI/Assets/#iconfont" />
     </Style>
     <Style Selector="fx|LightWindowBase">
         <Setter Property="Background" Value="#21252B" />
@@ -94,7 +94,7 @@
                                 </Button>
                                 <Button Name="RestoreButton" Classes="systemButton" Command="{x:Static fx:ApplicationCommands.RestoreWindow}" CommandParameter="{Binding $parent[fx:LightWindowBase]}">
                                     <Button.Content>
-                                        <TextBlock Classes="systemButtonText" Text="&#xe534;" />
+                                        <TextBlock Classes="systemButtonText" Text="&#xe694;" />
                                     </Button.Content>
                                 </Button>
                                 <Button Name="CloseButton" Classes="systemButton closeButton" Command="{x:Static fx:ApplicationCommands.CloseWindow}" CommandParameter="{Binding $parent[fx:LightWindowBase]}">
