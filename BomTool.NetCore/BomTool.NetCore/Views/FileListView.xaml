@@ -1,0 +1,43 @@
+<fx:LightUserControlBase
+    x:Class="BomTool.NetCore.Views.FileListView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fx="clr-namespace:NooneUI.Framework;assembly=NooneUI"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Background="{DynamicResource DarkBackgroundBrush2}"
+    mc:Ignorable="d" >
+    <StackPanel Orientation="Vertical">
+        <StackPanel.Styles>
+            <Style Selector="Border.h1">
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush1}" />
+            </Style>
+            <Style Selector="Border.h1 > TextBlock">
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Margin" Value="10 0" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+        </StackPanel.Styles>
+        <Border Classes="h1">
+            <TextBlock Classes="h1" Text="Recent Opened" />
+        </Border>
+        <ListBox Name="FileList" Items="{Binding Files}">
+            <!-- <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel> -->
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                   <Grid>
+                     <Border />
+                     <TextBlock Text="{Binding}" />
+                   </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </StackPanel>
+</fx:LightUserControlBase>

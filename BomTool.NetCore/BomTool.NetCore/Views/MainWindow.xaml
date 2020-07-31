@@ -1,18 +1,38 @@
-<fx:LightWindowBase xmlns="https://github.com/avaloniaui"
+<fx:LightWindowBase
+    x:Class="BomTool.NetCore.Views.MainWindow"
+    xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:vm="clr-namespace:BomTool.NetCore.ViewModels;assembly=BomTool.NetCore"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fx="clr-namespace:NooneUI.Framework;assembly=NooneUI"
     xmlns:local="clr-namespace:BomTool.NetCore.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:fx="clr-namespace:NooneUI.Framework;assembly=NooneUI" mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" x:Class="BomTool.NetCore.Views.MainWindow" Icon="/Assets/Icon.png" Logo="/Assets/Icon.png" Title="Bom Tool">
-    <!-- <Grid>
-    </Grid> -->
+    xmlns:vm="clr-namespace:BomTool.NetCore.ViewModels;assembly=BomTool.NetCore"
+    Title="Bom Tool"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Logo="/Assets/Icon.png"
+    MenuBar="{Binding MenuBar}"
+    mc:Ignorable="d">
     <Design.DataContext>
-        <vm:MainWindowViewModel/>
+        <vm:MainWindowViewModel />
     </Design.DataContext>
-    <fx:LightWindowBase.MenuBar>
-        <vm:MenuViewModel />
-    </fx:LightWindowBase.MenuBar>
-
+    <Grid Name="MainContent">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition
+                Width="200"
+                MinWidth="150"
+                MaxWidth="400" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <ContentControl
+            Grid.Column="0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            BorderBrush="{DynamicResource DarkBackgroundBrush1}"
+            BorderThickness="1"
+            Content="{Binding FileList}" />
+        <GridSplitter Grid.Column="1" Background="{DynamicResource DarkBackgroundBrush2}" />
+    </Grid>
     <!-- <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/> -->
 </fx:LightWindowBase>

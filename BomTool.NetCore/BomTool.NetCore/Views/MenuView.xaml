@@ -1,18 +1,24 @@
-<fx:LightUserControlBase xmlns="https://github.com/avaloniaui"
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-  xmlns:fx="clr-namespace:NooneUI.Framework;assembly=NooneUI"
-  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" x:Class="BomTool.NetCore.Views.MenuView">
-  <Panel>
-    <Menu Name="MainMenu">
-      <MenuItem Header="_File">
-        <MenuItem Classes="submenu" Header="_Open" Command="{Binding ExitCommand}" />
-        <MenuItem Classes="submenu" Header="Generate _Bom" Command="{Binding ExitCommand}" />
-        <MenuItem Classes="submenu" Header="Generate _Pdf" Command="{Binding ExitCommand}" />
-      </MenuItem>
-      <MenuItem Header="Help">
-        <MenuItem Classes="submenu" Header="About" Command="{Binding AboutCommand}" />
-      </MenuItem>
-    </Menu>
-  </Panel>
+<fx:LightUserControlBase
+    x:Class="BomTool.NetCore.Views.MenuView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fx="clr-namespace:NooneUI.Framework;assembly=NooneUI"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Panel>
+       
+        <Menu Name="MainMenu">
+            <MenuItem Header="_File">
+                <MenuItem Command="{Binding ExitCommand}" Header="_Open" />
+                <MenuItem Command="{Binding ExitCommand}" Header="Generate _Bom" />
+                <MenuItem Command="{Binding ExitCommand}" Header="Generate _Pdf" />
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Command="{Binding AboutCommand}" Header="About" />
+            </MenuItem>
+        </Menu>
+    </Panel>
 </fx:LightUserControlBase>

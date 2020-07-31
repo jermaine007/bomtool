@@ -8,10 +8,11 @@ namespace BomTool.NetCore.ViewModels
     public class MainWindowViewModel : WindowViewModelBase
     {
         public MenuViewModel MenuBar { get; }
-
+        public FileListViewModel FileList { get; }
         public MainWindowViewModel()
         {
             this.MenuBar = container.Get<MenuViewModel>();
+            this.FileList = container.Get<FileListViewModel>();
         }
     }
 }
