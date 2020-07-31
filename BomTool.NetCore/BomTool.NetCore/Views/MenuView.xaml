@@ -6,12 +6,12 @@
   <Panel>
     <Menu Name="MainMenu">
       <MenuItem Header="_File">
-        <MenuItem Header="_Open" Command="{Binding ExitCommand}" />
-        <MenuItem Header="Generate _Bom" Command="{Binding ExitCommand}" />
-        <MenuItem Header="Generate _Pdf" Command="{Binding ExitCommand}" />
+        <MenuItem Classes="submenu" Header="_Open" Command="{Binding ExitCommand}" />
+        <MenuItem Classes="submenu" Header="Generate _Bom" Command="{Binding ExitCommand}" />
+        <MenuItem Classes="submenu" Header="Generate _Pdf" Command="{Binding ExitCommand}" />
       </MenuItem>
       <MenuItem Header="Help">
-        <MenuItem Header="About" Command="{Binding AboutCommand}" />
+        <MenuItem Classes="submenu" Header="About" Command="{Binding AboutCommand}" />
       </MenuItem>
     </Menu>
   </Panel>

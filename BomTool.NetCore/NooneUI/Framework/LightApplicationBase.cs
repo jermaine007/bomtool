@@ -18,16 +18,9 @@ namespace NooneUI.Framework
         protected LightApplicationBase()
         {
             logger = (this as ILoggerProvider).Logger;
-            this.Styles.AddRange(new[] {
-                new StyleInclude(new Uri("avares://NooneUI/Styles")){
-                    Source = new Uri("avares://Avalonia.Themes.Default/DefaultTheme.xaml")
-                },
-                new StyleInclude(new Uri("avares://NooneUI/Styles")){
-                    Source = new Uri("avares://Avalonia.Themes.Default/Accents/BaseDark.xaml")
-                },
-                new StyleInclude(new Uri("avares://NooneUI/Styles")){
-                    Source = new Uri("avares://NooneUI/Framework/LightWindowBaseStyle.xaml")
-                }
+            this.Styles.Add(new StyleInclude(new Uri("avares://NooneUI/Styles"))
+            {
+                Source = new Uri("avares://NooneUI/Theme/LightStyles.xaml")
             });
             this.DataTemplates.Add(new ViewLocator());
         }

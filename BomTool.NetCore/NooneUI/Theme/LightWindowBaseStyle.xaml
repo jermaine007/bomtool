@@ -1,0 +1,100 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:fx="clr-namespace:NooneUI.Framework"
+    xmlns:sys="clr-namespace:System;assembly=netstandard">
+    <Style Selector="fx|LightWindowBase">
+        <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush2}" />
+        <Setter Property="Foreground" Value="{DynamicResource DarkForegroundBrush}" />
+        <Setter Property="FontSize" Value="{DynamicResource ContentControlFontSize}" />
+        <Setter Property="FontFamily" Value="Microsoft YaHei UI, Microsoft MHei, Verdana" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel Margin="0" Background="{DynamicResource DarkBackgroundBrush2}">
+                    <Grid RowDefinitions="32,*,auto">
+                        <!--  Header bar  -->
+                        <Grid
+                            Name="PART_HeaderBar"
+                            Margin="0"
+                            ColumnDefinitions="28,*,*">
+                            <!--  logo  -->
+                            <Image
+                                Width="18"
+                                Height="18"
+                                Margin="10,8"
+                                VerticalAlignment="Center"
+                                Source="{Binding $parent[fx:LightWindowBase].Logo}"
+                                Stretch="Uniform" />
+                            <!--  menu bar  -->
+                            <ContentControl
+                                Name="PART_MenuBar"
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Content="{TemplateBinding MenuBar}" />
+                            <!--  system button  -->
+                            <StackPanel
+                                Grid.Column="2"
+                                HorizontalAlignment="Right"
+                                Background="Transparent"
+                                Orientation="Horizontal">
+                                <Button
+                                    Name="MinimizeButton"
+                                    Classes="systemButton"
+                                    Command="{x:Static fx:ApplicationCommands.MinimizeWindow}"
+                                    CommandParameter="{Binding $parent[fx:LightWindowBase]}">
+                                    <Button.Content>
+                                        <TextBlock Classes="systemButtonText" Text="&#xe664;" />
+                                    </Button.Content>
+                                </Button>
+                                <Button
+                                    Name="MaximizeButton"
+                                    Classes="systemButton"
+                                    Command="{x:Static fx:ApplicationCommands.MaximizeWindow}"
+                                    CommandParameter="{Binding $parent[fx:LightWindowBase]}">
+                                    <Button.Content>
+                                        <TextBlock Classes="systemButtonText" Text="&#xe62b;" />
+                                    </Button.Content>
+                                </Button>
+                                <Button
+                                    Name="RestoreButton"
+                                    Classes="systemButton"
+                                    Command="{x:Static fx:ApplicationCommands.RestoreWindow}"
+                                    CommandParameter="{Binding $parent[fx:LightWindowBase]}">
+                                    <Button.Content>
+                                        <TextBlock Classes="systemButtonText" Text="&#xe694;" />
+                                    </Button.Content>
+                                </Button>
+                                <Button
+                                    Name="CloseButton"
+                                    Classes="systemButton closeButton"
+                                    Command="{x:Static fx:ApplicationCommands.CloseWindow}"
+                                    CommandParameter="{Binding $parent[fx:LightWindowBase]}">
+                                    <Button.Content>
+                                        <TextBlock Classes="systemButtonText" Text="&#xe607;" />
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+                            <!--  Title  -->
+                            <TextBlock
+                                Grid.ColumnSpan="3"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                Text="{TemplateBinding Title}" />
+                        </Grid>
+                        <!--  Content  -->
+                        <ContentPresenter
+                            Name="PART_ContentPresenter"
+                            Grid.Row="1"
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}" />
+                        <ContentControl Grid.Row="2" Content="{TemplateBinding StatusBar}" />
+                    </Grid>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

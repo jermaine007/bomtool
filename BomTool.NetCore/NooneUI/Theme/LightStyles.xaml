@@ -1,0 +1,12 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:fx="clr-namespace:NooneUI.Framework"
+    xmlns:sys="clr-namespace:System;assembly=netstandard">
+    <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml" />
+    <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseDark.xaml" />
+    <StyleInclude Source="avares://NooneUI/Theme/BaseStyles.xaml" />
+    <StyleInclude Source="avares://NooneUI/Theme/MenuStyles.xaml" />
+    <StyleInclude Source="avares://NooneUI/Theme/ButtonStyles.xaml" />
+    <StyleInclude Source="avares://NooneUI/Theme/LightWindowBaseStyle.xaml" />
+</Styles>

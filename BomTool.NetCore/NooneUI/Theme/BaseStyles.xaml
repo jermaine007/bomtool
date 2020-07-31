@@ -1,0 +1,14 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:fx="clr-namespace:NooneUI.Framework"
+    xmlns:sys="clr-namespace:System;assembly=netstandard">
+    <Styles.Resources>
+        <Color x:Key="DarkBackground1">#333842</Color>
+        <Color x:Key="DarkBackground2">#21252B</Color>
+        <Color x:Key="DarkForeground">#ABB2BF</Color>
+        <SolidColorBrush x:Key="DarkBackgroundBrush1" Color="{DynamicResource DarkBackground1}" />
+        <SolidColorBrush x:Key="DarkBackgroundBrush2" Color="{DynamicResource DarkBackground2}" />
+        <SolidColorBrush x:Key="DarkForegroundBrush" Color="{DynamicResource DarkForeground}" />
+    </Styles.Resources>
+</Styles>
