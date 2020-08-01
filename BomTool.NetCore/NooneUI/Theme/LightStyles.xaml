@@ -8,5 +8,6 @@
     <StyleInclude Source="avares://NooneUI/Theme/BaseStyles.xaml" />
     <StyleInclude Source="avares://NooneUI/Theme/MenuStyles.xaml" />
     <StyleInclude Source="avares://NooneUI/Theme/ButtonStyles.xaml" />
+    <StyleInclude Source="avares://NooneUI/Theme/ScrollBarStyles.xaml" />
     <StyleInclude Source="avares://NooneUI/Theme/LightWindowBaseStyle.xaml" />
 </Styles>

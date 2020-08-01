@@ -29,10 +29,10 @@
             Grid.Column="0"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
-            BorderBrush="{DynamicResource DarkBackgroundBrush1}"
+            BorderBrush="{DynamicResource DarkBackgroundBrush3}"
             BorderThickness="1"
             Content="{Binding FileList}" />
-        <GridSplitter Grid.Column="1" Background="{DynamicResource DarkBackgroundBrush2}" />
+        <GridSplitter Grid.Column="1" Background="{DynamicResource DarkBackgroundBrush3}" />
     </Grid>
     <!-- <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/> -->
 </fx:LightWindowBase>

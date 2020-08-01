@@ -5,12 +5,12 @@
 		}
 	],
 	"settings": {
-		"editor.fontFamily": "'Cascadia Code PL' ,Consolas, 'Courier New', monospace",
+		"editor.fontFamily": "'Cascadia Code PL' ,'Noto Mono','Droid Sans Mono', Consolas, 'Courier New', monospace",
 		"files.exclude": {
 			"**/bin": true,
 			"**/obj": true
 		},
 		"workbench.colorTheme": "Atom One Dark",
-		"editor.fontWeight": "500"
+		"editor.fontWeight": "700"
 	}
 }

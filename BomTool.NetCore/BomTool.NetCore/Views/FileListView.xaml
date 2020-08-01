@@ -1,5 +1,4 @@
-<fx:LightUserControlBase
-    x:Class="BomTool.NetCore.Views.FileListView"
+<fx:LightUserControlBase x:Class="BomTool.NetCore.Views.FileListView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,23 +7,68 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     Background="{DynamicResource DarkBackgroundBrush2}"
-    mc:Ignorable="d" >
+    mc:Ignorable="d">
     <StackPanel Orientation="Vertical">
         <StackPanel.Styles>
             <Style Selector="Border.h1">
-                <Setter Property="Height" Value="30"/>
-                <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush1}" />
+                <Setter Property="Height"
+                    Value="30"/>
+                <Setter Property="Background"
+                    Value="{DynamicResource DarkBackgroundBrush3}" />
             </Style>
             <Style Selector="Border.h1 > TextBlock">
-                <Setter Property="FontWeight" Value="Bold" />
-                <Setter Property="Margin" Value="10 0" />
-                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="FontWeight"
+                    Value="Bold" />
+                <Setter Property="Margin"
+                    Value="10 0" />
+                <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            </Style>
+            <Style Selector="ListBox#FileList">
+                <Setter Property="Padding"
+                    Value="0"/>
+                <Setter Property="Background"
+                    Value="{DynamicResource DarkBackgroundBrush2}"/>
+                <Setter Property="BorderBrush"
+                    Value="{x:Null}"/>
+                <Setter Property="BorderThickness"
+                    Value="0"/>
+            </Style>
+            <Style Selector="ListBoxItem">
+                <Setter Property="Padding"
+                    Value="0"/>
+            </Style>
+            <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+                <Setter Property="Background"
+                    Value="{DynamicResource DarkBackgroundBrush1}"/>
+            </Style>
+
+            <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+                <Setter Property="Background"
+                    Value="{DynamicResource DarkBackgroundBrush1}"/>
+            </Style>
+
+            <Style Selector="ListBoxItem:selected:focus /template/ ContentPresenter">
+                <Setter Property="Background"
+                    Value="{DynamicResource DarkBackgroundBrush1}"/>
+            </Style>
+
+            <Style Selector="ListBoxItem:selected:pointerover /template/ ContentPresenter">
+                <Setter Property="Background"
+                    Value="{DynamicResource DarkBackgroundBrush1}"/>
+            </Style>
+
+            <Style Selector="ListBoxItem:selected:focus:pointerover /template/ ContentPresenter">
+                <Setter Property="Background"
+                    Value="{DynamicResource DarkBackgroundBrush1}"/>
             </Style>
         </StackPanel.Styles>
         <Border Classes="h1">
-            <TextBlock Classes="h1" Text="Recent Opened" />
+            <TextBlock Classes="h1"
+                Text="Recent Opened" />
         </Border>
-        <ListBox Name="FileList" Items="{Binding Files}">
+        <ListBox Name="FileList"
+            Items="{Binding Files}">
             <!-- <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel />
@@ -32,10 +76,10 @@
             </ListBox.ItemsPanel> -->
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                   <Grid>
-                     <Border />
-                     <TextBlock Text="{Binding}" />
-                   </Grid>
+                    <Grid>
+                        <TextBlock Margin="5"
+                            Text="{Binding}" />
+                    </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
