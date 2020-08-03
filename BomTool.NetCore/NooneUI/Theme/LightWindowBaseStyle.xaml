@@ -7,7 +7,7 @@
         <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush2}" />
         <Setter Property="Foreground" Value="{DynamicResource DarkForegroundBrush}" />
         <Setter Property="FontSize" Value="{DynamicResource ContentControlFontSize}" />
-        <Setter Property="FontFamily" Value="Microsoft YaHei UI, Microsoft MHei, Verdana" />
+        <Setter Property="FontFamily" Value="Microsoft YaHei UI, Microsoft YaHei, Microsoft MHei, Verdana" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Panel Margin="0" Background="{DynamicResource DarkBackgroundBrush2}">
