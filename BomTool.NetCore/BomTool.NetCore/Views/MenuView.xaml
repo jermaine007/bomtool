@@ -12,27 +12,27 @@
         <Menu Name="MainMenu">
             <MenuItem Header="File">
                 <Button
+                    Width="105"
                     Classes="subItem"
                     Command="{Binding OpenFileCommand}"
-                    Content="Open"
-                    Width="105" />
+                    Content="Open" />
                 <Button
+                    Width="105"
                     Classes="subItem"
                     Command="{Binding ExitCommand}"
-                    Content="Generate Bom"
-                    Width="105" />
+                    Content="Generate Bom" />
                 <Button
+                    Width="105"
                     Classes="subItem"
                     Command="{Binding ExitCommand}"
-                    Content="Generate Pdf"
-                    Width="105" />
+                    Content="Generate Pdf" />
             </MenuItem>
             <MenuItem Header="Help">
-                 <Button
+                <Button
+                    Width="60"
                     Classes="subItem"
                     Command="{Binding ExitCommand}"
-                    Content="About"
-                    Width="60" />
+                    Content="About" />
             </MenuItem>
         </Menu>
     </Panel>

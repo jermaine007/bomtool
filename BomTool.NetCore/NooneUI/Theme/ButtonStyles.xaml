@@ -16,9 +16,9 @@
                 <Grid>
                     <Border
                         Name="PART_Border"
+                        Width="{TemplateBinding Width}"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Stretch"
-                        Width="{TemplateBinding Width}"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
