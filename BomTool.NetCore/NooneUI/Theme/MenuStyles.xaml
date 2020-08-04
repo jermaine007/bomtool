@@ -4,11 +4,13 @@
     xmlns:fx="clr-namespace:NooneUI.Framework"
     xmlns:sys="clr-namespace:System;assembly=netstandard">
     <Style Selector="PopupRoot">
+        <!--you should do this, otherwise DataContext is always null, DO NOT KNOW WHY-->
+        <Setter Property="DataContext" Value="{Binding $parent[fx:LightWindowBase].DataContext.MenuBar}" />
         <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush1}" />
         <Setter Property="Foreground" Value="{DynamicResource DarkForegroundBrush}" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Background="{TemplateBinding Background}">
+                <Border DataContext="{TemplateBinding DataContext}" Background="{TemplateBinding Background}">
                     <ContentPresenter
                         Name="PART_ContentPresenter"
                         Padding="{TemplateBinding Padding}"
@@ -65,6 +67,7 @@
                             Fill="{TemplateBinding Foreground}" />
                         <Popup
                             Name="PART_Popup"
+                            DataContext="{TemplateBinding DataContext}"
                             IsOpen="{TemplateBinding IsSubMenuOpen,
                                                      Mode=TwoWay}"
                             PlacementMode="Right"
@@ -112,18 +115,19 @@
                         </ContentPresenter>
                         <Popup
                             Name="PART_Popup"
+                            DataContext="{TemplateBinding DataContext}"
                             IsOpen="{TemplateBinding IsSubMenuOpen,
                                                      Mode=TwoWay}"
                             StaysOpen="True">
-                            <Border Background="Transparent">
-                                <ScrollViewer Classes="menuscroller">
+                            <Border Background="Transparent"  DataContext="{TemplateBinding DataContext}">
+                                
                                     <ItemsPresenter
                                         Name="PART_ItemsPresenter"
                                         Grid.IsSharedSizeScope="True"
                                         ItemTemplate="{TemplateBinding ItemTemplate}"
                                         Items="{TemplateBinding Items}"
                                         ItemsPanel="{TemplateBinding ItemsPanel}" />
-                                </ScrollViewer>
+                                
                             </Border>
                         </Popup>
                     </Panel>

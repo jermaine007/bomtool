@@ -11,7 +11,7 @@
     <Panel>
         <Menu Name="MainMenu">
             <MenuItem Header="_File">
-                <MenuItem Command="{Binding ExitCommand}" Header="_Open" />
+                <MenuItem Command="{Binding OpenFileCommand}" Header="_Open" />
                 <MenuItem Command="{Binding ExitCommand}" Header="Generate _Bom" />
                 <MenuItem Command="{Binding ExitCommand}" Header="Generate _Pdf" />
             </MenuItem>

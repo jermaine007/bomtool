@@ -11,12 +11,8 @@ namespace BomTool.NetCore.ViewModels
     {
         public ObservableCollection<string> Files { get; } = new ObservableCollection<string>();
 
-        public FileListViewModel()
-        {
-            Files = new ObservableCollection<string>(GenerateRandomItems());
-        }
+        public FileListViewModel() { }
 
-        private IEnumerable<string> GenerateRandomItems() => Enumerable.Range(0, 100).Select(_ => Path.GetRandomFileName());
-
+        public void AddFile(string file) => Files.Add(file);
     }
 }

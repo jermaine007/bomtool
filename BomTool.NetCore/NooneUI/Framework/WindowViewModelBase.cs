@@ -26,10 +26,23 @@ namespace NooneUI.Framework
         {
             if (this.View is Window window)
             {
-                Window owner = (Application.Current as LightApplicationBase).Desktop?.MainWindow;
+                Window owner = LightApplicationBase.MainWindow ?? window;
                 if (owner != window)
                 {
                     return window.ShowDialog(owner);
+                }
+            }
+            return null;
+        }
+
+        public Task<TResult> ShowDialog<TResult>()
+        {
+            if (this.View is Window window)
+            {
+                Window owner = LightApplicationBase.MainWindow ?? window;
+                if (owner != window)
+                {
+                    return window.ShowDialog<TResult>(owner);
                 }
             }
             return null;

@@ -9,5 +9,7 @@ namespace NooneUI.Framework
          void Show();
 
          Task ShowDialog();
+
+         Task<TResult> ShowDialog<TResult>();
     }
 }

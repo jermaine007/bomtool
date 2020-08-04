@@ -48,15 +48,13 @@
             <TextBlock Classes="h1" Text="Recent Opened" />
         </Border>
         <ListBox Name="FileList" Items="{Binding Files}">
-            <!-- <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel> -->
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <TextBlock Margin="5" Text="{Binding}" />
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock Margin="5" Text="{Binding}" ToolTip.Tip="{Binding}"/>
+                        <Button Classes="delete" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" >
+                             <TextBlock Text="x" HorizontalAlignment="Right"/>
+                        </Button>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

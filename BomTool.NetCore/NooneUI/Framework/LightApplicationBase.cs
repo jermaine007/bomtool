@@ -11,8 +11,7 @@ namespace NooneUI.Framework
 {
     public abstract class LightApplicationBase : Application, IContainerProvider, ILoggerProvider
     {
-        public IClassicDesktopStyleApplicationLifetime Desktop => this.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop ? desktop : null;
-
+        public static Window MainWindow => (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow;
         protected readonly ILogger logger;
 
         protected LightApplicationBase()
