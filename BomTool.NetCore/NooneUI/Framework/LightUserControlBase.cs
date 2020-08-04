@@ -16,12 +16,14 @@ namespace NooneUI.Framework
         {
             base.OnInitialized();
             // due to use ViewLocator, if DataContext is already be set, do not set again.
-            if (this.DataContext != null)
+
+            var type = Relationship.Current.Lookup(this.GetType());
+            if (type == null)
             {
                 return;
             }
-            var type = Relationship.Current.Lookup(this.GetType());
-            if (type == null)
+            if (this.DataContext != null
+                && type == this.DataContext.GetType())
             {
                 return;
             }

@@ -20,7 +20,5 @@ namespace NooneUI.Framework
         }
 
         public IView View { get; set; }
-
-        public ViewModelBase Parent { get; set; }
     }
 }

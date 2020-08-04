@@ -14,9 +14,6 @@ namespace BomTool.NetCore.ViewModels
         {
             this.MenuBar = container.Get<MenuViewModel>();
             this.FileList = container.Get<FileListViewModel>();
-
-            this.MenuBar.Parent = this;
-            this.FileList.Parent = this;
         }
     }
 }

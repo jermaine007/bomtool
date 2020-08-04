@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:fx="clr-namespace:NooneUI.Framework;assembly=NooneUI"
+    xmlns:local="clr-namespace:BomTool.NetCore.Views;assembly=BomTool.NetCore"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -15,16 +16,19 @@
                     Width="105"
                     Classes="subItem"
                     Command="{Binding OpenFileCommand}"
+                    CommandParameter = "{Binding $parent[local:MainWindow].DataContext}"
                     Content="Open" />
                 <Button
                     Width="105"
                     Classes="subItem"
                     Command="{Binding ExitCommand}"
+                    CommandParameter = "{Binding $parent[local:MainWindow].DataContext}"
                     Content="Generate Bom" />
                 <Button
                     Width="105"
                     Classes="subItem"
                     Command="{Binding ExitCommand}"
+                    CommandParameter = "{Binding $parent[local:MainWindow].DataContext}"
                     Content="Generate Pdf" />
             </MenuItem>
             <MenuItem Header="Help">
