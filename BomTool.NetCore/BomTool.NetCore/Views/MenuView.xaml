@@ -10,13 +10,29 @@
     mc:Ignorable="d">
     <Panel>
         <Menu Name="MainMenu">
-            <MenuItem Header="_File">
-                <MenuItem Command="{Binding OpenFileCommand}" Header="_Open" />
-                <MenuItem Command="{Binding ExitCommand}" Header="Generate _Bom" />
-                <MenuItem Command="{Binding ExitCommand}" Header="Generate _Pdf" />
+            <MenuItem Header="File">
+                <Button
+                    Classes="subItem"
+                    Command="{Binding OpenFileCommand}"
+                    Content="Open"
+                    Width="105" />
+                <Button
+                    Classes="subItem"
+                    Command="{Binding ExitCommand}"
+                    Content="Generate Bom"
+                    Width="105" />
+                <Button
+                    Classes="subItem"
+                    Command="{Binding ExitCommand}"
+                    Content="Generate Pdf"
+                    Width="105" />
             </MenuItem>
             <MenuItem Header="Help">
-                <MenuItem Command="{Binding AboutCommand}" Header="About" />
+                 <Button
+                    Classes="subItem"
+                    Command="{Binding ExitCommand}"
+                    Content="About"
+                    Width="60" />
             </MenuItem>
         </Menu>
     </Panel>

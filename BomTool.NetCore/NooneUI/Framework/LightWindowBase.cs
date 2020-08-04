@@ -70,7 +70,7 @@ namespace NooneUI.Framework
             EnableDevelopTools();
         }
 
-        protected void OnPointerPressed(object sender, PointerPressedEventArgs e) => this.BeginMoveDrag(e);
+        private void OnPointerPressed(object sender, PointerPressedEventArgs e) => this.BeginMoveDrag(e);
 
         [Conditional("DEBUG")]
         protected void EnableDevelopTools() => this.AttachDevTools();

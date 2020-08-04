@@ -3,6 +3,42 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:fx="clr-namespace:NooneUI.Framework"
     xmlns:sys="clr-namespace:System;assembly=netstandard">
+    <Style Selector="Button.subItem">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush1}" />
+        <Setter Property="Height" Value="28" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="10 5" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid>
+                    <Border
+                        Name="PART_Border"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Stretch"
+                        Width="{TemplateBinding Width}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter
+                            Name="PART_ContentPresenter"
+                            Margin="{TemplateBinding Margin}"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalAlignment}"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            TextBlock.Foreground="{TemplateBinding Foreground}" />
+                    </Border>
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    <Style Selector="Button.subItem:pointerover /template/ Border">
+        <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush4}" />
+    </Style>
     <Style Selector="Button.systemButton">
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -48,4 +84,6 @@
     <Style Selector="TextBlock.systemButtonText">
         <Setter Property="FontFamily" Value="avares://NooneUI/Assets/#iconfont" />
     </Style>
+
+
 </Styles>

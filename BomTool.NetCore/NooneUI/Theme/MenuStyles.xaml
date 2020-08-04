@@ -4,13 +4,11 @@
     xmlns:fx="clr-namespace:NooneUI.Framework"
     xmlns:sys="clr-namespace:System;assembly=netstandard">
     <Style Selector="PopupRoot">
-        <!--you should do this, otherwise DataContext is always null, DO NOT KNOW WHY-->
-        <Setter Property="DataContext" Value="{Binding $parent[fx:LightWindowBase].DataContext.MenuBar}" />
         <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush1}" />
         <Setter Property="Foreground" Value="{DynamicResource DarkForegroundBrush}" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border DataContext="{TemplateBinding DataContext}" Background="{TemplateBinding Background}">
+                <Border Background="{TemplateBinding Background}">
                     <ContentPresenter
                         Name="PART_ContentPresenter"
                         Padding="{TemplateBinding Padding}"
@@ -31,7 +29,7 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource DarkForegroundBrush}" />
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Padding" Value="20 5 5 5" />
+        <Setter Property="Padding" Value="0" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Border
@@ -43,7 +41,6 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" SharedSizeGroup="MenuItemIGT" />
-                            <ColumnDefinition Width="20" />
                         </Grid.ColumnDefinitions>
                         <ContentPresenter
                             Name="PART_ChildHeaderPresenter"
@@ -52,43 +49,34 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Content="{TemplateBinding Header}">
-                            <ContentPresenter.DataTemplates>
+                            <!-- <ContentPresenter.DataTemplates>
                                 <DataTemplate DataType="sys:String">
                                     <AccessText Text="{Binding}" />
                                 </DataTemplate>
-                            </ContentPresenter.DataTemplates>
+                            </ContentPresenter.DataTemplates>-->
                         </ContentPresenter>
-                        <Path
-                            Name="rightArrow"
-                            Grid.Column="2"
-                            Margin="10,0,0,0"
-                            VerticalAlignment="Center"
-                            Data="M0,0L4,3.5 0,7z"
-                            Fill="{TemplateBinding Foreground}" />
                         <Popup
                             Name="PART_Popup"
-                            DataContext="{TemplateBinding DataContext}"
                             IsOpen="{TemplateBinding IsSubMenuOpen,
                                                      Mode=TwoWay}"
                             PlacementMode="Right"
                             StaysOpen="True">
-                            <Border>
-                                <ScrollViewer>
-                                    <ItemsPresenter
-                                        Name="PART_ItemsPresenter"
-                                        Grid.IsSharedSizeScope="True"
-                                        ItemTemplate="{TemplateBinding ItemTemplate}"
-                                        Items="{TemplateBinding Items}"
-                                        ItemsPanel="{TemplateBinding ItemsPanel}" />
-                                </ScrollViewer>
-                            </Border>
+                            <StackPanel Orientation="Vertical">
+                                
+                                <ItemsPresenter
+                                    Name="PART_ItemsPresenter"
+                                    Grid.IsSharedSizeScope="True"
+                                    ItemTemplate="{TemplateBinding ItemTemplate}"
+                                    Items="{TemplateBinding Items}"
+                                    ItemsPanel="{TemplateBinding ItemsPanel}" />
+                            </StackPanel>
                         </Popup>
                     </Grid>
                 </Border>
             </ControlTemplate>
         </Setter>
     </Style>
-    <Style Selector="Menu > MenuItem">
+    <Style Selector="Menu &gt; MenuItem">
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Height" Value="32" />
@@ -107,45 +95,42 @@
                             Name="PART_HeaderPresenter"
                             Margin="{TemplateBinding Padding}"
                             Content="{TemplateBinding Header}">
-                            <ContentPresenter.DataTemplates>
+                            <!-- <ContentPresenter.DataTemplates>
                                 <DataTemplate DataType="sys:String">
                                     <AccessText Text="{Binding}" />
                                 </DataTemplate>
-                            </ContentPresenter.DataTemplates>
+                            </ContentPresenter.DataTemplates>-->
                         </ContentPresenter>
                         <Popup
                             Name="PART_Popup"
-                            DataContext="{TemplateBinding DataContext}"
                             IsOpen="{TemplateBinding IsSubMenuOpen,
                                                      Mode=TwoWay}"
                             StaysOpen="True">
-                            <Border Background="Transparent"  DataContext="{TemplateBinding DataContext}">
-                                
-                                    <ItemsPresenter
-                                        Name="PART_ItemsPresenter"
-                                        Grid.IsSharedSizeScope="True"
-                                        ItemTemplate="{TemplateBinding ItemTemplate}"
-                                        Items="{TemplateBinding Items}"
-                                        ItemsPanel="{TemplateBinding ItemsPanel}" />
-                                
-                            </Border>
+                            <StackPanel Orientation="Vertical">
+                                <ItemsPresenter
+                                    Name="PART_ItemsPresenter"
+                                    Grid.IsSharedSizeScope="True"
+                                    ItemTemplate="{TemplateBinding ItemTemplate}"
+                                    Items="{TemplateBinding Items}"
+                                    ItemsPanel="{TemplateBinding ItemsPanel}" />
+
+                            </StackPanel>
                         </Popup>
                     </Panel>
                 </Border>
             </ControlTemplate>
         </Setter>
     </Style>
-    <Style Selector="Menu > MenuItem:selected /template/ Border#root">
+    <Style Selector="Menu &gt; MenuItem:selected /template/ Border#root">
         <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush1}" />
     </Style>
-    <Style Selector="Menu > MenuItem /template/ ContentPresenter#PART_HeaderPresenter">
+    <Style Selector="Menu &gt; MenuItem /template/ ContentPresenter#PART_HeaderPresenter">
         <Setter Property="Margin" Value="0" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
     </Style>
     <Style Selector="Popup">
         <Setter Property="Margin" Value="0" />
-        <Setter Property="StaysOpen" Value="False" />
     </Style>
 
 
