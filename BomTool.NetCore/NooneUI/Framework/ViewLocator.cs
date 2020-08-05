@@ -7,31 +7,27 @@ using Avalonia.Controls.Templates;
 
 namespace NooneUI.Framework
 {
-    internal class ViewLocator : IDataTemplate, IContainerProvider
+    internal class ViewLocator : Locator, IDataTemplate
     {
         public bool SupportsRecycling => false;
 
         public IControl Build(object data)
         {
+            var view = Relationships.Current.GetView(data as IViewModel);
             var viewModeltype = data.GetType();
-            var viewType = Relationship.Current.Lookup(data.GetType());
-            if (viewType != null)
+
+            if (view is IControl control)
             {
-                var view = (this as IContainerProvider).Container.Get(viewType);
-                if (view is IControl control)
-                {
-                    //control.DataContext = data;
-                    (data as IViewModel).View = control as IView;
-                    return control;
-                }
+                return control;
             }
+
             var name = viewModeltype.FullName.Replace("ViewModel", "View");
             return new TextBlock { Text = "Not Found: " + name };
         }
 
         public bool Match(object data)
         {
-            return data is ViewModelBase;
+            return data is IViewModel;
         }
     }
 }

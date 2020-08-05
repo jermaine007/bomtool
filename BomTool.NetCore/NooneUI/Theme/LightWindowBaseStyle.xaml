@@ -10,7 +10,11 @@
         <Setter Property="FontFamily" Value="Microsoft YaHei UI, Microsoft YaHei, Microsoft MHei, Verdana" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Panel Margin="0" Background="{DynamicResource DarkBackgroundBrush2}">
+                <Border
+                    Margin="0"
+                    Background="{DynamicResource DarkBackgroundBrush2}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}">
                     <Grid RowDefinitions="32,*,auto">
                         <!--  Header bar  -->
                         <Grid
@@ -93,7 +97,7 @@
                             ContentTemplate="{TemplateBinding ContentTemplate}" />
                         <ContentControl Grid.Row="2" Content="{TemplateBinding StatusBar}" />
                     </Grid>
-                </Panel>
+                </Border>
             </ControlTemplate>
         </Setter>
     </Style>

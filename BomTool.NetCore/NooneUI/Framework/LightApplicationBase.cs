@@ -33,7 +33,7 @@ namespace NooneUI.Framework
                 .SelectMany(assembly => assembly.GetExportedTypes())
                 .Where(type => typeof(IView).IsAssignableFrom(type) || typeof(IViewModel).IsAssignableFrom(type))
                 .ToList();
-            Relationship.Current.AddRegistration(types);
+            Relationships.Current.AddRegistration(types);
             types.ForEach(type => container.Bind(type));
             RegisterServices(container);
         }
@@ -61,6 +61,7 @@ namespace NooneUI.Framework
         protected override Window LookupMainEntry()
         {
             TView view = (this as IContainerProvider).Container.Get<TView>();
+            //Locator.SetAutoWired(view as StyledElement, true);
             if (view == null)
             {
                 throw new InvalidOperationException("MainWindow must implement IView");

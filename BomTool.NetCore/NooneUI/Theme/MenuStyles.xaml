@@ -62,7 +62,7 @@
                             PlacementMode="Right"
                             StaysOpen="True">
                             <StackPanel Orientation="Vertical">
-                                
+
                                 <ItemsPresenter
                                     Name="PART_ItemsPresenter"
                                     Grid.IsSharedSizeScope="True"

@@ -7,7 +7,7 @@ namespace NooneUI.Framework
 {
     public class ViewModelBase : ReactiveObject, IContainerProvider, ILoggerProvider, IViewModel
     {
-
+        private IView view;
         public IDialogSerivce DialogService => container.Get<IDialogSerivce>();
 
         protected readonly ILogger logger;
@@ -19,6 +19,16 @@ namespace NooneUI.Framework
             container = (this as IContainerProvider).Container;
         }
 
-        public IView View { get; set; }
+        public IView View
+        {
+            get
+            {
+                return view ??= Relationships.Current.GetView(this);
+            }
+            set
+            {
+                view = value;
+            }
+        }
     }
 }

@@ -15,7 +15,6 @@ namespace BomTool.NetCore.ViewModels
             OpenFileCommand = ReactiveCommand.Create<MainWindowViewModel>(async(window)=>
             {
                 var files = await this.DialogService.OpenFileDialogAsync();
-
             });
 
             ShowAboutCommand = ReactiveCommand.Create<AboutWindowViewModel>(async(window)=>{

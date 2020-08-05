@@ -10,8 +10,14 @@
     Title="About"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    Width="600"
+    Height="450"
     Icon="/Assets/Icon.png"
     Logo="/Assets/Icon.png"
+    IsFixedPosition="True"
+    BorderThickness="1"
+    BorderBrush="{DynamicResource DarkBackgroundBrush1}"
+    WindowStartupLocation="CenterOwner"
     SystemButtons="{x:Static fx:SystemButtons.Close}"
     mc:Ignorable="d">
 

@@ -30,6 +30,10 @@ namespace NooneUI.Framework
 
         public static readonly StyledProperty<SystemButtons> SystemButtonsProperty =
              AvaloniaProperty.Register<LightWindowBase, SystemButtons>(nameof(SystemButtons), SystemButtons.All);
+
+
+        public static readonly StyledProperty<bool> IsFixedPositionProperty =
+             AvaloniaProperty.Register<LightWindowBase, bool>(nameof(IsFixedPosition), false);
         public IBitmap Logo
         {
             get { return GetValue(LogoProperty); }
@@ -54,23 +58,34 @@ namespace NooneUI.Framework
             set { SetValue(SystemButtonsProperty, value); }
         }
 
+        public bool IsFixedPosition
+        {
+            get { return GetValue(IsFixedPositionProperty); }
+            set { SetValue(IsFixedPositionProperty, value); }
+        }
+
         Type IStyleable.StyleKey => typeof(LightWindowBase);
 
         public virtual string Id => this.GetType().FullName;
-        
+
         protected readonly ILogger logger;
 
         protected LightWindowBase()
         {
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             this.HasSystemDecorations = false;
-            this.PointerPressed += OnPointerPressed;
             this.logger = (this as ILoggerProvider).Logger;
-            SystemButtonsProperty.Changed.AddClassHandler<LightWindowBase>((o, e) => this.HandleSystemButtons());
-            WindowStateProperty.Changed.AddClassHandler<LightWindowBase>((o, e) => this.HandleSystemButtons());
             EnableDevelopTools();
         }
 
-        private void OnPointerPressed(object sender, PointerPressedEventArgs e) => this.BeginMoveDrag(e);
+        protected override void OnPointerPressed(PointerPressedEventArgs e)
+        {
+            base.OnPointerPressed(e);
+            if (!this.IsFixedPosition)
+            {
+                this.BeginMoveDrag(e);
+            }
+        }
 
         [Conditional("DEBUG")]
         protected void EnableDevelopTools() => this.AttachDevTools();
@@ -100,24 +115,9 @@ namespace NooneUI.Framework
             maximizeButton = buttons.FirstOrDefault(x => x.Name == "MaximizeButton");
             restoreButton = buttons.FirstOrDefault(x => x.Name == "RestoreButton");
             closeButton = buttons.FirstOrDefault(x => x.Name == "CloseButton");
+            SystemButtonsProperty.Changed.AddClassHandler<LightWindowBase>((o, e) => this.HandleSystemButtons());
+            WindowStateProperty.Changed.AddClassHandler<LightWindowBase>((o, e) => this.HandleSystemButtons());
             HandleSystemButtons();
-
-        }
-
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-            var type = Relationship.Current.Lookup(this.GetType());
-            if (type == null)
-            {
-                return;
-            }
-            IViewModel vm = (this as IContainerProvider).Container.Get(type) as IViewModel;
-            if (vm != null)
-            {
-                vm.View = this;
-                this.DataContext = vm;
-            }
         }
     }
 }

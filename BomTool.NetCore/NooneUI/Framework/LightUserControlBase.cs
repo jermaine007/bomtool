@@ -11,28 +11,5 @@ namespace NooneUI.Framework
         protected readonly ILogger logger;
 
         protected LightUserControlBase() => logger = (this as ILoggerProvider).Logger;
-
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-            // due to use ViewLocator, if DataContext is already be set, do not set again.
-
-            var type = Relationship.Current.Lookup(this.GetType());
-            if (type == null)
-            {
-                return;
-            }
-            if (this.DataContext != null
-                && type == this.DataContext.GetType())
-            {
-                return;
-            }
-            IViewModel vm = (this as IContainerProvider).Container.Get(type) as IViewModel;
-            if (vm != null)
-            {
-                vm.View = this;
-                this.DataContext = vm;
-            }
-        }
     }
 }
