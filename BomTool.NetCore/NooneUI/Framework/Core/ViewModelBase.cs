@@ -5,19 +5,22 @@ using ReactiveUI;
 
 namespace NooneUI.Framework
 {
-    public class ViewModelBase : ReactiveObject, IContainerProvider, ILoggerProvider, IViewModel
+    public class ViewModelBase : ReactiveObject, ILoggerProvider, IContainerProvider, IViewModel
     {
-        public IDialogSerivce DialogService => container.Get<IDialogSerivce>();
+        public IDialogSerivce DialogService { get; }
 
-        protected readonly ILogger logger;
-        protected readonly LightContainer container;
+        public ILogger Logger { get; }
+        
+        public IContainer Container { get; }
+
+        public IView View => Container.Get<IMvvmRelationships>().GetView(this);
 
         protected ViewModelBase()
         {
-            logger = ((ILoggerProvider)this).Logger.Configure(this);
-            container = ((IContainerProvider)this).Container;
+            Container = ((IContainerProvider)this).Container;
+            Logger = ((ILoggerProvider)this).Logger.Configure(this);
+            DialogService = Container.Get<IDialogSerivce>();
         }
-
-        public IView View => container.Get<MvvmRelationships>().GetView(this);
+      
     }
 }

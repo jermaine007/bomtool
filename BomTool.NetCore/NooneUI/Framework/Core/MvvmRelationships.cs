@@ -5,22 +5,23 @@ using System.Linq;
 
 namespace NooneUI.Framework
 {
-    internal class MvvmRelationships : IContainerProvider, ILoggerProvider
+    internal class MvvmRelationships : ILoggerProvider, IContainerProvider, IMvvmRelationships
     {
 
         private readonly Dictionary<Type, Type> map;
-        private readonly LightContainer container;
-        private readonly ILogger logger;
+        public IContainer Container { get; }
+        public ILogger Logger { get; }
+
         public MvvmRelationships()
         {
             map = new Dictionary<Type, Type>();
-            container = ((IContainerProvider)this).Container;
-            logger = ((ILoggerProvider)this).Logger.Configure(this);
+            Container = ((IContainerProvider)this).Container;
+            Logger = ((ILoggerProvider)this).Logger.Configure(this);
         }
 
         public void Register()
         {
-            logger.Debug($"Registering all view and viewmodel types from {AppDomain.CurrentDomain.BaseDirectory}");
+            Logger.Debug($"Registering all view and viewmodel types from {AppDomain.CurrentDomain.BaseDirectory}");
             var types = AppDomain.CurrentDomain.GetAssemblies()
                .Where(assembly => !assembly.IsDynamic && assembly != typeof(LightApplicationBase).Assembly)
                .SelectMany(assembly => assembly.GetExportedTypes())
@@ -29,36 +30,15 @@ namespace NooneUI.Framework
 
             types.ToList().ForEach(type =>
             {
-                logger.Debug($"Register type -> {type}");
-                container.Bind(type);
+                Logger.Debug($"Register type -> {type}");
+                Container.Bind(type);
             });
             AddRegistration(types);
         }
 
-        private void AddRegistration(IEnumerable<Type> types)
-        {
-            var viewTypes = types.Where(type => typeof(IView).IsAssignableFrom(type)).ToList();
-            var viewModelTypes = types.Where(type => typeof(IViewModel).IsAssignableFrom(type)).ToList();
-            viewTypes.ForEach(viewType =>
-            {
-                var viewModelName = viewType.Name.EndsWith("View") ? viewType.Name + "Model" : viewType.Name + "ViewModel";
-                var viewModelType = viewModelTypes.FirstOrDefault(type => type.Name == viewModelName);
-                if (viewModelType != null)
-                {
-                    logger.Debug($"Add mvvm relationship: [{viewType} , {viewModelType}]");
-                    map.Add(viewType, viewModelType);
-                }
-                else
-                {
-                    logger.Debug($"Could not found viewmodel type for {viewType}");
-                }
-            });
-
-        }
-
         public Type Lookup(Type inputType)
         {
-            logger.Debug($"Lookup mvvm relationship for {inputType}");
+            Logger.Debug($"Lookup mvvm relationship for {inputType}");
             if (typeof(IView).IsAssignableFrom(inputType))
             {
                 return map.FirstOrDefault(e => e.Key == inputType).Value;
@@ -72,9 +52,9 @@ namespace NooneUI.Framework
 
         public IView GetView(IViewModel viewModel)
         {
-            
+
             var viewModelType = viewModel.GetType();
-            logger.Debug($"Try to get view for {viewModelType}");
+            Logger.Debug($"Try to get view for {viewModelType}");
             Type viewType = Lookup(viewModelType);
 
             if (viewType == null)
@@ -85,7 +65,7 @@ namespace NooneUI.Framework
             var view = ((IContainerProvider)this).Container.Get(viewType) as IView;
             if (view != null)
             {
-                logger.Debug($"Found view: {view}");
+                Logger.Debug($"Found view: {view}");
                 view.DataContext = viewModel;
             }
             return view;
@@ -94,7 +74,7 @@ namespace NooneUI.Framework
         public IViewModel GetViewModel(IView view)
         {
             var viewType = view.GetType();
-            logger.Debug($"Try to get view for {viewType}");
+            Logger.Debug($"Try to get view for {viewType}");
             Type viewModelType = Lookup(viewType);
             if (viewModelType == null)
             {
@@ -103,10 +83,31 @@ namespace NooneUI.Framework
             var viewModel = ((IContainerProvider)this).Container.Get(viewModelType) as IViewModel;
             if (viewModel != null)
             {
-                logger.Debug($"Found viewmodel: {view}");
+                Logger.Debug($"Found viewmodel: {view}");
                 view.DataContext = viewModel;
             }
             return viewModel;
+        }
+
+        private void AddRegistration(IEnumerable<Type> types)
+        {
+            var viewTypes = types.Where(type => typeof(IView).IsAssignableFrom(type)).ToList();
+            var viewModelTypes = types.Where(type => typeof(IViewModel).IsAssignableFrom(type)).ToList();
+            viewTypes.ForEach(viewType =>
+            {
+                var viewModelName = viewType.Name.EndsWith("View") ? viewType.Name + "Model" : viewType.Name + "ViewModel";
+                var viewModelType = viewModelTypes.FirstOrDefault(type => type.Name == viewModelName);
+                if (viewModelType != null)
+                {
+                    Logger.Debug($"Add mvvm relationship: [{viewType} , {viewModelType}]");
+                    map.Add(viewType, viewModelType);
+                }
+                else
+                {
+                    Logger.Debug($"Could not found viewmodel type for {viewType}");
+                }
+            });
+
         }
     }
 }

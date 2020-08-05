@@ -6,9 +6,9 @@ namespace NooneUI.Framework
 {
     public class WindowViewModelBase : ViewModelBase, IWindowViewModel
     {
-        private ViewPresenter presenter;
+        private IViewPresenter presenter;
 
-        public ViewPresenter Presenter => presenter ??= container.Get<ViewPresenter>();
+        public IViewPresenter Presenter => presenter ??= Container.Get<IViewPresenter>();
 
         public void Close() => Presenter.Close(this);
 

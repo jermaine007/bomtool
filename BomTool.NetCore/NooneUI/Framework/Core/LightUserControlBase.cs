@@ -3,16 +3,16 @@ using Avalonia.Markup.Xaml;
 
 namespace NooneUI.Framework
 {
-    public abstract class LightUserControlBase : UserControl, IContainerProvider, ILoggerProvider, IView
+    public abstract class LightUserControlBase : UserControl, ILoggerProvider, IContainerProvider, IView
     {
-        protected readonly ILogger logger;
-        protected readonly LightContainer container;
+        public ILogger Logger { get; }
+        public IContainer Container { get; }
 
         protected LightUserControlBase()
         {
-            logger = ((ILoggerProvider)this).Logger.Configure(this);
-            container = ((IContainerProvider)this).Container;
-            logger.Debug($"View -> {((IView)this).Id} has been created.");
+            Logger = ((ILoggerProvider)this).Logger.Configure(this);
+            Container = ((IContainerProvider)this).Container;
+            Logger.Debug($"View -> {((IView)this).Id} has been created.");
         }
     }
 }

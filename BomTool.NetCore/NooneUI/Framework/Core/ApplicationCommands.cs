@@ -1,15 +1,33 @@
-using System.Reactive;
-using Avalonia;
 using Avalonia.Controls;
 using ReactiveUI;
+using System.Reactive;
 
 namespace NooneUI.Framework
 {
+
+    /// <summary>
+    /// Class provides system menu functions like close, maximize, minimize etc.
+    /// </summary>
     public class ApplicationCommands
     {
+        /// <summary>
+        /// Close window command
+        /// </summary>
         public static ReactiveCommand<LightWindowBase, Unit> CloseWindow { get; private set; }
+
+        /// <summary>
+        /// Restore window command
+        /// </summary>
         public static ReactiveCommand<LightWindowBase, Unit> RestoreWindow { get; private set; }
+
+        /// <summary>
+        /// Maximize window command
+        /// </summary>
         public static ReactiveCommand<LightWindowBase, Unit> MaximizeWindow { get; private set; }
+
+        /// <summary>
+        /// Minimize window command
+        /// </summary>
         public static ReactiveCommand<LightWindowBase, Unit> MinimizeWindow { get; private set; }
 
         static ApplicationCommands()

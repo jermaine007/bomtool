@@ -1,18 +1,27 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Ninject;
 using Ninject.Planning.Bindings;
 using Ninject.Syntax;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NooneUI.Framework
 {
-    public class LightContainer
+    /// <summary>
+    /// Simple IoC container based on Ninject. Singleton.
+    /// </summary>
+    public class LightContainer : IContainer
     {
-        public static readonly LightContainer Current;
+        /// <summary>
+        /// Single instance
+        /// </summary>
+        public static readonly LightContainer Instance;
 
-        static LightContainer() => Current = new LightContainer();
+        static LightContainer() => Instance = new LightContainer();
 
+        /// <summary>
+        /// Core container used for register sevices
+        /// </summary>
         public IKernel Kernel { get; private set; }
 
         private LightContainer()
@@ -21,19 +30,29 @@ namespace NooneUI.Framework
             Kernel = new StandardKernel(settings, new LightMoudle());
         }
 
-        public void Bind(Type type, bool singleton = false)
+        /// <summary>
+        /// Register a type
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="singleton"></param>
+        public void Bind(Type service, bool singleton)
         {
-            IEnumerable<IBinding> bindings = Kernel.GetBindings(type);
-
-            IBindingWhenInNamedWithOrOnSyntax<object> binding = bindings.Count() == 0 ? Kernel.Bind(type).ToSelf() : Kernel.Rebind(type).ToSelf();
 
             if (singleton)
             {
+                IEnumerable<IBinding> bindings = Kernel.GetBindings(service);
+
+                IBindingWhenInNamedWithOrOnSyntax<object> binding = bindings.Count() == 0 ? Kernel.Bind(service).ToSelf() : Kernel.Rebind(service).ToSelf();
+
                 binding.InSingletonScope();
+            }
+            else
+            {
+                Kernel.Bind(service).ToSelf();
             }
         }
 
-        public void Bind<TInterface, TImplementation>(bool singleton = false) where TImplementation : TInterface
+        public void Bind<TInterface, TImplementation>(bool singleton) where TImplementation : TInterface
         {
             //https://github.com/ninject/Ninject/issues/243
             if (singleton)
@@ -46,24 +65,28 @@ namespace NooneUI.Framework
             }
         }
 
-        public void Bind<TService>(bool singleton = false)
+        public void Bind<TService>(bool singleton)
         {
-            IEnumerable<IBinding> bindings = Kernel.GetBindings(typeof(TService));
-
-            IBindingWhenInNamedWithOrOnSyntax<TService> binding = bindings.Count() == 0 ? Kernel.Bind<TService>().ToSelf() : Kernel.Rebind<TService>().ToSelf();
-
             if (singleton)
             {
+                IEnumerable<IBinding> bindings = Kernel.GetBindings(typeof(TService));
+
+                IBindingWhenInNamedWithOrOnSyntax<TService> binding = bindings.Count() == 0 ? Kernel.Bind<TService>().ToSelf() : Kernel.Rebind<TService>().ToSelf();
+
                 binding.InSingletonScope();
+            }
+            else
+            {
+                Kernel.Bind<TService>().ToSelf();
             }
         }
 
-        public void BindToConstant<TService>(TService serviceInstance)
+        public void BindConstant<TService>(TService serviceInstance)
         {
             Kernel.Bind<TService>().ToConstant(serviceInstance);
         }
 
-        public void BindToMethod<TDelegate>(Func<TDelegate> factory) => Kernel.Bind<TDelegate>().ToMethod(context => factory());
+        public void BindMethod<TDelegate>(Func<TDelegate> factory) => Kernel.Bind<TDelegate>().ToMethod(context => factory());
 
         public TService Get<TService>() => Kernel.Get<TService>();
 

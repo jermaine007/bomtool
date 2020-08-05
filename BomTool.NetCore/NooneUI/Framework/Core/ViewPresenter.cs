@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NooneUI.Framework
 {
-    public class ViewPresenter
+    internal class ViewPresenter : IViewPresenter
     {
         public void Close(IWindowViewModel vm)
         {

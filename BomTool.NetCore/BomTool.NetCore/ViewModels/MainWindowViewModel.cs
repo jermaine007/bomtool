@@ -15,9 +15,9 @@ namespace BomTool.NetCore.ViewModels
 
         public MainWindowViewModel()
         {
-            this.MenuBar = container.Get<MenuViewModel>();
-            this.FileList = container.Get<FileListViewModel>();
-            this.AboutWindow = container.Get<AboutWindowViewModel>();
+            this.MenuBar = Container.Get<MenuViewModel>();
+            this.FileList = Container.Get<FileListViewModel>();
+            this.AboutWindow = Container.Get<AboutWindowViewModel>();
         }
     }
 }
