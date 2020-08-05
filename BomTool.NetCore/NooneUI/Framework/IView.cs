@@ -2,20 +2,8 @@ using Avalonia;
 
 namespace NooneUI.Framework
 {
-    public interface IView
+    public interface IView : IDataContextProvider
     {
-        string Id { get; }
-
-        object DataContext
-        {
-            get => (this as StyledElement)?.DataContext;
-            set
-            {
-                if (this is StyledElement element)
-                {
-                    element.DataContext = value;
-                }
-            }
-        }
+        string Id => this.GetType().FullName;
     }
 }

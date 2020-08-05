@@ -4,6 +4,8 @@ namespace NooneUI.Framework
 {
     public interface ILogger
     {
+        void Initialize(object o);
+
         void Info(string message, params object[] args);
 
         void Debug(string message, params object[] args);
@@ -18,6 +20,6 @@ namespace NooneUI.Framework
 
         void Fatal(string message, Exception ex, params object[] args);
 
-        bool EnableLogging { get; set; }
+        void EnableLogging(bool enable);
     }
 }

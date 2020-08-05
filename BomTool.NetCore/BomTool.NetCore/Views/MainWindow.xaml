@@ -10,7 +10,6 @@
     Title="Bom Tool"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    fx:Locator.AutoWired="True"
     Icon="/Assets/Icon.png"
     Logo="/Assets/Icon.png"
     MenuBar="{Binding MenuBar}"

@@ -2,6 +2,6 @@ namespace NooneUI.Framework
 {
     public interface ILoggerProvider
     {
-        ILogger Logger => Container.Current.Get<ILogger>();
+        ILogger Logger => LightContainer.Current.Get<ILogger>();
     }
 }

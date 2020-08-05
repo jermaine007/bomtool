@@ -1,30 +1,32 @@
+﻿using Avalonia.Controls;
+using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
-using Avalonia;
-using Avalonia.Controls;
 
 namespace NooneUI.Framework
 {
-    public class WindowViewModelBase : ViewModelBase, IWindowViewModel
+    public class ViewPresenter
     {
-        public void Close()
+        public void Close(IWindowViewModel vm)
         {
-            if (this.View is Window window)
+            if (vm.View is Window window)
             {
                 window.Close();
             }
         }
 
-        public void Show()
+        public void Show(IWindowViewModel vm)
         {
-            if (this.View is Window window)
+            if (vm.View is Window window)
             {
                 window.Show();
             }
         }
 
-        public Task ShowDialog()
+        public Task ShowDialog(IWindowViewModel vm)
         {
-            if (this.View is Window window)
+            if (vm.View is Window window)
             {
                 Window owner = LightApplicationBase.MainWindow ?? window;
                 if (owner != window)
@@ -35,9 +37,9 @@ namespace NooneUI.Framework
             return null;
         }
 
-        public Task<TResult> ShowDialog<TResult>()
+        public Task<TResult> ShowDialog<TResult>(IWindowViewModel vm)
         {
-            if (this.View is Window window)
+            if (vm.View is Window window)
             {
                 Window owner = LightApplicationBase.MainWindow ?? window;
                 if (owner != window)

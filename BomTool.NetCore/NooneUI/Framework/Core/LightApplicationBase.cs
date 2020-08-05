@@ -11,34 +11,35 @@ namespace NooneUI.Framework
 {
     public abstract class LightApplicationBase : Application, IContainerProvider, ILoggerProvider
     {
-        public static Window MainWindow => (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow;
+        public static Window MainWindow => (Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow;
+
         protected readonly ILogger logger;
+        protected readonly LightContainer container;
 
         protected LightApplicationBase()
         {
-            logger = (this as ILoggerProvider).Logger;
+            logger = ((ILoggerProvider)this).Logger.Configure(this);
+            container = ((IContainerProvider)this).Container;
+
             this.Styles.Add(new StyleInclude(new Uri("avares://NooneUI/Styles"))
             {
                 Source = new Uri("avares://NooneUI/Theme/LightStyles.xaml")
             });
-            this.DataTemplates.Add(new ViewLocator());
+            this.DataTemplates.Add(container.Get<ViewLocator>());
+            logger.Debug("Application has been created.");
         }
 
         public override void Initialize()
         {
             // register view and view model
-            Container container = (this as IContainerProvider).Container;
-            var types = AppDomain.CurrentDomain.GetAssemblies()
-                .Where(assembly => !assembly.IsDynamic && assembly != typeof(LightApplicationBase).Assembly)
-                .SelectMany(assembly => assembly.GetExportedTypes())
-                .Where(type => typeof(IView).IsAssignableFrom(type) || typeof(IViewModel).IsAssignableFrom(type))
-                .ToList();
-            Relationships.Current.AddRegistration(types);
-            types.ForEach(type => container.Bind(type));
+            container.Get<MvvmRelationships>().Register();
             RegisterServices(container);
+            Setup();
         }
 
-        protected virtual void RegisterServices(Container container) { }
+        protected virtual void RegisterServices(LightContainer container) => logger.Debug("Register services.");
+
+        protected virtual void Setup() => logger.Debug("Setup Application.");
 
         public override void OnFrameworkInitializationCompleted()
         {
@@ -56,16 +57,17 @@ namespace NooneUI.Framework
     }
 
     public abstract class LightApplicationBase<TView> : LightApplicationBase
-        where TView : Window
+        where TView : LightWindowBase
     {
         protected override Window LookupMainEntry()
         {
-            TView view = (this as IContainerProvider).Container.Get<TView>();
-            //Locator.SetAutoWired(view as StyledElement, true);
+            TView view = container.Get<TView>();
             if (view == null)
             {
                 throw new InvalidOperationException("MainWindow must implement IView");
             }
+            logger.Debug($"Main entry window is {typeof(TView)}, set datacontext auto wired.");
+            view.SetValue(Locator.AutoWiredProperty, true);
             return view;
         }
     }

@@ -17,8 +17,7 @@ namespace NooneUI.Framework
             CloseWindow = ReactiveCommand.Create<LightWindowBase>(window => window.Close());
             RestoreWindow = ReactiveCommand.Create<LightWindowBase>(window => window.WindowState = WindowState.Normal);
             MaximizeWindow = ReactiveCommand.Create<LightWindowBase>(window => window.WindowState = WindowState.Maximized);
-            MinimizeWindow = ReactiveCommand.Create<LightWindowBase>(window => window.WindowState = WindowState.Minimized);
-            
+            MinimizeWindow = ReactiveCommand.Create<LightWindowBase>(window => window.WindowState = WindowState.Minimized); 
         }
     }
 }

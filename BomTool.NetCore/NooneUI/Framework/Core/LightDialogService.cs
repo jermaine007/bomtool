@@ -6,7 +6,7 @@ using Avalonia.Controls;
 
 namespace NooneUI.Framework
 {
-    public class LightDialogService : IDialogSerivce
+    internal class LightDialogService : IDialogSerivce
     {
         public async Task<string[]> OpenFileDialogAsync(string title, string filters, bool allowMultiple = false)
         {
@@ -18,7 +18,6 @@ namespace NooneUI.Framework
             };
             return await dialog.ShowAsync(LightApplicationBase.MainWindow);
         }
-
 
         public async Task<string> OpenFolderDialogAsync(string title, string initDirectory)
         {

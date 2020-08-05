@@ -12,13 +12,14 @@ namespace BomTool.NetCore.ViewModels
         public ReactiveCommand<AboutWindowViewModel, Unit> ShowAboutCommand { get; }
         public MenuViewModel()
         {
-            OpenFileCommand = ReactiveCommand.Create<MainWindowViewModel>(async(window)=>
+            OpenFileCommand = ReactiveCommand.Create<MainWindowViewModel>(async (window) =>
             {
                 var files = await this.DialogService.OpenFileDialogAsync();
             });
 
-            ShowAboutCommand = ReactiveCommand.Create<AboutWindowViewModel>(async(window)=>{
-                await window.ShowDialog();
+            ShowAboutCommand = ReactiveCommand.Create<AboutWindowViewModel>(async (window) =>
+            {
+                await window?.ShowDialog();
             });
         }
     }

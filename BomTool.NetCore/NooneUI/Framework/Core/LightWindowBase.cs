@@ -18,6 +18,9 @@ namespace NooneUI.Framework
         private Button maximizeButton;
         private Button restoreButton;
         private Button closeButton;
+        protected readonly ILogger logger;
+        protected readonly LightContainer container;
+
 
         public static readonly StyledProperty<IBitmap> LogoProperty =
             AvaloniaProperty.Register<LightWindowBase, IBitmap>(nameof(Logo));
@@ -66,16 +69,15 @@ namespace NooneUI.Framework
 
         Type IStyleable.StyleKey => typeof(LightWindowBase);
 
-        public virtual string Id => this.GetType().FullName;
-
-        protected readonly ILogger logger;
-
         protected LightWindowBase()
         {
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             this.HasSystemDecorations = false;
-            this.logger = (this as ILoggerProvider).Logger;
+            logger = ((ILoggerProvider)this).Logger.Configure(this);
+            container = ((IContainerProvider)this).Container;
             EnableDevelopTools();
+
+            logger.Debug($"View -> {((IView)this).Id} has been created.");
         }
 
         protected override void OnPointerPressed(PointerPressedEventArgs e)
@@ -92,6 +94,7 @@ namespace NooneUI.Framework
 
         private void HandleSystemButtons()
         {
+            logger.Debug("Enter handle system button visibility");
             minimizeButton.IsVisible = this.SystemButtons != SystemButtons.None
                 && this.SystemButtons.HasFlag(SystemButtons.Minimize);
 
