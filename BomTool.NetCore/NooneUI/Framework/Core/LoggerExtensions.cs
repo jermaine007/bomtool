@@ -1,4 +1,4 @@
-﻿using NLog.Fluent;
+using NLog.Fluent;
 using System;
 using System.Collections.Generic;
 using System.Text;

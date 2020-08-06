@@ -11,7 +11,10 @@ namespace NooneUI.Framework
     /// </summary>
     public abstract class LightApplicationBase : Application, IBaseServiceProvider
     {
+        // Base uri use to load styles
         private static readonly string BASE_URI = "avares://NooneUI/Styles";
+
+        // self-defined styles
         private static readonly string STYLES_URI = "avares://NooneUI/Theme/LightStyles.xaml";
 
         /// <summary>
@@ -34,11 +37,15 @@ namespace NooneUI.Framework
             container = ((IBaseServiceProvider)this).Container;
             logger = ((IBaseServiceProvider)this).Logger;
 
+            // load styles
             this.Styles.Add(new StyleInclude(new Uri(BASE_URI))
             {
                 Source = new Uri(STYLES_URI)
             });
+
+            // add view locator
             this.DataTemplates.Add(container.Get<ViewLocator>());
+            
             logger.Debug("Application has been created.");
         }
 
@@ -46,8 +53,10 @@ namespace NooneUI.Framework
         {
             // register view and view model
             container.Get<IMvvmRelationships>().Register();
+            
             // register services which are used by application
             RegisterServices(container);
+            
             // Setup other settings.
             Setup();
         }

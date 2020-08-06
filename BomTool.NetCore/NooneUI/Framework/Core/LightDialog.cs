@@ -6,39 +6,54 @@ using Avalonia.Controls;
 
 namespace NooneUI.Framework
 {
+    /// <summary>
+    /// Default dialog service, provides open file, open folder and save file features.
+    /// </summary>
     internal class LightDialog : IDialog
     {
+        /// <summary>
+        /// Open file dialog
+        /// </summary>
+        /// <param name="title">title</param>
+        /// <param name="filters">filters</param>
+        /// <param name="allowMultiple">allow multiple selection</param>
+        /// <returns></returns>
         public async Task<string[]> OpenFileDialogAsync(string title, string filters, bool allowMultiple = false)
-        {
-            var dialog = new OpenFileDialog
-            {
-                Title = title,
-                Filters = GetFilters(filters),
-                AllowMultiple = allowMultiple
-            };
-            return await dialog.ShowAsync(LightApplicationBase.MainWindow);
-        }
+             => await new OpenFileDialog
+             {
+                 Title = title,
+                 Filters = GetFilters(filters),
+                 AllowMultiple = allowMultiple
+             }.ShowAsync(LightApplicationBase.MainWindow);
 
+        /// <summary>
+        /// Open folder dialog
+        /// </summary>
+        /// <param name="title">Title</param>
+        /// <param name="initDirectory">default directory at start up</param>
+        /// <returns></returns>
         public async Task<string> OpenFolderDialogAsync(string title, string initDirectory)
-        {
-            var dialog = new OpenFolderDialog
+            => await new OpenFolderDialog
             {
                 Title = title,
                 Directory = initDirectory
-            };
-            return await dialog.ShowAsync(LightApplicationBase.MainWindow);
-        }
+            }.ShowAsync(LightApplicationBase.MainWindow);
 
+
+        /// <summary>
+        /// Show s
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="initialFileName"></param>
+        /// <param name="filters"></param>
+        /// <returns></returns>
         public async Task<string> SaveFileDialogAsync(string title, string initialFileName, string filters)
-        {
-            var dialog = new SaveFileDialog
+            => await new SaveFileDialog
             {
                 Title = title,
                 InitialFileName = initialFileName,
                 Filters = GetFilters(filters)
-            };
-            return await dialog.ShowAsync(LightApplicationBase.MainWindow);
-        }
+            }.ShowAsync(LightApplicationBase.MainWindow);
 
         private List<FileDialogFilter> GetFilters(string filters)
         {

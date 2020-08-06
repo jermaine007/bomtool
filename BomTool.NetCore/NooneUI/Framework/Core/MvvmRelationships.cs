@@ -7,7 +7,6 @@ namespace NooneUI.Framework
 {
     internal class MvvmRelationships : IBaseServiceProvider, IMvvmRelationships
     {
-
         private readonly Dictionary<Type, Type> map;
 
         protected readonly IContainer container;
@@ -29,7 +28,7 @@ namespace NooneUI.Framework
                .Where(type => typeof(IView).IsAssignableFrom(type) || typeof(IViewModel).IsAssignableFrom(type))
                .ToList();
 
-            types.ToList().ForEach(type =>
+            types.ForEach(type =>
             {
                 logger.Debug($"Register type -> {type}");
                 container.Bind(type);

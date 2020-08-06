@@ -21,5 +21,4 @@
     SystemButtons="{x:Static fx:SystemButtons.Close}"
     mc:Ignorable="d">
 
-
 </fx:LightWindowBase>

@@ -8,7 +8,7 @@ using System.Linq;
 namespace NooneUI.Framework
 {
     /// <summary>
-    /// Simple IoC container based on Ninject. Singleton.
+    /// Simple IoC container based on Ninject. Singleton instace
     /// </summary>
     internal class LightContainer : IContainer
     {

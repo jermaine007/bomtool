@@ -7,7 +7,6 @@ namespace BomTool.NetCore.ViewModels
 {
     public class MenuViewModel : ViewModelBase
     {
-
         public ReactiveCommand<MainWindowViewModel, Unit> OpenFileCommand { get; }
         public ReactiveCommand<AboutWindowViewModel, Unit> ShowAboutCommand { get; }
         public MenuViewModel()
