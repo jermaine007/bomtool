@@ -10,7 +10,7 @@ namespace NooneUI.Framework
     /// <summary>
     /// Simple IoC container based on Ninject. Singleton.
     /// </summary>
-    public class LightContainer : IContainer
+    internal class LightContainer : IContainer
     {
         /// <summary>
         /// Single instance

@@ -8,7 +8,7 @@ namespace NooneUI.Framework
         public override void Load()
         {
             Bind<LightLogger, ILogger>().To<LightLogger>();
-            Bind<LightDialogService, IDialogSerivce>().To<LightDialogService>().InSingletonScope();
+            Bind<LightDialog, IDialog>().To<LightDialog>().InSingletonScope();
             Bind<ViewPresenter, IViewPresenter>().To<ViewPresenter>().InSingletonScope();
             Bind<MvvmRelationships, IMvvmRelationships>().To<MvvmRelationships>().InSingletonScope();
 

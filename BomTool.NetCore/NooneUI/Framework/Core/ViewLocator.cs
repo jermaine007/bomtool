@@ -10,8 +10,8 @@ namespace NooneUI.Framework
 
         public IControl Build(object data)
         {
-            Logger.Debug($"ViewLocator locating view for {data}");
-            var view = Container.Get<IMvvmRelationships>().GetView(data as IViewModel);
+            logger.Debug($"ViewLocator locating view for {data}");
+            var view = container.Get<IMvvmRelationships>().GetView(data as IViewModel);
             var viewModeltype = data.GetType();
 
             if (view is IControl control)

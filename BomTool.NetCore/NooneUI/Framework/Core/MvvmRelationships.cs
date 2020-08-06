@@ -5,23 +5,24 @@ using System.Linq;
 
 namespace NooneUI.Framework
 {
-    internal class MvvmRelationships : ILoggerProvider, IContainerProvider, IMvvmRelationships
+    internal class MvvmRelationships : IBaseServiceProvider, IMvvmRelationships
     {
 
         private readonly Dictionary<Type, Type> map;
-        public IContainer Container { get; }
-        public ILogger Logger { get; }
+
+        protected readonly IContainer container;
+        protected readonly ILogger logger;
 
         public MvvmRelationships()
         {
             map = new Dictionary<Type, Type>();
-            Container = ((IContainerProvider)this).Container;
-            Logger = ((ILoggerProvider)this).Logger.Configure(this);
+            container = ((IBaseServiceProvider)this).Container;
+            logger = ((IBaseServiceProvider)this).Logger;
         }
 
         public void Register()
         {
-            Logger.Debug($"Registering all view and viewmodel types from {AppDomain.CurrentDomain.BaseDirectory}");
+            logger.Debug($"Registering all view and viewmodel types from {AppDomain.CurrentDomain.BaseDirectory}");
             var types = AppDomain.CurrentDomain.GetAssemblies()
                .Where(assembly => !assembly.IsDynamic && assembly != typeof(LightApplicationBase).Assembly)
                .SelectMany(assembly => assembly.GetExportedTypes())
@@ -30,15 +31,15 @@ namespace NooneUI.Framework
 
             types.ToList().ForEach(type =>
             {
-                Logger.Debug($"Register type -> {type}");
-                Container.Bind(type);
+                logger.Debug($"Register type -> {type}");
+                container.Bind(type);
             });
             AddRegistration(types);
         }
 
         public Type Lookup(Type inputType)
         {
-            Logger.Debug($"Lookup mvvm relationship for {inputType}");
+            logger.Debug($"Lookup mvvm relationship for {inputType}");
             if (typeof(IView).IsAssignableFrom(inputType))
             {
                 return map.FirstOrDefault(e => e.Key == inputType).Value;
@@ -54,7 +55,7 @@ namespace NooneUI.Framework
         {
 
             var viewModelType = viewModel.GetType();
-            Logger.Debug($"Try to get view for {viewModelType}");
+            logger.Debug($"Try to get view for {viewModelType}");
             Type viewType = Lookup(viewModelType);
 
             if (viewType == null)
@@ -62,10 +63,10 @@ namespace NooneUI.Framework
                 return null;
             }
 
-            var view = ((IContainerProvider)this).Container.Get(viewType) as IView;
+            var view = container.Get(viewType) as IView;
             if (view != null)
             {
-                Logger.Debug($"Found view: {view}");
+                logger.Debug($"Found view: {view}");
                 view.DataContext = viewModel;
             }
             return view;
@@ -74,16 +75,16 @@ namespace NooneUI.Framework
         public IViewModel GetViewModel(IView view)
         {
             var viewType = view.GetType();
-            Logger.Debug($"Try to get view for {viewType}");
+            logger.Debug($"Try to get view for {viewType}");
             Type viewModelType = Lookup(viewType);
             if (viewModelType == null)
             {
                 return null;
             }
-            var viewModel = ((IContainerProvider)this).Container.Get(viewModelType) as IViewModel;
+            var viewModel = container.Get(viewModelType) as IViewModel;
             if (viewModel != null)
             {
-                Logger.Debug($"Found viewmodel: {view}");
+                logger.Debug($"Found viewmodel: {view}");
                 view.DataContext = viewModel;
             }
             return viewModel;
@@ -99,12 +100,12 @@ namespace NooneUI.Framework
                 var viewModelType = viewModelTypes.FirstOrDefault(type => type.Name == viewModelName);
                 if (viewModelType != null)
                 {
-                    Logger.Debug($"Add mvvm relationship: [{viewType} , {viewModelType}]");
+                    logger.Debug($"Add mvvm relationship: [{viewType} , {viewModelType}]");
                     map.Add(viewType, viewModelType);
                 }
                 else
                 {
-                    Logger.Debug($"Could not found viewmodel type for {viewType}");
+                    logger.Debug($"Could not found viewmodel type for {viewType}");
                 }
             });
 

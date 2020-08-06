@@ -6,7 +6,7 @@ using Avalonia.Controls;
 
 namespace NooneUI.Framework
 {
-    internal class LightDialogService : IDialogSerivce
+    internal class LightDialog : IDialog
     {
         public async Task<string[]> OpenFileDialogAsync(string title, string filters, bool allowMultiple = false)
         {

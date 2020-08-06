@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace NooneUI.Framework
 {
-    public interface IDialogSerivce
+    public interface IDialog
     {
         Task<string[]> OpenFileDialogAsync(string title = null,
                                 string filters = null,

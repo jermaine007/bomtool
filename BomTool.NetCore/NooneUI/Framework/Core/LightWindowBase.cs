@@ -12,7 +12,7 @@ using Avalonia.VisualTree;
 
 namespace NooneUI.Framework
 {
-    public abstract class LightWindowBase : Window, ILoggerProvider, IContainerProvider, IStyleable, IView
+    public abstract class LightWindowBase : Window, IBaseServiceProvider, IStyleable, IView
     {
         private const string DEBUG = "DEBUG";
 
@@ -20,6 +20,9 @@ namespace NooneUI.Framework
         private Button maximizeButton;
         private Button restoreButton;
         private Button closeButton;
+
+        protected readonly ILogger logger;
+        protected readonly IContainer container;
 
         public static readonly StyledProperty<IBitmap> LogoProperty =
             AvaloniaProperty.Register<LightWindowBase, IBitmap>(nameof(Logo));
@@ -36,9 +39,6 @@ namespace NooneUI.Framework
 
         public static readonly StyledProperty<bool> IsFixedPositionProperty =
              AvaloniaProperty.Register<LightWindowBase, bool>(nameof(IsFixedPosition), false);
-
-        public ILogger Logger { get; }
-        public IContainer Container { get; }
 
         public IBitmap Logo
         {
@@ -74,13 +74,15 @@ namespace NooneUI.Framework
 
         protected LightWindowBase()
         {
+            logger = ((IBaseServiceProvider)this).Logger;
+            container = ((IBaseServiceProvider)this).Container;
+
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             this.HasSystemDecorations = false;
-            Logger = ((ILoggerProvider)this).Logger.Configure(this);
-            Container = ((IContainerProvider)this).Container;
+
             EnableDevelopTools();
 
-            Logger.Debug($"View -> {((IView)this).Id} has been created.");
+            logger.Debug($"View -> {((IView)this).Id} has been created.");
         }
 
         protected override void OnPointerPressed(PointerPressedEventArgs e)
@@ -97,7 +99,7 @@ namespace NooneUI.Framework
 
         private void HandleSystemButtons()
         {
-            Logger.Debug("Enter handle system button visibility");
+            logger.Debug("Enter handle system button visibility");
             minimizeButton.IsVisible = this.SystemButtons != SystemButtons.None
                 && this.SystemButtons.HasFlag(SystemButtons.Minimize);
 

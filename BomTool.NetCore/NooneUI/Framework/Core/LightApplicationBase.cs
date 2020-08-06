@@ -9,8 +9,11 @@ namespace NooneUI.Framework
     /// <summary>
     /// Base class for Application, providers logger and IoC container
     /// </summary>
-    public abstract class LightApplicationBase : Application, ILoggerProvider, IContainerProvider
+    public abstract class LightApplicationBase : Application, IBaseServiceProvider
     {
+        private static readonly string BASE_URI = "avares://NooneUI/Styles";
+        private static readonly string STYLES_URI = "avares://NooneUI/Theme/LightStyles.xaml";
+
         /// <summary>
         /// MainWindow
         /// </summary>
@@ -19,32 +22,32 @@ namespace NooneUI.Framework
         /// <summary>
         /// Logger
         /// </summary>
-        public ILogger Logger { get; } 
+        protected readonly ILogger logger;
 
         /// <summary>
         /// Ioc Container 
         /// </summary>
-        public IContainer Container { get; }
+        protected readonly IContainer container;
 
         protected LightApplicationBase()
         {
-            Container = ContainerLocator.Current;
-            Logger = Container.Get<ILogger>().Configure(this);
+            container = ((IBaseServiceProvider)this).Container;
+            logger = ((IBaseServiceProvider)this).Logger;
 
-            this.Styles.Add(new StyleInclude(new Uri("avares://NooneUI/Styles"))
+            this.Styles.Add(new StyleInclude(new Uri(BASE_URI))
             {
-                Source = new Uri("avares://NooneUI/Theme/LightStyles.xaml")
+                Source = new Uri(STYLES_URI)
             });
-            this.DataTemplates.Add(Container.Get<ViewLocator>());
-            Logger.Debug("Application has been created.");
+            this.DataTemplates.Add(container.Get<ViewLocator>());
+            logger.Debug("Application has been created.");
         }
 
         public override void Initialize()
         {
             // register view and view model
-            Container.Get<IMvvmRelationships>().Register();
+            container.Get<IMvvmRelationships>().Register();
             // register services which are used by application
-            RegisterServices(Container);
+            RegisterServices(container);
             // Setup other settings.
             Setup();
         }
@@ -53,12 +56,12 @@ namespace NooneUI.Framework
         /// Register other services which are used by application
         /// </summary>
         /// <param name="container"></param>
-        protected virtual void RegisterServices(IContainer container) => Logger.Debug("Register services.");
+        protected virtual void RegisterServices(IContainer container) => logger.Debug("Register services.");
 
         /// <summary>
         /// Setup other settings for applicaiton.
         /// </summary>
-        protected virtual void Setup() => Logger.Debug("Setup Application.");
+        protected virtual void Setup() => logger.Debug("Setup Application.");
 
         public override void OnFrameworkInitializationCompleted()
         {
@@ -92,12 +95,12 @@ namespace NooneUI.Framework
     {
         protected override Window LookupMainEntry()
         {
-            TView view = Container.Get<TView>();
+            TView view = container.Get<TView>();
             if (view == null)
             {
                 throw new InvalidOperationException("MainWindow must implement IView");
             }
-            Logger.Debug($"Main entry window is {typeof(TView)}, set datacontext auto wired.");
+            logger.Debug($"Main entry window is {typeof(TView)}, set datacontext auto wired.");
 
             // set AutoWired true, so that auto bind a related view model.
             view.SetValue(Locator.AutoWiredProperty, true);

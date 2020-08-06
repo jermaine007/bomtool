@@ -8,7 +8,7 @@ namespace NooneUI.Framework
     {
         private IViewPresenter presenter;
 
-        public IViewPresenter Presenter => presenter ??= Container.Get<IViewPresenter>();
+        public IViewPresenter Presenter => presenter ??= container.Get<IViewPresenter>();
 
         public void Close() => Presenter.Close(this);
 
