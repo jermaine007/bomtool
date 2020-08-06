@@ -2,6 +2,9 @@ using System.Threading.Tasks;
 
 namespace NooneUI.Framework
 {
+    /// <summary>
+    /// View presenter
+    /// </summary>
     public interface IViewPresenter
     {
         void Close(IWindowViewModel vm);

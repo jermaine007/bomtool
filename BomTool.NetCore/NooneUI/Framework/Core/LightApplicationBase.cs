@@ -28,7 +28,7 @@ namespace NooneUI.Framework
         protected readonly ILogger logger;
 
         /// <summary>
-        /// Ioc Container 
+        /// Ioc Container
         /// </summary>
         protected readonly IContainer container;
 
@@ -45,7 +45,7 @@ namespace NooneUI.Framework
 
             // add view locator
             this.DataTemplates.Add(container.Get<ViewLocator>());
-            
+
             logger.Debug("Application has been created.");
         }
 
@@ -53,10 +53,10 @@ namespace NooneUI.Framework
         {
             // register view and view model
             container.Get<IMvvmRelationships>().Register();
-            
+
             // register services which are used by application
             RegisterServices(container);
-            
+
             // Setup other settings.
             Setup();
         }

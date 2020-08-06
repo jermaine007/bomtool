@@ -4,26 +4,29 @@ using Avalonia.Controls.Templates;
 
 namespace NooneUI.Framework
 {
+    /// <summary>
+    ///
+    /// </summary>
     public abstract class Locator : IBaseServiceProvider
     {
 
         public static readonly AttachedProperty<bool> AutoWiredProperty =
-            AvaloniaProperty.RegisterAttached<Locator, StyledElement, bool>("AutoWired", false);
+            AvaloniaProperty.RegisterAttached<Locator, AvaloniaObject, bool>("AutoWired", false);
 
         protected readonly IContainer container;
 
         protected readonly ILogger logger;
 
-        public static bool GetAutoWired(StyledElement element) => element.GetValue(AutoWiredProperty);
+        public static bool GetAutoWired(AvaloniaObject element) => element.GetValue(AutoWiredProperty);
 
-        public static void SetAutoWired(StyledElement element, bool value) => element.SetValue(AutoWiredProperty, value);
+        public static void SetAutoWired(AvaloniaObject element, bool value) => element.SetValue(AutoWiredProperty, value);
 
         protected Locator()
         {
             logger = ((IBaseServiceProvider)this).Logger;
             container = ((IBaseServiceProvider)this).Container;
 
-            AutoWiredProperty.Changed.AddClassHandler<StyledElement>((o, e) =>
+            AutoWiredProperty.Changed.AddClassHandler<AvaloniaObject>((o, e) =>
             {
                 if ((bool)e.NewValue)
                 {

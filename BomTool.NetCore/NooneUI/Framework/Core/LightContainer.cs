@@ -52,6 +52,13 @@ namespace NooneUI.Framework
             }
         }
 
+        /// <summary>
+        /// Register a type which is implement a specified interface
+        /// </summary>
+        /// <param name="singleton">is singleton</param>
+        /// <typeparam name="TInterface">interface type</typeparam>
+        /// <typeparam name="TImplementation">implementation type</typeparam>
+        /// <returns></returns>
         public void Bind<TInterface, TImplementation>(bool singleton) where TImplementation : TInterface
         {
             //https://github.com/ninject/Ninject/issues/243
@@ -65,6 +72,11 @@ namespace NooneUI.Framework
             }
         }
 
+        /// <summary>
+        ///  Register a type
+        /// </summary>
+        /// <param name="singleton">is singleton</param>
+        /// <typeparam name="TService">Service type which need to be registered</typeparam>
         public void Bind<TService>(bool singleton)
         {
             if (singleton)
@@ -81,19 +93,46 @@ namespace NooneUI.Framework
             }
         }
 
-        public void BindConstant<TService>(TService serviceInstance)
-        {
-            Kernel.Bind<TService>().ToConstant(serviceInstance);
-        }
+        /// <summary>
+        /// Register a type instance
+        /// </summary>
+        /// <param name="serviceInstance"></param>
+        /// <typeparam name="TService"></typeparam>
+        public void BindConstant<TService>(TService serviceInstance) => Kernel.Bind<TService>().ToConstant(serviceInstance);
 
+        /// <summary>
+        /// Register a delegate instance
+        /// </summary>
+        /// <param name="factory"></param>
+        /// <typeparam name="TDelegate"></typeparam>
         public void BindMethod<TDelegate>(Func<TDelegate> factory) => Kernel.Bind<TDelegate>().ToMethod(context => factory());
 
+        /// <summary>
+        /// Get a specified service instance
+        /// </summary>
+        /// <typeparam name="TService"></typeparam>
+        /// <returns></returns>
         public TService Get<TService>() => Kernel.Get<TService>();
 
+        /// <summary>
+        /// Get the registered spcified type's all instances
+        /// </summary>
+        /// <typeparam name="TService"></typeparam>
+        /// <returns></returns>
         public IEnumerable<TService> GetAll<TService>() => Kernel.GetAll<TService>();
 
+        /// <summary>
+        /// Get a specified service instance
+        /// </summary>
+        /// <typeparam name="TService"></typeparam>
+        /// <returns></returns>
         public object Get(Type service) => Kernel.Get(service);
 
+        /// <summary>
+        /// Get a specified service instance
+        /// </summary>
+        /// <typeparam name="TService"></typeparam>
+        /// <returns></returns>
         public IEnumerable<object> GetAll(Type service) => Kernel.GetAll(service);
 
     }

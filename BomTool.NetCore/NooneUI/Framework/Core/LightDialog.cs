@@ -41,7 +41,7 @@ namespace NooneUI.Framework
 
 
         /// <summary>
-        /// Show s
+        /// Save file dialog
         /// </summary>
         /// <param name="title"></param>
         /// <param name="initialFileName"></param>
@@ -55,6 +55,12 @@ namespace NooneUI.Framework
                 Filters = GetFilters(filters)
             }.ShowAsync(LightApplicationBase.MainWindow);
 
+
+        /// <summary>
+        /// Get filters
+        /// </summary>
+        /// <param name="filters"></param>
+        /// <returns></returns>
         private List<FileDialogFilter> GetFilters(string filters)
         {
             if (string.IsNullOrEmpty(filters))
