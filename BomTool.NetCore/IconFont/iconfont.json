@@ -13,6 +13,13 @@
       "unicode_decimal": 58897
     },
     {
+      "icon_id": "579539",
+      "name": "cross",
+      "font_class": "cross",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
       "icon_id": "941658",
       "name": "最大化",
       "font_class": "zuidahua1",
@@ -41,6 +48,13 @@
       "unicode_decimal": 59800
     },
     {
+      "icon_id": "8447740",
+      "name": "Informational",
+      "font_class": "fill",
+      "unicode": "e724",
+      "unicode_decimal": 59172
+    },
+    {
       "icon_id": "9235790",
       "name": "BOM",
       "font_class": "BOM",
@@ -51,8 +65,8 @@
       "icon_id": "9673157",
       "name": "关  闭",
       "font_class": "guanbi",
-      "unicode": "e607",
-      "unicode_decimal": 58887
+      "unicode": "e608",
+      "unicode_decimal": 58888
     },
     {
       "icon_id": "10944986",
@@ -74,6 +88,13 @@
       "font_class": "excel",
       "unicode": "e665",
       "unicode_decimal": 58981
+    },
+    {
+      "icon_id": "13966976",
+      "name": "问号",
+      "font_class": "wenhao",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
     },
     {
       "icon_id": "14151853",
