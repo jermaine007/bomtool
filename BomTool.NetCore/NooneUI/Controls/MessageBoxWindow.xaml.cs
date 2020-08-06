@@ -1,6 +1,7 @@
 using Avalonia.Markup.Xaml;
+using NooneUI.Framework;
 
-namespace NooneUI.Framework
+namespace NooneUI.Controls
 {
     public class MessageBoxWindow : LightWindowBase
     {

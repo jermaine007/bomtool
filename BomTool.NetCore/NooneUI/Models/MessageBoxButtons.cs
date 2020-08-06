@@ -1,4 +1,4 @@
-namespace NooneUI.Framework
+namespace NooneUI.Models
 {
     public enum MessageBoxButtons
     {

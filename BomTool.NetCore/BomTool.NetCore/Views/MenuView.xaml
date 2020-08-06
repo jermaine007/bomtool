@@ -21,7 +21,7 @@
                 <Button
                     Width="105"
                     Classes="subItem"
-                    Command="{Binding ExitCommand}"
+                    Command="{Binding ShowMe}"
                     CommandParameter="{Binding $parent[local:MainWindow].DataContext}"
                     Content="Generate Bom" />
                 <Button
@@ -30,6 +30,11 @@
                     Command="{Binding ExitCommand}"
                     CommandParameter="{Binding $parent[local:MainWindow].DataContext}"
                     Content="Generate Pdf" />
+                <Button
+                    Width="105"
+                    Classes="subItem"
+                    Command="{Binding MessageBoxCommand}"
+                    Content="MessageBox" />
             </MenuItem>
             <MenuItem Header="Help">
                 <Button

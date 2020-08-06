@@ -102,9 +102,8 @@ namespace NooneUI.Framework
     public abstract class LightApplicationBase<TView> : LightApplicationBase
         where TView : LightWindowBase
     {
-        protected override Window LookupMainEntry()
+        protected override Window LookupMainEntry() => container.Get<TView>().With(view =>
         {
-            TView view = container.Get<TView>();
             if (view == null)
             {
                 throw new InvalidOperationException("MainWindow must implement IView");
@@ -113,7 +112,7 @@ namespace NooneUI.Framework
 
             // set AutoWired true, so that auto bind a related view model.
             view.SetValue(Locator.AutoWiredProperty, true);
-            return view;
-        }
+        });
+
     }
 }

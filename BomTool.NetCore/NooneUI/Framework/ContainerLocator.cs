@@ -8,7 +8,7 @@ namespace NooneUI.Framework
     {
         static ContainerLocator() => Configure(() => LightContainer.Instance);
 
-        public static IContainer Current { get; private set; }
+        internal static IContainer Current { get; private set; }
 
         public static void Configure(Func<IContainer> factory) => Current = factory();
     }

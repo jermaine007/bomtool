@@ -7,6 +7,7 @@ namespace NooneUI.Framework
 {
     internal class MvvmRelationships : IBaseServiceProvider, IMvvmRelationships
     {
+        private static readonly string FRAMEWORK_NAMESPACE = "NooneUI.Framework";
         private readonly Dictionary<Type, Type> map;
 
         protected readonly IContainer container;
@@ -23,9 +24,9 @@ namespace NooneUI.Framework
         {
             logger.Debug($"Registering all view and viewmodel types from {AppDomain.CurrentDomain.BaseDirectory}");
             var types = AppDomain.CurrentDomain.GetAssemblies()
-               .Where(assembly => !assembly.IsDynamic && assembly != typeof(LightApplicationBase).Assembly)
+               .Where(assembly => !assembly.IsDynamic)
                .SelectMany(assembly => assembly.GetExportedTypes())
-               .Where(type => typeof(IView).IsAssignableFrom(type) || typeof(IViewModel).IsAssignableFrom(type))
+               .Where(type => type.Namespace != FRAMEWORK_NAMESPACE && typeof(ICanRegister).IsAssignableFrom(type))
                .ToList();
 
             types.ForEach(type =>

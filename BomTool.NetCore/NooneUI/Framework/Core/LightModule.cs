@@ -9,6 +9,7 @@ namespace NooneUI.Framework
         {
             Bind<LightLogger, ILogger>().To<LightLogger>();
             Bind<LightDialog, IDialog>().To<LightDialog>().InSingletonScope();
+            Bind<LightMessageBox, IMessageBox>().To<LightMessageBox>().InSingletonScope();
             Bind<ViewPresenter, IViewPresenter>().To<ViewPresenter>().InSingletonScope();
             Bind<MvvmRelationships, IMvvmRelationships>().To<MvvmRelationships>().InSingletonScope();
 
