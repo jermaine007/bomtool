@@ -74,7 +74,7 @@
                                     Command="{x:Static fx:ApplicationCommands.CloseWindow}"
                                     CommandParameter="{Binding $parent[fx:LightWindowBase]}">
                                     <Button.Content>
-                                        <TextBlock Classes="systemButtonText" Text="&#xe607;" />
+                                        <TextBlock Classes="systemButtonText" Text="&#xe608;" />
                                     </Button.Content>
                                 </Button>
                             </StackPanel>

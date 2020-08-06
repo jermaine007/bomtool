@@ -1,0 +1,21 @@
+<fx:LightWindowBase
+    x:Class="NooneUI.Framework.MessageBoxWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fx="clr-namespace:NooneUI.Framework"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="About"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Width="600"
+    Height="450"
+    IsFixedPosition="True"
+    BorderThickness="1"
+    BorderBrush="{DynamicResource DarkBackgroundBrush1}"
+    WindowStartupLocation="CenterOwner"
+    ShowInTaskbar = "False"
+    SystemButtons="{x:Static fx:SystemButtons.Close}"
+    mc:Ignorable="d">
+    <ContentControl Content="{Binding Control}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+</fx:LightWindowBase>
