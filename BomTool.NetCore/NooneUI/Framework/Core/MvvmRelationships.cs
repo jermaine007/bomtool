@@ -53,7 +53,6 @@ namespace NooneUI.Framework
 
         public IView GetView(IViewModel viewModel)
         {
-
             var viewModelType = viewModel.GetType();
             logger.Debug($"Try to get view for {viewModelType}");
             Type viewType = Lookup(viewModelType);
