@@ -342,3 +342,4 @@ obj/
 qt.tar.gz
 .ionide
 .vs
+.vscode

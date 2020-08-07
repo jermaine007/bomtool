@@ -1,24 +1,44 @@
-﻿using System;
+using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Logging.Serilog;
 using Avalonia.ReactiveUI;
+using BomTool.NetCore.Views;
+using NooneUI;
+using NooneUI.Framework;
 
 namespace BomTool.NetCore
 {
     class Program
     {
-        // Initialization code. Don't use any Avalonia, third-party APIs or any
-        // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
-        // yet and stuff might break.
-        public static void Main(string[] args) => BuildAvaloniaApp()
-            .StartWithClassicDesktopLifetime(args);
+        /*
 
-        // Avalonia configuration, don't remove; also used by visual designer.
-        public static AppBuilder BuildAvaloniaApp()
-            => AppBuilder.Configure<App>()
-                .UsePlatformDetect()
-                .LogToDebug()
-                .UseReactiveUI();
+        First create a App class like
+            public class App : LightApplicationBase<MainWindow>
+            {
+                public App() {
+                    AvaloniaXamlLoader.Load(this);
+                }
+                .
+                .
+                .
+                do other things
+            }
+         Then Bootstrapper.Create<App>()....
+
+         Or if you have no special settings for App,
+         Just Use Bootstrapper.Create<LightApplicationBase<MainWindow>>() ...
+        
+         */
+        public static void Main(string[] args)
+            => Bootstrapper.Create<LightApplicationBase<MainWindow>>()
+                // Register some services
+                .Use((IContainer container) => { })
+                // Configure apps
+                .Use(builder => builder
+                        .UsePlatformDetect()
+                        .LogToDebug()
+                        .UseReactiveUI())
+                .Launch(args);
     }
 }

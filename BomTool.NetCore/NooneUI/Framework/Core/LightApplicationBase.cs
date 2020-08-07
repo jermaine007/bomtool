@@ -53,25 +53,7 @@ namespace NooneUI.Framework
         {
             // register view and view model
             container.Get<IMvvmRelationships>().Register();
-
-            // register services which are used by application
-            RegisterServices(container);
-
-            // Setup other settings.
-            Setup();
         }
-
-        /// <summary>
-        /// Register other services which are used by application
-        /// </summary>
-        /// <param name="container"></param>
-        protected virtual void RegisterServices(IContainer container) => logger.Debug("Register services.");
-
-        /// <summary>
-        /// Setup other settings for applicaiton.
-        /// </summary>
-        protected virtual void Setup() => logger.Debug("Setup Application.");
-
         public override void OnFrameworkInitializationCompleted()
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
@@ -86,23 +68,23 @@ namespace NooneUI.Framework
         /// Initilize main window
         /// </summary>
         /// <param name="desktop"></param>
-        private void InitializeMainWindow(IClassicDesktopStyleApplicationLifetime desktop) => desktop.MainWindow = LookupMainEntry();
+        private void InitializeMainWindow(IClassicDesktopStyleApplicationLifetime desktop) => desktop.MainWindow = LookupMainWindow();
 
         /// <summary>
         /// Lookup the entry window.
         /// </summary>
         /// <returns></returns>
-        protected abstract Window LookupMainEntry();
+        protected abstract Window LookupMainWindow();
     }
 
     /// <summary>
     /// Base class for Application which support generic type
     /// </summary>
     /// <typeparam name="TView">The main entry window</typeparam>
-    public abstract class LightApplicationBase<TView> : LightApplicationBase
-        where TView : LightWindowBase
+    public class LightApplicationBase<TView> : LightApplicationBase
+        where TView : LightWindowBase, new()
     {
-        protected override Window LookupMainEntry() => container.Get<TView>().With(view =>
+        protected override Window LookupMainWindow() => container.Get<TView>().With(view =>
         {
             if (view == null)
             {

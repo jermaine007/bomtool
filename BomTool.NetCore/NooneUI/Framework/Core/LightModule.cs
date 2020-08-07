@@ -7,6 +7,7 @@ namespace NooneUI.Framework
     {
         public override void Load()
         {
+            // Register built-in default services
             Bind<LightLogger, ILogger>().To<LightLogger>();
             Bind<LightDialog, IDialog>().To<LightDialog>().InSingletonScope();
             Bind<LightMessageBox, IMessageBox>().To<LightMessageBox>().InSingletonScope();

@@ -2,7 +2,7 @@ using NooneUI.Framework;
 
 namespace NooneUI.Models
 {
-    public class MessageBoxSettings : ICanRegister
+    public class MessageBoxSettings : IAutoRegister
     {
         public string Title { get; set; } = string.Empty;
         public int Width { get; set; } = 400;

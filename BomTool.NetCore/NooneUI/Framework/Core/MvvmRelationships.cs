@@ -23,10 +23,11 @@ namespace NooneUI.Framework
         public void Register()
         {
             logger.Debug($"Registering all view and viewmodel types from {AppDomain.CurrentDomain.BaseDirectory}");
+
             var types = AppDomain.CurrentDomain.GetAssemblies()
                .Where(assembly => !assembly.IsDynamic)
                .SelectMany(assembly => assembly.GetExportedTypes())
-               .Where(type => type.Namespace != FRAMEWORK_NAMESPACE && typeof(ICanRegister).IsAssignableFrom(type))
+               .Where(type => type.Namespace != FRAMEWORK_NAMESPACE && typeof(IAutoRegister).IsAssignableFrom(type))
                .ToList();
 
             types.ForEach(type =>

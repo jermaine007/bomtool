@@ -3,7 +3,7 @@ namespace NooneUI.Framework
     /// <summary>
     /// View model interface
     /// </summary>
-    public interface IViewModel : ICanRegister
+    public interface IViewModel : IAutoRegister
     {
         /// <summary>
         /// Relate view
