@@ -3,6 +3,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:fx="clr-namespace:NooneUI.Framework"
     xmlns:sys="clr-namespace:System;assembly=netstandard">
+    <Style Selector="Button">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush1}" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
     <Style Selector="Button.subItem">
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />

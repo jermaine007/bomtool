@@ -32,10 +32,21 @@ namespace NooneUI.Framework
 
         static ApplicationCommands()
         {
-            CloseWindow = ReactiveCommand.Create<LightWindowBase>(window => window.Close());
+            CloseWindow = ReactiveCommand.Create<LightWindowBase>(window =>
+            {
+                if (window.DataContext is IWindowViewModel vm
+                 && vm.DialogResult != null)
+                {
+                    window.Close(vm.DialogResult);
+                }
+                else
+                {
+                    window.Close();
+                }
+            });
             RestoreWindow = ReactiveCommand.Create<LightWindowBase>(window => window.WindowState = WindowState.Normal);
             MaximizeWindow = ReactiveCommand.Create<LightWindowBase>(window => window.WindowState = WindowState.Maximized);
-            MinimizeWindow = ReactiveCommand.Create<LightWindowBase>(window => window.WindowState = WindowState.Minimized); 
+            MinimizeWindow = ReactiveCommand.Create<LightWindowBase>(window => window.WindowState = WindowState.Minimized);
         }
     }
 }

@@ -12,7 +12,14 @@ namespace NooneUI.Framework
         {
             if (vm.View is Window window)
             {
-                window.Close();
+                if (vm.DialogResult != null)
+                {
+                    window.Close(vm.DialogResult);
+                }
+                else
+                {
+                    window.Close();
+                }
             }
         }
 

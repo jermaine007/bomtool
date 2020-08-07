@@ -7,27 +7,30 @@ namespace NooneUI.Framework
     /// </summary>
     public interface IWindowViewModel : IViewModel
     {
+
+        object DialogResult { get; set; }
+
         /// <summary>
         /// Close window
         /// </summary>
-         void Close();
+        void Close();
 
-         /// <summary>
-         /// Show window non modal
-         /// </summary>
-         void Show();
+        /// <summary>
+        /// Show window non modal
+        /// </summary>
+        void Show();
 
-         /// <summary>
-         /// Show window modal
-         /// </summary>
-         /// <returns></returns>
-         Task ShowDialog();
+        /// <summary>
+        /// Show window modal
+        /// </summary>
+        /// <returns></returns>
+        Task ShowDialog();
 
-         /// <summary>
-         /// Show window
-         /// </summary>
-         /// <typeparam name="TResult"></typeparam>
-         /// <returns></returns>
-         Task<TResult> ShowDialog<TResult>();
+        /// <summary>
+        /// Show window
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <returns></returns>
+        Task<TResult> ShowDialog<TResult>();
     }
 }
