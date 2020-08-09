@@ -6,12 +6,23 @@ using System.Threading.Tasks;
 
 namespace NooneUI.Framework
 {
-    internal class ViewPresenter : IViewPresenter
+    internal class ViewPresenter : IViewPresenter, IBaseServiceProvider
     {
+        private readonly Dictionary<IWindowViewModel, IView> viewStore;
+        private readonly IContainer container;
+        
+        public ViewPresenter()
+        {
+            viewStore = new Dictionary<IWindowViewModel, IView>();
+            container = ((IBaseServiceProvider)this).Container;
+        }
+
         public void Close(IWindowViewModel vm)
         {
-            if (vm.View is Window window)
+            if (GetView(vm) is Window window)
             {
+                // remove view first
+                viewStore.Remove(vm);
                 if (vm.DialogResult != null)
                 {
                     window.Close(vm.DialogResult);
@@ -25,7 +36,7 @@ namespace NooneUI.Framework
 
         public void Show(IWindowViewModel vm)
         {
-            if (vm.View is Window window)
+            if (GetView(vm) is Window window)
             {
                 window.Show();
             }
@@ -33,7 +44,7 @@ namespace NooneUI.Framework
 
         public Task ShowDialog(IWindowViewModel vm)
         {
-            if (vm.View is Window window)
+            if (GetView(vm) is Window window)
             {
                 Window owner = LightApplicationBase.MainWindow ?? window;
                 if (owner != window)
@@ -46,7 +57,7 @@ namespace NooneUI.Framework
 
         public Task<TResult> ShowDialog<TResult>(IWindowViewModel vm)
         {
-            if (vm.View is Window window)
+            if (GetView(vm) is Window window)
             {
                 Window owner = LightApplicationBase.MainWindow ?? window;
                 if (owner != window)
@@ -55,6 +66,19 @@ namespace NooneUI.Framework
                 }
             }
             return null;
+        }
+
+        private IView GetView(IWindowViewModel viewModel)
+        {
+            if (!viewStore.TryGetValue(viewModel, out var view))
+            {
+                view = container.Get<IMvvmRelationships>().GetView(viewModel);
+                if (view != null)
+                {
+                    viewStore.Add(viewModel, view);
+                }
+            }
+            return view;
         }
     }
 }

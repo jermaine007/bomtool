@@ -11,11 +11,7 @@ namespace NooneUI.Framework
         protected readonly IMessageBox messagebox;
         protected readonly ILogger logger;
         protected readonly IContainer container;
-
-        protected IView view;
-
-        public IView View => view??=container.Get<IMvvmRelationships>().GetView(this);
-
+        
         protected ViewModelBase()
         {
             container = ((IServiceProvider)this).Container;

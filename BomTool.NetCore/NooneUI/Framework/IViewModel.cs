@@ -5,10 +5,6 @@ namespace NooneUI.Framework
     /// </summary>
     public interface IViewModel : IAutoRegister
     {
-        /// <summary>
-        /// Relate view
-        /// </summary>
-        /// <value></value>
-        IView View { get; }
+        string Id => this.GetType().FullName;
     }
 }
