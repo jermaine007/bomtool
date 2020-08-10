@@ -49,11 +49,6 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Content="{TemplateBinding Header}">
-                            <!-- <ContentPresenter.DataTemplates>
-                                <DataTemplate DataType="sys:String">
-                                    <AccessText Text="{Binding}" />
-                                </DataTemplate>
-                            </ContentPresenter.DataTemplates>-->
                         </ContentPresenter>
                         <Popup
                             Name="PART_Popup"
