@@ -18,8 +18,15 @@ namespace NooneUI
             return bootstrapper;
         }
 
-        public static Bootstrapper Use(this Bootstrapper bootstrapper, Action<AppBuilder> configureAppBuilder){
+        public static Bootstrapper Use(this Bootstrapper bootstrapper, Action<AppBuilder> configureAppBuilder)
+        {
             bootstrapper.ConfigureAppBuilder = configureAppBuilder;
+            return bootstrapper;
+        }
+
+        public static Bootstrapper Use(this Bootstrapper bootstrapper, Func<bool> enableLogging)
+        {
+            bootstrapper.EnableLogging = enableLogging;
             return bootstrapper;
         }
 
@@ -30,6 +37,9 @@ namespace NooneUI
 
             // register service
             bootstrapper.ConfigureContainer?.Invoke(ContainerLocator.Current);
+
+            // configure logger
+            LoggerExtensions.Enable(bootstrapper.EnableLogging?.Invoke() ?? true);
 
             // get app builder
             AppBuilder builder = bootstrapper.AppBuilderFactory();

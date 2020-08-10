@@ -28,7 +28,7 @@ namespace NooneUI.Framework
 
         public void Initialize(object o) => logger = LogManager.GetLogger(o.GetType().FullName);
 
-        public void EnableLogging(bool value) => GlobalEnableLogging = value;
+        public static void EnableLogging(bool value) => GlobalEnableLogging = value;
 
     }
 }

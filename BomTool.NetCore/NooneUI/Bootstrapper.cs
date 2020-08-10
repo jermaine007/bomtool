@@ -16,6 +16,8 @@ namespace NooneUI
 
         internal Action<IContainer> ConfigureContainer { get; set; }
 
+        internal Func<bool> EnableLogging { get; set; }
+
         public static Bootstrapper Create<TApp>() where TApp : Application, new() => new Bootstrapper
         {
             AppBuilderFactory = () => AppBuilder.Configure<TApp>()

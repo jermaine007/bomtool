@@ -19,7 +19,5 @@ namespace NooneUI.Framework
         void Fatal(string message, params object[] args);
 
         void Fatal(string message, Exception ex, params object[] args);
-
-        void EnableLogging(bool enable);
     }
 }

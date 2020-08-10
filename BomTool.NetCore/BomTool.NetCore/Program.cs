@@ -28,10 +28,12 @@ namespace BomTool.NetCore
 
          Or if you have no special settings for App,
          Just Use Bootstrapper.Create<LightApplicationBase<MainWindow>>() ...
-        
+
          */
         public static void Main(string[] args)
             => Bootstrapper.Create<LightApplicationBase<MainWindow>>()
+                // enable logger
+                .Use(() => true)
                 // Register some services
                 .Use((IContainer container) => { })
                 // Configure apps
