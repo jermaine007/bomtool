@@ -15,9 +15,14 @@ namespace BomTool.NetCore.ViewModels
 
         public MenuViewModel()
         {
-            OpenFileCommand = ReactiveCommand.Create<MainWindowViewModel>(async (window) =>
+            OpenFileCommand = ReactiveCommand.Create<MainWindowViewModel>(async (mainViewModel) =>
             {
-                var files = await dialog.OpenFileDialogAsync();
+                var files = await dialog.OpenFileDialogAsync("Select a excel file", "Excel files|xls;xlsx,All files|*");
+                if (files.Length == 0)
+                {
+                    return;
+                }
+                mainViewModel.FileList.AddFile(files[0]);
             });
 
             ShowAboutCommand = ReactiveCommand.Create<AboutWindowViewModel>(async (window) =>

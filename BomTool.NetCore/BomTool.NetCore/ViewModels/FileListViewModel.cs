@@ -23,11 +23,11 @@ namespace BomTool.NetCore.ViewModels
             sourceList.Connect()
                       .OnItemAdded(_ =>
                       {
-                          FileItem.Save(files);
+                          FileItem.Save(sourceList.Items);
                       })
                       .OnItemRemoved(_ =>
                       {
-                          FileItem.Save(files);
+                          FileItem.Save(sourceList.Items);
                       }).Bind(out files)
                       .Subscribe();
         }

@@ -52,14 +52,14 @@
         <Border Classes="h1">
             <TextBlock Classes="h1" Text="Recent Opened" />
         </Border>
-        <ListBox Name="FileList" Items="{Binding Files}">
+        <ListBox Name="FileList" Items="{Binding Files}" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid ColumnDefinitions="*,Auto">
                         <TextBlock
                             Margin="5"
-                            Text="{Binding}"
-                            ToolTip.Tip="{Binding}" />
+                            Text="{Binding Name}"
+                            ToolTip.Tip="{Binding Location}"/>
                         <Button
                             Margin="0"
                             HorizontalAlignment="Right"
