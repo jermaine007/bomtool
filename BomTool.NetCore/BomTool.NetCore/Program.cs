@@ -32,8 +32,6 @@ namespace BomTool.NetCore
          */
         public static void Main(string[] args)
             => Bootstrapper.Create<LightApplicationBase<MainWindow>>()
-                // enable logger
-                .Use(() => true)
                 // Register some services
                 .Use((IContainer container) => { })
                 // Configure apps

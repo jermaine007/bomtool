@@ -26,8 +26,9 @@ namespace NooneUI.Framework
 
         private LightContainer()
         {
-            var settings = new NinjectSettings { LoadExtensions = false };
-            Kernel = new StandardKernel(settings, new LightMoudle());
+            //var settings = new NinjectSettings { LoadExtensions = false };
+            //Kernel = new StandardKernel(settings, new LightMoudle());
+            Kernel = new StandardKernel(new NinjectSettings { LoadExtensions = false });
         }
 
         /// <summary>
@@ -37,7 +38,6 @@ namespace NooneUI.Framework
         /// <param name="singleton"></param>
         public void Bind(Type service, bool singleton)
         {
-
             if (singleton)
             {
                 IEnumerable<IBinding> bindings = Kernel.GetBindings(service);
@@ -50,6 +50,29 @@ namespace NooneUI.Framework
             {
                 Kernel.Bind(service).ToSelf();
             }
+        }
+
+
+        /// <summary>
+        /// Register a service which related to a specified interface
+        /// </summary>
+        /// <param name="interfaceType"></param>
+        /// <param name="service"></param>
+        /// <param name="singleton"></param>
+        public void Bind(Type interfaceType, Type service, bool singleton)
+        {
+            if (!interfaceType.IsAssignableFrom(service))
+            {
+                throw new InvalidOperationException($"{interfaceType} must be assignable from {service}");
+            }
+
+            IBindingWhenInNamedWithOrOnSyntax<object> binding = Kernel.Bind(interfaceType).To(service);
+
+            if (singleton)
+            {
+                binding.InSingletonScope();
+            }
+
         }
 
         /// <summary>

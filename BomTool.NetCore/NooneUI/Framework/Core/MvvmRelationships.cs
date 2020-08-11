@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace NooneUI.Framework
 {
-    internal class MvvmRelationships : IBaseServiceProvider, IMvvmRelationships
+    [AutoRegister(Singleton = true, InterfaceType = typeof(IMvvmRelationships))]
+    internal class MvvmRelationships : IBaseServiceProvider, IMvvmRelationships, IAutoRegister
     {
-        private static readonly string FRAMEWORK_NAMESPACE = "NooneUI.Framework";
         private readonly Dictionary<Type, Type> map;
 
         protected readonly IContainer container;
@@ -18,24 +18,6 @@ namespace NooneUI.Framework
             map = new Dictionary<Type, Type>();
             container = ((IBaseServiceProvider)this).Container;
             logger = ((IBaseServiceProvider)this).Logger;
-        }
-
-        public void Register()
-        {
-            logger.Debug($"Registering all view and viewmodel types from {AppDomain.CurrentDomain.BaseDirectory}");
-
-            var types = AppDomain.CurrentDomain.GetAssemblies()
-               .Where(assembly => !assembly.IsDynamic)
-               .SelectMany(assembly => assembly.GetExportedTypes())
-               .Where(type => type.Namespace != FRAMEWORK_NAMESPACE && typeof(IAutoRegister).IsAssignableFrom(type))
-               .ToList();
-
-            types.ForEach(type =>
-            {
-                logger.Debug($"Register type -> {type}");
-                container.Bind(type);
-            });
-            AddRegistration(types);
         }
 
         public Type Lookup(Type inputType)
@@ -90,7 +72,7 @@ namespace NooneUI.Framework
             return viewModel;
         }
 
-        private void AddRegistration(IEnumerable<Type> types)
+        public void AddRegistration(IEnumerable<Type> types)
         {
             var viewTypes = types.Where(type => typeof(IView).IsAssignableFrom(type)).ToList();
             var viewModelTypes = types.Where(type => typeof(IViewModel).IsAssignableFrom(type)).ToList();

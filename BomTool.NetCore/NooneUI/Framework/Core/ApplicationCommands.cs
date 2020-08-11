@@ -35,14 +35,10 @@ namespace NooneUI.Framework
             CloseWindow = ReactiveCommand.Create<LightWindowBase>(window =>
             {
                 // if a window view model with dialog result, close with result, otherwise close directly
-                if (window.DataContext is IWindowViewModel vm
-                 && vm.DialogResult != null)
+                if (window.DataContext is IWindowViewModel vm)
                 {
-                    window.Close(vm.DialogResult);
-                }
-                else
-                {
-                    window.Close();
+                    // always use vm to close window
+                    vm.Close();
                 }
             });
             RestoreWindow = ReactiveCommand.Create<LightWindowBase>(window => window.WindowState = WindowState.Normal);

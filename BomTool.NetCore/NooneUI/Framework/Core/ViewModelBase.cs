@@ -5,7 +5,7 @@ using ReactiveUI;
 
 namespace NooneUI.Framework
 {
-    public class ViewModelBase : ReactiveObject, IServiceProvider, IViewModel
+    public abstract class ViewModelBase : ReactiveObject, IServiceProvider, IViewModel
     {
         protected readonly IDialog dialog;
         protected readonly IMessageBox messagebox;

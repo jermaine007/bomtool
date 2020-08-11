@@ -23,6 +23,15 @@ namespace NooneUI.Framework
         /// <summary>
         /// Register a service which related to a specified interface
         /// </summary>
+        /// <param name="interfaceType"></param>
+        /// <param name="service"></param>
+        /// <param name="singleton"></param>
+        void Bind(Type interfaceType, Type service, bool singleton = false);
+
+
+        /// <summary>
+        /// Register a service which related to a specified interface
+        /// </summary>
         /// <typeparam name="TInterface"></typeparam>
         /// <typeparam name="TImplementation"></typeparam>
         /// <param name="singleton"></param>
@@ -41,7 +50,7 @@ namespace NooneUI.Framework
         /// <typeparam name="TDelegate"></typeparam>
         /// <param name="factory"></param>
         void BindMethod<TDelegate>(Func<TDelegate> factory);
-       
+
         /// <summary>
         /// Get a service instance
         /// </summary>

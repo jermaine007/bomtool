@@ -4,7 +4,7 @@ using Avalonia.Controls;
 
 namespace NooneUI.Framework
 {
-    public class WindowViewModelBase : ViewModelBase, IWindowViewModel
+    public abstract class WindowViewModelBase : ViewModelBase, IWindowViewModel
     {
         private IViewPresenter presenter;
 

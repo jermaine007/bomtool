@@ -20,10 +20,14 @@ namespace NooneUI.Framework
         }
 
         /// <summary>
-        /// Disable looging
+        /// Enable or disable logging
         /// </summary>
         /// <param name="logger"></param>
         /// <returns></returns>
-        public static void Enable(bool enable) => LightLogger.EnableLogging(enable);
+        public static ILogger Enable(this ILogger logger, bool enable)
+        {
+            LightLogger.EnableLogging(enable);
+            return logger;
+        }
     }
 }

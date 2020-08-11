@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace NooneUI.Framework
 {
@@ -7,6 +8,6 @@ namespace NooneUI.Framework
         IView GetView(IViewModel viewModel);
         IViewModel GetViewModel(IView view);
         Type Lookup(Type inputType);
-        void Register();
+        void AddRegistration(IEnumerable<Type> types);
     }
 }

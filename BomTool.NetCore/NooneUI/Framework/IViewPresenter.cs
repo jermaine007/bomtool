@@ -11,5 +11,7 @@ namespace NooneUI.Framework
         void Show(IWindowViewModel vm);
         Task ShowDialog(IWindowViewModel vm);
         Task<TResult> ShowDialog<TResult>(IWindowViewModel vm);
+        IView GetView(IViewModel vm);
+        void AddOrUpdateStore(IViewModel vm, IView view);
     }
 }

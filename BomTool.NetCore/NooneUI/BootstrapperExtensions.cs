@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Avalonia;
 using NooneUI.Framework;
 
@@ -9,6 +12,11 @@ namespace NooneUI
     /// </summary>
     public static class BootstrapperExtensions
     {
+        /// <summary>
+        /// Build in logger type full name;
+        /// </summary>
+        private static readonly string BuiltInLogger = "NooneUI.Framework.LightLogger";
+
         /// <summary>
         /// Use a new ioc container replace with built-in,
         /// If not set, would use built-in ioc container which based on Ninject
@@ -46,15 +54,16 @@ namespace NooneUI
             return bootstrapper;
         }
 
+
         /// <summary>
-        /// Use a factory to indicate enable or disable logging
+        ///
         /// </summary>
-        /// <param name="bootstrapper">bootstrapper instance</param>
-        /// <param name="enableLogging">factory enable or disable logging</param>
-        /// <returns>bootstrapper instance</returns>
-        public static Bootstrapper Use(this Bootstrapper bootstrapper, Func<bool> enableLogging)
+        /// <typeparam name="TLoggerImpl"></typeparam>
+        /// <param name="bootstrapper"></param>
+        /// <returns></returns>
+        public static Bootstrapper Use<TLoggerImpl>(this Bootstrapper bootstrapper) where TLoggerImpl : ILogger
         {
-            bootstrapper.EnableLogging = enableLogging;
+            bootstrapper.LoggingBinding = () => typeof(TLoggerImpl);
             return bootstrapper;
         }
 
@@ -68,11 +77,11 @@ namespace NooneUI
             // setup service container
             ContainerLocator.Configure(bootstrapper.ContainerFactory);
 
+            // Do auto register
+            AutoRegister(ContainerLocator.Current, bootstrapper);
+
             // register service
             bootstrapper.ConfigureContainer?.Invoke(ContainerLocator.Current);
-
-            // configure logger
-            LoggerExtensions.Enable(bootstrapper.EnableLogging?.Invoke() ?? true);
 
             // get app builder
             AppBuilder builder = bootstrapper.AppBuilderFactory();
@@ -82,6 +91,79 @@ namespace NooneUI
 
             // start desktop App
             builder.StartWithClassicDesktopLifetime(args);
+        }
+
+        /// <summary>
+        /// Auto register
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="logger"></param>
+        private static void AutoRegister(IContainer container, Bootstrapper bootstrapper)
+        {
+            // resolve logger binding
+            ResolveLoggerBinding(container, bootstrapper);
+
+            ILogger logger = container.Get<ILogger>().Configure(typeof(Bootstrapper));
+
+            logger.Debug($"Auto registering all services types from {AppDomain.CurrentDomain.BaseDirectory}");
+
+            IEnumerable<Type> types = AppDomain.CurrentDomain.GetAssemblies()
+               .Where(assembly => !assembly.IsDynamic)
+               .SelectMany(assembly => assembly.GetTypes())
+               .Where(type => !type.IsAbstract && typeof(IAutoRegister).IsAssignableFrom(type)).ToList();
+
+            // auto register built in mode
+            RegisterTypesToContainer(container, logger, types);
+
+            // resolve mvvm relationships
+            container.Get<IMvvmRelationships>().AddRegistration(types);
+
+            // Resolve logger bindings
+            static void ResolveLoggerBinding(IContainer ioc, Bootstrapper starter)
+            {
+                // configure logger
+                if (starter.LoggingBinding != null)
+                {
+                    Type loggerType = starter.LoggingBinding();
+                    ioc.Bind(typeof(ILogger), loggerType);
+                }
+                else
+                {
+                    Type loggerType = Type.GetType(BuiltInLogger);
+                    ioc.Bind(typeof(ILogger), loggerType);
+                }
+            }
+
+            // register types to container
+            static void RegisterTypesToContainer(IContainer ioc, ILogger log, IEnumerable<Type> services)
+            {
+                foreach (var type in services)
+                {
+                    var attribute = type.GetCustomAttribute<AutoRegisterAttribute>();
+                    if (attribute == null)
+                    {
+                        log.Debug($"Auto register type -> {type}");
+                        ioc.Bind(type);
+                    }
+                    else
+                    {
+                        var singleton = attribute.Singleton;
+                        var interfaceType = attribute.InterfaceType;
+                        if (interfaceType != null)
+                        {
+                            log.Debug($"Auto register type -> [{interfaceType}, {type}], singleton -> {singleton}");
+                            ioc.Bind(interfaceType, type, singleton);
+                        }
+                        else
+                        {
+                            log.Debug($"Auto register type -> {type}, singleton -> {singleton}");
+                            ioc.Bind(type, singleton);
+                        }
+                    }
+                }
+            }
+
+
         }
     }
 }

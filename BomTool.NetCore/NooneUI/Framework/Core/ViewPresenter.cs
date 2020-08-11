@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace NooneUI.Framework
 {
-    internal class ViewPresenter : IViewPresenter, IBaseServiceProvider
+    [AutoRegister(Singleton = true, InterfaceType = typeof(IViewPresenter))]
+    internal class ViewPresenter : IViewPresenter, IBaseServiceProvider, IAutoRegister
     {
-        private readonly Dictionary<IWindowViewModel, IView> viewStore;
+        private readonly Dictionary<IViewModel, IView> viewStore;
         private readonly IContainer container;
-        
+
         public ViewPresenter()
         {
-            viewStore = new Dictionary<IWindowViewModel, IView>();
+            viewStore = new Dictionary<IViewModel, IView>();
             container = ((IBaseServiceProvider)this).Container;
         }
 
@@ -68,7 +69,7 @@ namespace NooneUI.Framework
             return null;
         }
 
-        private IView GetView(IWindowViewModel viewModel)
+        public IView GetView(IViewModel viewModel)
         {
             if (!viewStore.TryGetValue(viewModel, out var view))
             {
@@ -80,5 +81,18 @@ namespace NooneUI.Framework
             }
             return view;
         }
+
+        public void AddOrUpdateStore(IViewModel viewModel, IView view)
+        {
+            if (viewStore.ContainsKey(viewModel))
+            {
+                viewStore[viewModel] = view;
+            }
+            else
+            {
+                viewStore.Add(viewModel, view);
+            }
+        }
+
     }
 }

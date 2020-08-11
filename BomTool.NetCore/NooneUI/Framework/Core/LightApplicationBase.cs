@@ -49,11 +49,6 @@ namespace NooneUI.Framework
             logger.Debug("Application has been created.");
         }
 
-        public override void Initialize()
-        {
-            // register view and view model
-            container.Get<IMvvmRelationships>().Register();
-        }
         public override void OnFrameworkInitializationCompleted()
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
@@ -84,7 +79,7 @@ namespace NooneUI.Framework
     public class LightApplicationBase<TView> : LightApplicationBase
         where TView : LightWindowBase, new()
     {
-        protected override Window LookupMainWindow() => container.Get<TView>().With(view =>
+        protected override Window LookupMainWindow() => container.Get<TView>().Setup(view =>
         {
             if (view == null)
             {

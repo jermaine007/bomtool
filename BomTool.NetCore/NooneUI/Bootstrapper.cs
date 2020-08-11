@@ -33,7 +33,7 @@ namespace NooneUI
         /// <summary>
         /// Enable logging or not
         /// </summary>
-        internal Func<bool> EnableLogging { get; set; }
+        internal Func<Type> LoggingBinding { get; set; }
 
         /// <summary>
         /// Create a bootstrapper instance

@@ -7,7 +7,9 @@ namespace NooneUI.Framework
     /// </summary>
     public interface IWindowViewModel : IViewModel
     {
-
+        /// <summary>
+        ///  Window dialog result
+        /// </summary>
         object DialogResult { get; set; }
 
         /// <summary>

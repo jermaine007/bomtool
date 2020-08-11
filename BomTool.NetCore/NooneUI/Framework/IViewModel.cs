@@ -3,8 +3,7 @@ namespace NooneUI.Framework
     /// <summary>
     /// View model interface
     /// </summary>
-    public interface IViewModel : IAutoRegister
+    public interface IViewModel : IAutoRegister, IHaveId
     {
-        string Id => this.GetType().FullName;
     }
 }

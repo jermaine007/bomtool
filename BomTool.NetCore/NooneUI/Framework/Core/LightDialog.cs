@@ -9,7 +9,8 @@ namespace NooneUI.Framework
     /// <summary>
     /// Default dialog service, provides open file, open folder and save file features.
     /// </summary>
-    internal class LightDialog : IDialog
+    [AutoRegister(Singleton = true, InterfaceType = typeof(IDialog))]
+    internal class LightDialog : IDialog, IAutoRegister
     {
         /// <summary>
         /// Open file dialog

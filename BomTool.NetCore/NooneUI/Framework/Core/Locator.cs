@@ -28,7 +28,9 @@ namespace NooneUI.Framework
             {
                 if ((bool)e.NewValue)
                 {
-                    container.Get<IMvvmRelationships>().GetViewModel((IView)o);
+                    IView view = o as IView;
+                    IViewModel vm = container.Get<IMvvmRelationships>().GetViewModel(view);
+                    container.Get<IViewPresenter>().AddOrUpdateStore(vm, view);
                 }
             });
         }

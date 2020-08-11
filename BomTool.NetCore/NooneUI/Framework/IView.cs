@@ -5,8 +5,7 @@ namespace NooneUI.Framework
     /// <summary>
     /// View interface
     /// </summary>
-    public interface IView : IDataContextProvider, IAutoRegister
+    public interface IView : IDataContextProvider, IAutoRegister, IHaveId
     {
-        string Id => this.GetType().FullName;
     }
 }

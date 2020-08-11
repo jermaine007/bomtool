@@ -26,7 +26,7 @@ namespace NooneUI.Framework
 
         public void Fatal(string message, Exception ex, params object[] args) => Logger.Fatal(ex, message, args);
 
-        public void Initialize(object o) => logger = LogManager.GetLogger(o.GetType().FullName);
+        public void Initialize(object o) => logger = LogManager.GetLogger((o is Type) ? o.ToString() : o.GetType().FullName);
 
         public static void EnableLogging(bool value) => GlobalEnableLogging = value;
 
