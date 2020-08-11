@@ -66,7 +66,8 @@
                             VerticalAlignment="Center"
                             Background="Transparent"
                             BorderThickness="0"
-                            Classes="delete">
+                            Classes="delete"
+                            Command="{Binding $parent[fx:LightUserControlBase].DataContext.RemoveFileCommand}">
                             <TextBlock HorizontalAlignment="Right" Text="x" />
                         </Button>
                     </Grid>
