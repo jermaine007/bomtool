@@ -61,6 +61,7 @@ namespace NooneUI.Pdf.ViewModel
                 //converter.Options.WebPageFixedSize = true;
                 //converter.Options.WebPageHeight = 842;
                 //converter.Options.WebPageWidth = 1191;
+                converter.Options.JpegCompressionEnabled = false;
                 converter.Options.AutoFitWidth = HtmlToPdfPageFitMode.AutoFit;
                 converter.Options.AutoFitWidth = HtmlToPdfPageFitMode.AutoFit;
                 // create a new pdf document converting an html string
