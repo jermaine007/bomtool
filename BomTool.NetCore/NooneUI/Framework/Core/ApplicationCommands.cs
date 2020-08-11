@@ -7,6 +7,7 @@ namespace NooneUI.Framework
 
     /// <summary>
     /// Class provides system menu functions like close, maximize, minimize etc.
+    /// Auto binding in <see cref="LightWindowBase"/>
     /// </summary>
     public class ApplicationCommands
     {

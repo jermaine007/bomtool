@@ -16,10 +16,10 @@ namespace NooneUI.Framework
     {
         private const string DEBUG = "DEBUG";
 
-        private Button minimizeButton;
-        private Button maximizeButton;
-        private Button restoreButton;
-        private Button closeButton;
+        protected Button minimizeButton;
+        protected Button maximizeButton;
+        protected Button restoreButton;
+        protected Button closeButton;
 
         protected readonly ILogger logger;
         protected readonly IContainer container;
@@ -97,7 +97,7 @@ namespace NooneUI.Framework
         [Conditional(DEBUG)]
         protected void EnableDevelopTools() => this.AttachDevTools();
 
-        private void HandleSystemButtons()
+        protected virtual void HandleSystemButtons()
         {
             logger.Debug("Enter handle system button visibility");
             minimizeButton.IsVisible = this.SystemButtons != SystemButtons.None

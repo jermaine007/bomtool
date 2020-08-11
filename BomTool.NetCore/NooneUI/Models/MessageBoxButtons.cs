@@ -1,25 +1,34 @@
+using System;
+
 namespace NooneUI.Models
 {
+
     /// <summary>
     /// Message box buttons
     /// </summary>
-    public enum MessageBoxButtons
+    [Flags]
+    public enum MessageBoxButtons : ulong
     {
         /// <summary>
         ///  OK button
         /// </summary>
-        OK,
+        OK = MessageBoxButtonsBase.OK,
+
+         /// <summary>
+        ///  Cancel button
+        /// </summary>
+        Cancel = MessageBoxButtonsBase.Cancel,
         /// <summary>
         /// OK and Cancel button
         /// </summary>
-        OKCancel,
+        OKCancel = MessageBoxButtonsBase.OK | MessageBoxButtonsBase.Cancel ,
         /// <summary>
         /// Yes and No button
         /// </summary>
-        YesNo,
+        YesNo = MessageBoxButtonsBase.Yes | MessageBoxButtonsBase.No,
         /// <summary>
         /// Yes, No and Cancel button
         /// </summary>
-        YesNoCancel
+        YesNoCancel = MessageBoxButtonsBase.Yes | MessageBoxButtonsBase.No | MessageBoxButtonsBase.Cancel
     }
 }

@@ -5,7 +5,7 @@ namespace NooneUI.Framework
     /// <summary>
     /// View interface
     /// </summary>
-    public interface IView : IDataContextProvider, IAutoRegister, IHaveId
+    public interface IView : IDataContextProvider, ICanAutoRegister, IHaveId
     {
     }
 }

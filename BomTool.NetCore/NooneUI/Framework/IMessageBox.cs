@@ -9,7 +9,7 @@ namespace NooneUI.Framework
 
         Task<MessageBoxResults> ShowAsync(string title, string message);
 
-        Task<MessageBoxResults> ShowAsync(string title, string message, MessageBoxSettings settings);
+        Task<MessageBoxResults> ShowAsync(string title, string message, MessageBoxSettingsViewModel settings);
 
         Task<MessageBoxResults> ShowCustomizeAsync(object customView);
 

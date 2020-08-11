@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace NooneUI.Framework
 {
     [AutoRegister(Singleton = true, InterfaceType = typeof(IMessageBox))]
-    internal class LightMessageBox : IMessageBox, IBaseServiceProvider, IAutoRegister
+    internal class LightMessageBox : IMessageBox, IBaseServiceProvider, ICanAutoRegister
     {
 
         private readonly IContainer container;
@@ -17,7 +17,7 @@ namespace NooneUI.Framework
             {
                 messagebox.Content = container.Get<MessageBoxViewModel>().Setup(view =>
                 {
-                    view.Settings = container.Get<MessageBoxSettings>().Setup(settings =>
+                    view.Settings = container.Get<MessageBoxSettingsViewModel>().Setup(settings =>
                     {
                         settings.Message = message;
                     });
@@ -31,7 +31,7 @@ namespace NooneUI.Framework
             {
                 messagebox.Content = container.Get<MessageBoxViewModel>().Setup(view =>
                 {
-                    view.Settings = container.Get<MessageBoxSettings>().Setup(settings =>
+                    view.Settings = container.Get<MessageBoxSettingsViewModel>().Setup(settings =>
                     {
                         settings.Message = message;
                         settings.Title = title;
@@ -41,7 +41,7 @@ namespace NooneUI.Framework
             })
             .ShowDialog<MessageBoxResults>();
 
-        public Task<MessageBoxResults> ShowAsync(string title, string message, MessageBoxSettings settings) =>
+        public Task<MessageBoxResults> ShowAsync(string title, string message, MessageBoxSettingsViewModel settings) =>
             container.Get<MessageBoxWindowViewModel>().Setup(messagebox =>
             {
                 messagebox.Content = container.Get<MessageBoxViewModel>().Setup(view =>

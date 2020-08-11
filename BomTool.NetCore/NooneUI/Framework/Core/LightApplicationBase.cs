@@ -7,7 +7,8 @@ using System;
 namespace NooneUI.Framework
 {
     /// <summary>
-    /// Base class for Application, providers logger and IoC container
+    /// Base Application extends <see cref="Application"/>, provides <see cref="ILogger"/> and IoC container <see cref="IContainer"/>
+    /// Implement <see cref="ILoggerProvider"/> and <see cref="IContainerProvider"/>
     /// </summary>
     public abstract class LightApplicationBase : Application, IBaseServiceProvider
     {
@@ -18,7 +19,7 @@ namespace NooneUI.Framework
         private static readonly string STYLES_URI = "avares://NooneUI/Theme/LightStyles.xaml";
 
         /// <summary>
-        /// MainWindow
+        /// Indicate the Main window of current Application
         /// </summary>
         public static Window MainWindow => (Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow;
 
@@ -69,13 +70,13 @@ namespace NooneUI.Framework
         /// Lookup the entry window.
         /// </summary>
         /// <returns></returns>
-        protected abstract Window LookupMainWindow();
+        protected virtual Window LookupMainWindow() { return null; }
     }
 
     /// <summary>
     /// Base class for Application which support generic type
     /// </summary>
-    /// <typeparam name="TView">The main entry window</typeparam>
+    /// <typeparam name="TView">Which should be a derived class from <see cref="LightWindowBase"/></typeparam>
     public class LightApplicationBase<TView> : LightApplicationBase
         where TView : LightWindowBase, new()
     {

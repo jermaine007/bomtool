@@ -10,14 +10,14 @@ namespace NooneUI.Framework
 
         public IViewPresenter Presenter => presenter ??= container.Get<IViewPresenter>();
 
-        public void Close() => Presenter.Close(this);
+        public virtual void Close() => Presenter.Close(this);
 
-        public void Show() => Presenter.Show(this);
+        public virtual void Show() => Presenter.Show(this);
 
-        public Task ShowDialog() => Presenter.ShowDialog(this);
+        public virtual Task ShowDialog() => Presenter.ShowDialog(this);
 
-        public Task<TResult> ShowDialog<TResult>() => Presenter.ShowDialog<TResult>(this);
+        public virtual Task<TResult> ShowDialog<TResult>() => Presenter.ShowDialog<TResult>(this);
 
-        public object DialogResult { get; set; }
+        public virtual object DialogResult { get; set; }
     }
 }

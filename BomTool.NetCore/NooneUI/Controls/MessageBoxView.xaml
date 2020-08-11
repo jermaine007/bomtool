@@ -65,28 +65,28 @@
                     CommandParameter="{x:Static models:MessageBoxResults.OK}"
                     IsVisible="{Binding Settings.Buttons,
                                         Converter={StaticResource MessageBoxButtonsVisibilityConverter},
-                                        ConverterParameter={x:Static converters:MessageBoxButtonsVisibilityConverter.OK}}" />
+                                        ConverterParameter={x:Static models:MessageBoxButtonsBase.OK}}" />
 
             <Button Content="Yes"
                     Command="{Binding $parent[fx:LightWindowBase].DataContext.CloseCommand}"
                     CommandParameter="{x:Static models:MessageBoxResults.Yes}"
                     IsVisible="{Binding Settings.Buttons,
                                         Converter={StaticResource MessageBoxButtonsVisibilityConverter},
-                                        ConverterParameter={x:Static converters:MessageBoxButtonsVisibilityConverter.Yes}}" />
+                                        ConverterParameter={x:Static models:MessageBoxButtonsBase.Yes}}" />
 
             <Button Content="No"
                     Command="{Binding $parent[fx:LightWindowBase].DataContext.CloseCommand}"
                     CommandParameter="{x:Static models:MessageBoxResults.No}"
                     IsVisible="{Binding Settings.Buttons,
                                         Converter={StaticResource MessageBoxButtonsVisibilityConverter},
-                                        ConverterParameter={x:Static converters:MessageBoxButtonsVisibilityConverter.No}}" />
+                                        ConverterParameter={x:Static models:MessageBoxButtonsBase.No}}" />
 
             <Button Content="Cancel"
                     Command="{Binding $parent[fx:LightWindowBase].DataContext.CloseCommand}"
                     CommandParameter="{x:Static models:MessageBoxResults.Cancel}"
                     IsVisible="{Binding Settings.Buttons,
                                         Converter={StaticResource MessageBoxButtonsVisibilityConverter},
-                                        ConverterParameter={x:Static converters:MessageBoxButtonsVisibilityConverter.Cancel}}" />
+                                        ConverterParameter={x:Static models:MessageBoxButtonsBase.Cancel}}" />
         </StackPanel>
     </Grid>
 </fx:LightUserControlBase>

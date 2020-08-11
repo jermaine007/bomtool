@@ -7,7 +7,7 @@ namespace NooneUI.Framework
     /// <summary>
     /// Interface which indicates can be auto registered into IoC container when app start up
     /// </summary>
-    public interface IAutoRegister
+    public interface ICanAutoRegister
     {
     }
 }

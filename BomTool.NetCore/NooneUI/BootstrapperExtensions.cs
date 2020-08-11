@@ -110,7 +110,7 @@ namespace NooneUI
             IEnumerable<Type> types = AppDomain.CurrentDomain.GetAssemblies()
                .Where(assembly => !assembly.IsDynamic)
                .SelectMany(assembly => assembly.GetTypes())
-               .Where(type => !type.IsAbstract && typeof(IAutoRegister).IsAssignableFrom(type)).ToList();
+               .Where(type => !type.IsAbstract && typeof(ICanAutoRegister).IsAssignableFrom(type)).ToList();
 
             // auto register built in mode
             RegisterTypesToContainer(container, logger, types);

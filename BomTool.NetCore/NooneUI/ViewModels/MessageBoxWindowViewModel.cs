@@ -7,10 +7,16 @@ namespace NooneUI.ViewModels
 {
     public class MessageBoxWindowViewModel : WindowViewModelBase
     {
+
+        private object content;
         /// <summary>
         /// Container represents to the real view
         /// </summary>
-        public object Content { get; set; }
+        public object Content
+        {
+            get => content;
+            set => this.RaiseAndSetIfChanged(ref content, value);
+        }
 
         public MessageBoxWindowViewModel()
         {

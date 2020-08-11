@@ -28,7 +28,7 @@ namespace BomTool.NetCore.ViewModels
             MessageBoxCommand = ReactiveCommand.Create(async () =>
             {
                 var result = await messagebox.ShowAsync("系统消息", "尊敬的天笑哥，\r\n您在本店的娱乐金卡余额已不足，为了避免不必要的麻烦，\r\n以及能够享受到更好的服务，请尽快充值",
-                    container.Get<MessageBoxSettings>().Setup(
+                    container.Get<MessageBoxSettingsViewModel>().Setup(
                         settings =>
                         {
                             settings.Buttons = MessageBoxButtons.OKCancel;
