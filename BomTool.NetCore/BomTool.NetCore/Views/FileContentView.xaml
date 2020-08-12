@@ -18,7 +18,12 @@
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>
                 <DataTemplate>
-                    <ContentControl Content="{Binding Content}" />
+                    <DockPanel LastChildFill="True">
+                      <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+                        <Button Content="OK"/>
+                      </StackPanel>
+                      <ContentControl Content="{Binding Content}" />
+                    </DockPanel>
                 </DataTemplate>
             </TabControl.ContentTemplate>
         </TabControl>
