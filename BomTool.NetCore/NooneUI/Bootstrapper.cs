@@ -4,9 +4,25 @@ using NooneUI.Framework;
 
 namespace NooneUI
 {
-
     /// <summary>
-    /// Bootstrapper for application.
+    /// <para>Bootstrapper for application.</para>
+    /// <para>First create a App class like</para>
+    /// <code>
+    /// public class App : LightApplicationBaseMainWindow&gt;
+    /// {
+    ///     public App()
+    ///     {
+    ///         AvaloniaXamlLoader.Load(this);
+    ///     }
+    ///         .
+    ///         .
+    ///         .
+    ///         do other things
+    /// }
+    /// </code>
+    /// <code>Bootstrapper.Create&lt;App&gt;()</code>
+    /// Otherwise, if you have no special settings for App, just Use
+    /// <code>Bootstrapper.Create&lt;LightApplicationBase&lt;MainWindow&gt;&gt;()</code>
     /// </summary>
     public class Bootstrapper
     {

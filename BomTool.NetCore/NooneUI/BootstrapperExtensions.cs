@@ -98,7 +98,7 @@ namespace NooneUI
         /// Auto register
         /// </summary>
         /// <param name="container"></param>
-        /// <param name="logger"></param>
+        /// <param name="bootstrapper"></param>
         private static void AutoRegister(IContainer container, Bootstrapper bootstrapper)
         {
             // resolve logger binding

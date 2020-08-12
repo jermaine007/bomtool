@@ -11,34 +11,13 @@ namespace BomTool.NetCore
 {
     class Program
     {
-        /*
-
-        First create a App class like
-            public class App : LightApplicationBase<MainWindow>
-            {
-                public App() {
-                    AvaloniaXamlLoader.Load(this);
-                }
-                .
-                .
-                .
-                do other things
-            }
-         Then Bootstrapper.Create<App>() ...
-
-         Or if you have no special settings for App,
-         Just Use Bootstrapper.Create<LightApplicationBase<MainWindow>>() ...
-
-         */
         public static void Main(string[] args)
             => Bootstrapper.Create<LightApplicationBase<MainWindow>>()
-                // Register some services
-                .Use((IContainer container) => { })
-                // Configure apps
-                .Use(builder => builder
-                        .UsePlatformDetect()
-                        .LogToDebug()
-                        .UseReactiveUI())
-                .Launch(args);
+                   .Use((IContainer container) => { })
+                   .Use(builder => builder
+                       .UsePlatformDetect()
+                       .LogToDebug()
+                       .UseReactiveUI())
+                   .Launch(args);
     }
 }
