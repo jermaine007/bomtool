@@ -34,6 +34,13 @@
             BorderThickness="1"
             Content="{Binding FileList}" />
         <GridSplitter Grid.Column="1" Background="{DynamicResource DarkBackgroundBrush3}" />
+        <ContentControl
+            Grid.Column="2"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            BorderBrush="{DynamicResource DarkBackgroundBrush3}"
+            BorderThickness="1"
+            Content="{Binding FileContent}" />
     </Grid>
     <!-- <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/> -->
 </fx:LightWindowBase>

@@ -19,7 +19,7 @@ namespace BomTool.NetCore.ViewModels
         public ReadOnlyObservableCollection<FileItem> Files => files;
 
         public ReactiveCommand<FileItem, Unit> RemoveFileCommand { get; }
-
+        public ReactiveCommand<FileItem, Unit> OpenFileCommand { get; }
         public FileListViewModel()
         {
             sourceList = new SourceList<FileItem>();
@@ -38,6 +38,11 @@ namespace BomTool.NetCore.ViewModels
             RemoveFileCommand = ReactiveCommand.Create<FileItem>((fileItem) =>
             {
                 sourceList.Remove(fileItem);
+            });
+
+            OpenFileCommand = ReactiveCommand.Create<FileItem>(fileItem =>
+            {
+                messagebox.ShowAsync(fileItem.Location);
             });
         }
 

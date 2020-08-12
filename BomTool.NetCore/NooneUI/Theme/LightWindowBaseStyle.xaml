@@ -2,6 +2,8 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:fx="clr-namespace:NooneUI.Framework"
+    xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+    xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
     xmlns:sys="clr-namespace:System;assembly=netstandard">
     <Style Selector="fx|LightWindowBase">
         <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush2}" />
@@ -21,6 +23,12 @@
                             Name="PART_HeaderBar"
                             Margin="0"
                             ColumnDefinitions="28,*,*">
+                            <i:Interaction.Behaviors>
+                                <ia:EventTriggerBehavior EventName="DoubleTapped" SourceObject="{Binding #PART_HeaderBar}">
+                                    <ia:InvokeCommandAction Command="{x:Static fx:ApplicationCommands.ToggleWindow}"
+                                                            CommandParameter="{Binding $parent[fx:LightWindowBase]}" />
+                                </ia:EventTriggerBehavior>
+                            </i:Interaction.Behaviors>
                             <!--  logo  -->
                             <Image
                                 Width="18"

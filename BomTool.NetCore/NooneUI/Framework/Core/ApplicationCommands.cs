@@ -31,6 +31,11 @@ namespace NooneUI.Framework
         /// </summary>
         public static ReactiveCommand<LightWindowBase, Unit> MinimizeWindow { get; private set; }
 
+        /// <summary>
+        /// Toggle windows
+        /// </summary>
+        public static ReactiveCommand<LightWindowBase, Unit> ToggleWindow {get; private set;}
+
         static ApplicationCommands()
         {
             CloseWindow = ReactiveCommand.Create<LightWindowBase>(window =>
@@ -45,6 +50,7 @@ namespace NooneUI.Framework
             RestoreWindow = ReactiveCommand.Create<LightWindowBase>(window => window.WindowState = WindowState.Normal);
             MaximizeWindow = ReactiveCommand.Create<LightWindowBase>(window => window.WindowState = WindowState.Maximized);
             MinimizeWindow = ReactiveCommand.Create<LightWindowBase>(window => window.WindowState = WindowState.Minimized);
+            ToggleWindow = ReactiveCommand.Create<LightWindowBase>(window => window.WindowState ^= WindowState.Maximized);
         }
     }
 }
