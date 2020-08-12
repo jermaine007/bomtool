@@ -42,7 +42,7 @@ namespace BomTool.NetCore.ViewModels
 
             OpenFileCommand = ReactiveCommand.Create<FileItem>(fileItem =>
             {
-                messagebox.ShowAsync(fileItem.Location);
+                container.Get<MainWindowViewModel>().FileContent.Add(fileItem);
             });
         }
 

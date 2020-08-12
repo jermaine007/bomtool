@@ -5,6 +5,6 @@ namespace NooneUI.Framework
     /// </summary>
     public interface ICanSetup
     {
-        string Id => ContainerLocator.Current.Get<IdGenerator>().Next(this.GetType().FullName,"{0}@{1}");
+        string Id => ContainerLocator.Current.Get<IdGenerator>().Next(this.GetType().FullName,"{0}#{1}");
     }
 }

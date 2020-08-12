@@ -14,11 +14,14 @@ namespace BomTool.NetCore.ViewModels
 
         public AboutWindowViewModel AboutWindow { get; }
 
+        public FileContentViewModel FileContent { get; }
+
         public MainWindowViewModel()
         {
             this.MenuBar = container.Get<MenuViewModel>();
             this.FileList = container.Get<FileListViewModel>();
             this.AboutWindow = container.Get<AboutWindowViewModel>();
+            this.FileContent = container.Get<FileContentViewModel>();
         }
     }
 }
