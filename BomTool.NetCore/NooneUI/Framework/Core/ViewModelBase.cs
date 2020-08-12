@@ -5,6 +5,7 @@ using ReactiveUI;
 
 namespace NooneUI.Framework
 {
+    [AutoRegister]
     public abstract class ViewModelBase : ReactiveObject, IServiceProvider, IViewModel
     {
         protected readonly IDialog dialog;
@@ -18,7 +19,7 @@ namespace NooneUI.Framework
             logger = ((IServiceProvider)this).Logger;
             dialog = ((IServiceProvider)this).Dialog;
             messagebox = ((IServiceProvider)this).MessageBox;
-            logger.Debug($"ViewModel:{((IHaveId)this).Id} has been created");
+            logger.Debug($"ViewModel:{((ICanSetup)this).Id} has been created");
         }
 
     }

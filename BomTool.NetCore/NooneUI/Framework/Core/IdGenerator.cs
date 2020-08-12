@@ -4,10 +4,10 @@ using System.Collections.Generic;
 namespace NooneUI.Framework
 {
     /// <summary>
-    /// A class use to generate id by specified prefix.
+    /// A class use to generate id by specified prefix
     /// </summary>
     [AutoRegister(Singleton = true)]
-    internal class IdGenerator : ICanAutoRegister
+    internal class IdGenerator
     {
         /// <summary>
         /// Map to store ids according to prefix

@@ -6,7 +6,7 @@ using System.Linq;
 namespace NooneUI.Framework
 {
     [AutoRegister(Singleton = true, InterfaceType = typeof(IMvvmRelationships))]
-    internal class MvvmRelationships : IBaseServiceProvider, IMvvmRelationships, ICanAutoRegister
+    internal class MvvmRelationships : IBaseServiceProvider, IMvvmRelationships
     {
         private readonly Dictionary<Type, Type> map;
 

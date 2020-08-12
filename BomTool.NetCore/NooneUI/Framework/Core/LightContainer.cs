@@ -8,7 +8,7 @@ using System.Linq;
 namespace NooneUI.Framework
 {
     /// <summary>
-    /// Simple IoC container based on Ninject. Singleton instace
+    /// Simple IoC container based on Ninject:http://www.ninject.org/. Singleton instace, Default Implementation for <see cref="IContainer"/>
     /// </summary>
     internal class LightContainer : IContainer
     {
@@ -25,18 +25,15 @@ namespace NooneUI.Framework
         public IKernel Kernel { get; private set; }
 
         private LightContainer()
-        {
-            //var settings = new NinjectSettings { LoadExtensions = false };
-            //Kernel = new StandardKernel(settings, new LightMoudle());
-            Kernel = new StandardKernel(new NinjectSettings { LoadExtensions = false });
-        }
+            => Kernel = new StandardKernel(new NinjectSettings { LoadExtensions = false });
+
 
         /// <summary>
         /// Register a type
         /// </summary>
         /// <param name="service"></param>
         /// <param name="singleton"></param>
-        public void Bind(Type service, bool singleton)
+        public void Register(Type service, bool singleton)
         {
             if (singleton)
             {
@@ -59,7 +56,7 @@ namespace NooneUI.Framework
         /// <param name="interfaceType"></param>
         /// <param name="service"></param>
         /// <param name="singleton"></param>
-        public void Bind(Type interfaceType, Type service, bool singleton)
+        public void Register(Type interfaceType, Type service, bool singleton)
         {
             if (!interfaceType.IsAssignableFrom(service))
             {
@@ -82,7 +79,7 @@ namespace NooneUI.Framework
         /// <typeparam name="TInterface">interface type</typeparam>
         /// <typeparam name="TImplementation">implementation type</typeparam>
         /// <returns></returns>
-        public void Bind<TInterface, TImplementation>(bool singleton) where TImplementation : TInterface
+        public void Register<TInterface, TImplementation>(bool singleton) where TImplementation : TInterface
         {
             //https://github.com/ninject/Ninject/issues/243
             if (singleton)
@@ -100,7 +97,7 @@ namespace NooneUI.Framework
         /// </summary>
         /// <param name="singleton">is singleton</param>
         /// <typeparam name="TService">Service type which need to be registered</typeparam>
-        public void Bind<TService>(bool singleton)
+        public void Register<TService>(bool singleton)
         {
             if (singleton)
             {
@@ -121,14 +118,14 @@ namespace NooneUI.Framework
         /// </summary>
         /// <param name="serviceInstance"></param>
         /// <typeparam name="TService"></typeparam>
-        public void BindConstant<TService>(TService serviceInstance) => Kernel.Bind<TService>().ToConstant(serviceInstance);
+        public void RegisterConstant<TService>(TService serviceInstance) => Kernel.Bind<TService>().ToConstant(serviceInstance);
 
         /// <summary>
         /// Register a delegate instance
         /// </summary>
         /// <param name="factory"></param>
         /// <typeparam name="TDelegate"></typeparam>
-        public void BindMethod<TDelegate>(Func<TDelegate> factory) => Kernel.Bind<TDelegate>().ToMethod(context => factory());
+        public void RegisterMethod<TDelegate>(Func<TDelegate> factory) => Kernel.Bind<TDelegate>().ToMethod(context => factory());
 
         /// <summary>
         /// Get a specified service instance

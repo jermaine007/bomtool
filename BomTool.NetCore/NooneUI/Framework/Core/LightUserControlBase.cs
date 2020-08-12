@@ -3,6 +3,7 @@ using Avalonia.Markup.Xaml;
 
 namespace NooneUI.Framework
 {
+    [AutoRegister]
     public abstract class LightUserControlBase : UserControl, IBaseServiceProvider, IView
     {
         protected readonly ILogger logger;

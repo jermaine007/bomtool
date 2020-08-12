@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace NooneUI.Framework
 {
     [AutoRegister(Singleton = true, InterfaceType = typeof(IViewPresenter))]
-    internal class ViewPresenter : IViewPresenter, IBaseServiceProvider, ICanAutoRegister
+    internal class ViewPresenter : IViewPresenter, IBaseServiceProvider
     {
         private readonly Dictionary<IViewModel, IView> viewStore;
         private readonly IContainer container;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Avalonia;
+using Ninject.Infrastructure.Language;
 using NooneUI.Framework;
 
 namespace NooneUI
@@ -110,7 +111,8 @@ namespace NooneUI
             IEnumerable<Type> types = AppDomain.CurrentDomain.GetAssemblies()
                .Where(assembly => !assembly.IsDynamic)
                .SelectMany(assembly => assembly.GetTypes())
-               .Where(type => !type.IsAbstract && typeof(ICanAutoRegister).IsAssignableFrom(type)).ToList();
+               .Where(type => !type.IsAbstract
+                      && type.HasAttribute<AutoRegisterAttribute>()).ToList();
 
             // auto register built in mode
             RegisterTypesToContainer(container, logger, types);
@@ -125,41 +127,36 @@ namespace NooneUI
                 if (starter.LoggingBinding != null)
                 {
                     Type loggerType = starter.LoggingBinding();
-                    ioc.Bind(typeof(ILogger), loggerType);
+                    ioc.Register(typeof(ILogger), loggerType);
                 }
                 else
                 {
                     Type loggerType = Type.GetType(BuiltInLogger);
-                    ioc.Bind(typeof(ILogger), loggerType);
+                    ioc.Register(typeof(ILogger), loggerType);
                 }
             }
 
             // register types to container
             static void RegisterTypesToContainer(IContainer ioc, ILogger log, IEnumerable<Type> services)
             {
-                foreach (var type in services)
+                foreach (Type type in services)
                 {
                     var attribute = type.GetCustomAttribute<AutoRegisterAttribute>();
-                    if (attribute == null)
+
+                    bool singleton = attribute.Singleton;
+                    Type interfaceType = attribute.InterfaceType;
+
+                    if (interfaceType != null)
                     {
-                        log.Debug($"Auto register type -> {type}");
-                        ioc.Bind(type);
+                        log.Debug($"Auto register type -> [{interfaceType}, {type}], singleton -> {singleton}");
+                        ioc.Register(interfaceType, type, singleton);
                     }
                     else
                     {
-                        var singleton = attribute.Singleton;
-                        var interfaceType = attribute.InterfaceType;
-                        if (interfaceType != null)
-                        {
-                            log.Debug($"Auto register type -> [{interfaceType}, {type}], singleton -> {singleton}");
-                            ioc.Bind(interfaceType, type, singleton);
-                        }
-                        else
-                        {
-                            log.Debug($"Auto register type -> {type}, singleton -> {singleton}");
-                            ioc.Bind(type, singleton);
-                        }
+                        log.Debug($"Auto register type -> {type}, singleton -> {singleton}");
+                        ioc.Register(type, singleton);
                     }
+
                 }
             }
 

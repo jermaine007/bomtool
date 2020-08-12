@@ -22,9 +22,10 @@ namespace BomTool.NetCore.Models
             }
         }
 
-        public static FileItem Create(string file) => new FileItem{
-             Name = Path.GetFileName(file),
-             Location = file
+        public static FileItem Create(string file) => new FileItem
+        {
+            Name = Path.GetFileName(file),
+            Location = file
         };
 
         public static IEnumerable<FileItem> Load()

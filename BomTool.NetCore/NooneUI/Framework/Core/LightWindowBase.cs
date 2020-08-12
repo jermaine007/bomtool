@@ -12,6 +12,7 @@ using Avalonia.VisualTree;
 
 namespace NooneUI.Framework
 {
+    [AutoRegister]
     public abstract class LightWindowBase : Window, IBaseServiceProvider, IStyleable, IView
     {
         private const string DEBUG = "DEBUG";

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace NooneUI.Framework
 {
     [AutoRegister(Singleton = true, InterfaceType = typeof(IMessageBox))]
-    internal class LightMessageBox : IMessageBox, IBaseServiceProvider, ICanAutoRegister
+    internal class LightMessageBox : IMessageBox, IBaseServiceProvider
     {
 
         private readonly IContainer container;
