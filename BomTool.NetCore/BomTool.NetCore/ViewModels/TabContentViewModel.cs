@@ -10,6 +10,7 @@ namespace BomTool.NetCore.ViewModels
     {
         private string header = string.Empty;
         private object content;
+        private string location = string.Empty;
 
         public string Header
         {
@@ -21,6 +22,12 @@ namespace BomTool.NetCore.ViewModels
         {
             get => content;
             set => this.RaiseAndSetIfChanged(ref content, value);
+        }
+
+        public string Location
+        {
+            get => location;
+            set => this.RaiseAndSetIfChanged(ref location, value);
         }
     }
 }
