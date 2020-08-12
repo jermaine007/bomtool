@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Reactive;
 using BomTool.NetCore.Models;
 using DynamicData;
 using NooneUI.Framework;
+using ReactiveUI;
 
 namespace BomTool.NetCore.ViewModels
 {
@@ -15,6 +17,8 @@ namespace BomTool.NetCore.ViewModels
         private readonly SourceList<FileItem> sourceList;
         private readonly ReadOnlyObservableCollection<FileItem> files;
         public ReadOnlyObservableCollection<FileItem> Files => files;
+
+        public ReactiveCommand<FileItem, Unit> RemoveFileCommand { get; }
 
         public FileListViewModel()
         {
@@ -30,6 +34,11 @@ namespace BomTool.NetCore.ViewModels
                           FileItem.Save(sourceList.Items);
                       }).Bind(out files)
                       .Subscribe();
+
+            RemoveFileCommand = ReactiveCommand.Create<FileItem>((fileItem) =>
+            {
+                sourceList.Remove(fileItem);
+            });
         }
 
         public void AddFile(string file) => sourceList.Add(FileItem.Create(file));
