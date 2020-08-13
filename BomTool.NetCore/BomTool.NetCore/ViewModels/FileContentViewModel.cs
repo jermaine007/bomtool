@@ -62,6 +62,7 @@ namespace BomTool.NetCore.ViewModels
             {
                 vm.Header = Path.GetFileName(item.Name);
                 vm.Location = item.Location;
+                vm.Content = container.Get<BomDataViewModel>();
             }));
         }
 
