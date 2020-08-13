@@ -8,7 +8,10 @@ namespace NooneUI.Framework.Core
     /// Dynamic view presenter, generate the view by specified template and data source.
     /// </summary>
     [AutoRegister(Singleton = true, InterfaceType = typeof(IDynamicViewPresenter))]
-    internal class DynamicViewPresenter : IBaseServiceProvider, IDynamicViewPresenter
+    internal class DynamicViewPresenter : IContainerProvider,
+        ILoggerProvider,
+        ITemplateEngineProvider,
+        IDynamicViewPresenter
     {
         private readonly ITemplateEngine templateEngine;
         private readonly IContainer container;
@@ -18,7 +21,7 @@ namespace NooneUI.Framework.Core
         {
             container = ((IContainerProvider)this).Container;
             logger = ((ILoggerProvider)this).Logger;
-            templateEngine = container.Get<ITemplateEngine>();
+            templateEngine = ((ITemplateEngineProvider)this).TemplateEngine;
         }
 
         /// <summary>

@@ -2,10 +2,11 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using NooneUI.Framework;
 
 namespace BomTool.NetCore.Models
 {
-    public class FileItem
+    public class FileItem : ModelBase
     {
         private readonly static string HistoryFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "__BOM__TOOL__");
 

@@ -2,6 +2,6 @@ namespace NooneUI.Framework
 {
     public interface IContainerProvider
     {
-        IContainer Container { get; }
+        IContainer Container => ContainerLocator.Current;
     }
 }

@@ -13,7 +13,11 @@ using Avalonia.VisualTree;
 namespace NooneUI.Framework
 {
     [AutoRegister]
-    public abstract class LightWindowBase : Window, IBaseServiceProvider, IStyleable, IView
+    public abstract class LightWindowBase : Window,
+        IContainerProvider,
+        ILoggerProvider,
+        IStyleable,
+        IView
     {
         private const string DEBUG = "DEBUG";
 
@@ -75,8 +79,8 @@ namespace NooneUI.Framework
 
         protected LightWindowBase()
         {
-            logger = ((IBaseServiceProvider)this).Logger;
-            container = ((IBaseServiceProvider)this).Container;
+            logger = ((ILoggerProvider)this).Logger;
+            container = ((IContainerProvider)this).Container;
 
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             this.HasSystemDecorations = false;

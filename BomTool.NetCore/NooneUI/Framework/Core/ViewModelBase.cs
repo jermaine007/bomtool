@@ -6,7 +6,12 @@ using ReactiveUI;
 namespace NooneUI.Framework
 {
     [AutoRegister]
-    public abstract class ViewModelBase : ReactiveObject, IServiceProvider, IViewModel
+    public abstract class ViewModelBase : ReactiveObject,
+        ILoggerProvider,
+        IContainerProvider,
+        IDialogProvider,
+        IMessageBoxProvider,
+        IViewModel
     {
         protected readonly IDialog dialog;
         protected readonly IMessageBox messagebox;
@@ -15,10 +20,10 @@ namespace NooneUI.Framework
 
         protected ViewModelBase()
         {
-            container = ((IServiceProvider)this).Container;
-            logger = ((IServiceProvider)this).Logger;
-            dialog = ((IServiceProvider)this).Dialog;
-            messagebox = ((IServiceProvider)this).MessageBox;
+            container = ((IContainerProvider)this).Container;
+            logger = ((ILoggerProvider)this).Logger;
+            dialog = ((IDialogProvider)this).Dialog;
+            messagebox = ((IMessageBoxProvider)this).MessageBox;
             logger.Debug($"ViewModel:{((ICanSetup)this).Id} has been created");
         }
 

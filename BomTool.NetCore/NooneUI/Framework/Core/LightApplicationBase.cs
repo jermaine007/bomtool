@@ -10,7 +10,9 @@ namespace NooneUI.Framework
     /// Base Application extends <see cref="Application"/>, provides <see cref="ILogger"/> and IoC container <see cref="IContainer"/>
     /// Implement <see cref="ILoggerProvider"/> and <see cref="IContainerProvider"/>
     /// </summary>
-    public abstract class LightApplicationBase : Application, IBaseServiceProvider
+    public abstract class LightApplicationBase : Application,
+        IContainerProvider,
+        ILoggerProvider
     {
         // Base uri use to load styles
         private static readonly string BASE_URI = "avares://NooneUI/Styles";
@@ -35,8 +37,8 @@ namespace NooneUI.Framework
 
         protected LightApplicationBase()
         {
-            container = ((IBaseServiceProvider)this).Container;
-            logger = ((IBaseServiceProvider)this).Logger;
+            container = ((IContainerProvider)this).Container;
+            logger = ((ILoggerProvider)this).Logger;
 
             // load styles
             this.Styles.Add(new StyleInclude(new Uri(BASE_URI))

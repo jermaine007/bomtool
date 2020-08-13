@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 namespace NooneUI.Framework
 {
     [AutoRegister(Singleton = true, InterfaceType = typeof(IMessageBox))]
-    internal class LightMessageBox : IMessageBox, IBaseServiceProvider
+    internal class LightMessageBox : IMessageBox, IContainerProvider
     {
 
         private readonly IContainer container;
 
-        public LightMessageBox() => container = ((IBaseServiceProvider)this).Container;
+        public LightMessageBox() => container = ((IContainerProvider)this).Container;
 
         public Task<MessageBoxResults> ShowAsync(string message) =>
             container.Get<MessageBoxWindowViewModel>().Setup(messagebox =>

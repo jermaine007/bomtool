@@ -13,7 +13,9 @@ namespace BomTool.NetCore.Models
     /// <summary>
     /// Bom data reader
     /// </summary>
-    public class ExcelDataReader : ModelBase, IBaseServiceProvider
+    public class ExcelDataReader : ModelBase,
+        IContainerProvider,
+        ILoggerProvider
     {
         public static readonly string InsertType = "INSERT";
         public static readonly string SurfaceType = "SURFACE";

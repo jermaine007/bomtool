@@ -6,6 +6,6 @@ namespace NooneUI.Framework
 {
     public interface IMessageBoxProvider
     {
-        IMessageBox MessageBox { get; }
+        IMessageBox MessageBox => ContainerLocator.Current.Get<IMessageBox>();
     }
 }

@@ -6,7 +6,9 @@ using System.Linq;
 namespace NooneUI.Framework
 {
     [AutoRegister(Singleton = true, InterfaceType = typeof(IMvvmRelationships))]
-    internal class MvvmRelationships : IBaseServiceProvider, IMvvmRelationships
+    internal class MvvmRelationships : IContainerProvider,
+        ILoggerProvider,
+        IMvvmRelationships
     {
         private readonly Dictionary<Type, Type> map;
 
@@ -16,8 +18,8 @@ namespace NooneUI.Framework
         public MvvmRelationships()
         {
             map = new Dictionary<Type, Type>();
-            container = ((IBaseServiceProvider)this).Container;
-            logger = ((IBaseServiceProvider)this).Logger;
+            container = ((IContainerProvider)this).Container;
+            logger = ((ILoggerProvider)this).Logger;
         }
 
         public Type Lookup(Type inputType)

@@ -6,6 +6,6 @@ namespace NooneUI.Framework
 {
     public interface IDialogProvider
     {
-        IDialog Dialog { get; }
+        IDialog Dialog => ContainerLocator.Current.Get<IDialog>();
     }
 }

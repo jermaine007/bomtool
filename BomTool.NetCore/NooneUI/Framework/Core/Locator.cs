@@ -5,7 +5,7 @@ namespace NooneUI.Framework
     /// <summary>
     /// A class that provides attached property <see cref="Locator.AutoWiredProperty"/> to let a view auto wired a DataContext.
     /// </summary>
-    public abstract class Locator : IBaseServiceProvider
+    public abstract class Locator : ILoggerProvider, IContainerProvider
     {
 
         public static readonly AttachedProperty<bool> AutoWiredProperty =
@@ -21,8 +21,8 @@ namespace NooneUI.Framework
 
         protected Locator()
         {
-            logger = ((IBaseServiceProvider)this).Logger;
-            container = ((IBaseServiceProvider)this).Container;
+            logger = ((ILoggerProvider)this).Logger;
+            container = ((IContainerProvider)this).Container;
 
             AutoWiredProperty.Changed.AddClassHandler<AvaloniaObject>((o, e) =>
             {
