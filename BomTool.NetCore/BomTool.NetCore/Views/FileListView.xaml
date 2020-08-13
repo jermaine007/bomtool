@@ -59,10 +59,8 @@
                 <DataTemplate>
                     <Grid Name="FileContainer" ColumnDefinitions="*,Auto">
                         <i:Interaction.Behaviors>
-                            <ia:EventTriggerBehavior EventName="DoubleTapped"
-                                                     SourceObject="{Binding #FileContainer}">
-                                <ia:InvokeCommandAction Command="{Binding $parent[fx:LightUserControlBase].DataContext.OpenFileCommand}"
-                                                        CommandParameter="{Binding}" />
+                            <ia:EventTriggerBehavior EventName="DoubleTapped" SourceObject="{Binding #FileContainer}">
+                                <ia:InvokeCommandAction Command="{Binding $parent[fx:LightUserControlBase].DataContext.OpenFileCommand}" CommandParameter="{Binding}" />
                             </ia:EventTriggerBehavior>
                         </i:Interaction.Behaviors>
                         <TextBlock
