@@ -3,7 +3,7 @@ using Avalonia;
 namespace NooneUI.Framework
 {
     /// <summary>
-    ///
+    /// A class that provides attached property <see cref="Locator.AutoWiredProperty"/> to let a view auto wired a DataContext.
     /// </summary>
     public abstract class Locator : IBaseServiceProvider
     {

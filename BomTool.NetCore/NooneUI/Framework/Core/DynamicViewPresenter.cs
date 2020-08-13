@@ -4,6 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace NooneUI.Framework.Core
 {
+    /// <summary>
+    /// Dynamic view presenter, generate the view by specified template and data source.
+    /// </summary>
     [AutoRegister(Singleton = true, InterfaceType = typeof(IDynamicViewPresenter))]
     internal class DynamicViewPresenter : IBaseServiceProvider, IDynamicViewPresenter
     {
