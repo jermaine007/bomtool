@@ -1,22 +1,31 @@
-<Styles
-    xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:fx="clr-namespace:NooneUI.Framework"
-    xmlns:converters="clr-namespace:NooneUI.Converters"
-    xmlns:sys="clr-namespace:System;assembly=netstandard">
-    <Styles.Resources>
-        <Color x:Key="DarkBackground1">#333842</Color>
-        <Color x:Key="DarkBackground2">#21252B</Color>
-        <Color x:Key="DarkBackground3">#282C34</Color>
-        <Color x:Key="DarkBackground4">#2C313A</Color>
-        <Color x:Key="DarkForeground">#ABB2BF</Color>
+<Styles xmlns="https://github.com/avaloniaui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:fx="clr-namespace:NooneUI.Framework"
+  xmlns:converters="clr-namespace:NooneUI.Converters"
+  xmlns:sys="clr-namespace:System;assembly=netstandard">
+  <Styles.Resources>
+    <Color x:Key="DarkBackground1">#333842</Color>
+    <Color x:Key="DarkBackground2">#21252B</Color>
+    <Color x:Key="DarkBackground3">#282C34</Color>
+    <Color x:Key="DarkBackground4">#2C313A</Color>
+    <Color x:Key="DarkForeground">#ABB2BF</Color>
 
-        <SolidColorBrush x:Key="DarkBackgroundBrush1" Color="{DynamicResource DarkBackground1}" />
-        <SolidColorBrush x:Key="DarkBackgroundBrush2" Color="{DynamicResource DarkBackground2}" />
-        <SolidColorBrush x:Key="DarkBackgroundBrush3" Color="{DynamicResource DarkBackground3}" />
-        <SolidColorBrush x:Key="DarkBackgroundBrush4" Color="{DynamicResource DarkBackground4}" />
-        <SolidColorBrush x:Key="DarkForegroundBrush" Color="{DynamicResource DarkForeground}" />
-        <converters:MessageBoxButtonsVisibilityConverter x:Key="MessageBoxButtonsVisibilityConverter" />
-        <converters:MessageBoxIconsVisibilityConverter x:Key="MessageBoxIconsVisibilityConverter" />
-    </Styles.Resources>
+    <SolidColorBrush x:Key="DarkBackgroundBrush1" Color="{DynamicResource DarkBackground1}" />
+    <SolidColorBrush x:Key="DarkBackgroundBrush2" Color="{DynamicResource DarkBackground2}" />
+    <SolidColorBrush x:Key="DarkBackgroundBrush3" Color="{DynamicResource DarkBackground3}" />
+    <SolidColorBrush x:Key="DarkBackgroundBrush4" Color="{DynamicResource DarkBackground4}" />
+    <SolidColorBrush x:Key="DarkForegroundBrush" Color="{DynamicResource DarkForeground}" />
+    <converters:MessageBoxButtonsVisibilityConverter x:Key="MessageBoxButtonsVisibilityConverter" />
+    <converters:MessageBoxIconsVisibilityConverter x:Key="MessageBoxIconsVisibilityConverter" />
+  </Styles.Resources>
+
+  <Style Selector="Border.h1">
+    <Setter Property="Height" Value="30" />
+    <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush3}" />
+  </Style>
+  <Style Selector="Border.h1 &gt; TextBlock">
+    <Setter Property="FontWeight" Value="Bold" />
+    <Setter Property="Margin" Value="10 0" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
 </Styles>

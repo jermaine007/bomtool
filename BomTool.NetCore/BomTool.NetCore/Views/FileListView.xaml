@@ -52,7 +52,7 @@
             </Style>
         </StackPanel.Styles>
         <Border Classes="h1">
-            <TextBlock Classes="h1" Text="Recent Opened" />
+            <TextBlock Text="Recent Opened" />
         </Border>
         <ListBox Name="FileList" Items="{Binding Files}">
             <ListBox.ItemTemplate>
@@ -75,7 +75,6 @@
                             VerticalAlignment="Center"
                             Background="Transparent"
                             BorderThickness="0"
-                            Classes="delete"
                             Command="{Binding $parent[fx:LightUserControlBase].DataContext.RemoveFileCommand}"
                             CommandParameter="{Binding}">
                             <TextBlock HorizontalAlignment="Right" Text="x" />

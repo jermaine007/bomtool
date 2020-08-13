@@ -4,25 +4,50 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:fx="clr-namespace:NooneUI.Framework;assembly=NooneUI"
+    xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+    xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
     xmlns:local="clr-namespace:BomTool.NetCore.Views;assembly=BomTool.NetCore"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Grid>
-        <TabControl SelectedContent="{Binding SelectedContent, Mode=TwoWay}" Items="{Binding Items}">
+        <TabControl Items="{Binding Items}" SelectedContent="{Binding SelectedContent, Mode=TwoWay}">
             <TabControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Header}" />
+                    <Grid ColumnDefinitions="Auto,Auto" ToolTip.Tip="{Binding Location}">
+
+                        <TextBlock
+                            Margin="5,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"
+                            Text="{Binding Header}" />
+
+                        <TextBlock
+                            Name="CloseButton"
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            Text="x">
+                            <i:Interaction.Behaviors>
+                            <ia:EventTriggerBehavior EventName="Tapped"
+                                                     SourceObject="{Binding #CloseButton}">
+                                <ia:InvokeCommandAction Command="{Binding $parent[fx:LightUserControlBase].DataContext.RemoveCommand}"
+                                                        CommandParameter="{Binding}" />
+                            </ia:EventTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                        </TextBlock>
+
+                    </Grid>
                 </DataTemplate>
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>
                 <DataTemplate>
                     <DockPanel LastChildFill="True">
-                      <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
-                        <Button Content="OK"/>
-                      </StackPanel>
-                      <ContentControl Content="{Binding Content}" />
+                        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+                            <Button Content="OK" />
+                        </StackPanel>
+                        <ContentControl Content="{Binding Content}" />
                     </DockPanel>
                 </DataTemplate>
             </TabControl.ContentTemplate>
