@@ -6,7 +6,7 @@ namespace BomTool.NetCore.ViewModels
 {
     public class StatusBarViewModel : ViewModelBase
     {
-        private string message = "Test message";
+        private string message;
         private bool isBusy;
 
         public string Message

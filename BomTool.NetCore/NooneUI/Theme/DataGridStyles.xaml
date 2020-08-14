@@ -1,0 +1,32 @@
+<Styles xmlns="https://github.com/avaloniaui">
+  <Style Selector="DataGridRow /template/ Rectangle#BackgroundRectangle">
+    <Setter Property="IsVisible" Value="False"/>
+    <Setter Property="Fill" Value="{DynamicResource DarkBackgroundBrush1}" />
+  </Style>
+
+  <Style Selector="DataGridRow:pointerover /template/ Rectangle#BackgroundRectangle">
+    <Setter Property="IsVisible" Value="True"/>
+    <Setter Property="Opacity" Value="0.5"/>
+  </Style>
+
+  <Style Selector="DataGridRow:selected /template/ Rectangle#BackgroundRectangle">
+    <Setter Property="IsVisible" Value="True"/>
+    <Setter Property="Opacity" Value="1"/>
+  </Style>
+  <Style Selector="DataGrid">
+    <Setter Property="RowBackground" Value="{DynamicResource DarkBackgroundBrush2}" />
+  </Style>
+  <Style Selector="DataGrid">
+    <Setter Property="AlternatingRowBackground" Value="{DynamicResource DarkBackgroundBrush3}" />
+  </Style>
+  <Style Selector="DataGridColumnHeader">
+    <Setter Property="Foreground" Value="{DynamicResource DarkForegroundBrush}" />
+    <Setter Property="FontWeight" Value="Bold" />
+    <Setter Property="SeparatorBrush" Value="{DynamicResource ThemeControlDarkBrush}" />
+    <Setter Property="Padding" Value="4" />
+    <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush4}"/>
+  </Style>
+  <!-- <Style Selector="DataGridRow:selected">
+    <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrush}" />
+  </Style> -->
+</Styles>

@@ -9,8 +9,6 @@ namespace BomTool.NetCore.ViewModels
 {
     public class BomDataViewModel : DynamicViewModelBase
     {
-
-
         private readonly string template;
         private object dataSource;
         private ExcelData excelData;
@@ -19,8 +17,6 @@ namespace BomTool.NetCore.ViewModels
         public override string Template => template;
 
         public override object DataSource => dataSource;
-
-        public string Text => "Hello From Data Context";
 
         public IEnumerable<BomData> BomData => bomData;
 

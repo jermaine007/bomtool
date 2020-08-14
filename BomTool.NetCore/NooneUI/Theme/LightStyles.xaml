@@ -12,7 +12,8 @@
     <StyleInclude Source="avares://NooneUI/Theme/MenuStyles.xaml" />
     <StyleInclude Source="avares://NooneUI/Theme/ButtonStyles.xaml" />
     <StyleInclude Source="avares://NooneUI/Theme/ScrollBarStyles.xaml" />
-    <StyleInclude Source="avares://NooneUI/Theme/TabControlStyle.xaml" />
-    <StyleInclude Source="avares://NooneUI/Theme/LightWindowBaseStyle.xaml" />
+    <StyleInclude Source="avares://NooneUI/Theme/TabControlStyles.xaml" />
+    <StyleInclude Source="avares://NooneUI/Theme/LightWindowBaseStyles.xaml" />
+    <StyleInclude Source="avares://NooneUI/Theme/DataGridStyles.xaml" />
 
 </Styles>

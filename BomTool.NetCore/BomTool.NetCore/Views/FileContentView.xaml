@@ -44,9 +44,11 @@
             <TabControl.ContentTemplate>
                 <DataTemplate>
                     <DockPanel LastChildFill="True">
-                        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-                            <Button Content="OK" />
-                        </StackPanel>
+                        <Grid DockPanel.Dock="Bottom">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment = "Right">
+                              <Button Margin="11 10" HorizontalAlignment="Right" Content="Generate Bom" BorderThickness="0" />
+                            </StackPanel>
+                        </Grid>
                         <ContentControl Content="{Binding Content}" />
                     </DockPanel>
                 </DataTemplate>

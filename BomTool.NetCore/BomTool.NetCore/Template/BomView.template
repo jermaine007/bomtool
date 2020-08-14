@@ -14,21 +14,21 @@
       <converters:BoundedWidthConverter x:Key="BoundedWidthConverter" />
     </Grid.Resources>
     <ScrollViewer >
-      <DataGrid Items="{Binding BomData}"
+      <DataGrid BorderThickness="1" BorderBrush="{DynamicResource DarkBackgroundBrush1}" Items="{Binding BomData}"
                 Width="{Binding $parent[fx:DynamicViewBase].Bounds.Width,
                                 Converter={StaticResource BoundedWidthConverter},
-                                ConverterParameter=40}"
-                Margin="20"
+                                ConverterParameter=24}"
+                Margin="12"
                 CanUserResizeColumns="True"
                 CanUserReorderColumns="False">
         <DataGrid.Columns>
-          <DataGridTextColumn Header="{{reference}}" Binding="{Binding Reference}" Width="2*" />
-          <DataGridTextColumn Header="{{code}}" Binding="{Binding Code}" Width="2*" />
-          <DataGridTextColumn Header="{{type}}" Binding="{Binding Type}" Width="2*" />
-          <DataGridTextColumn Header="{{description}}" Binding="{Binding Description}" Width="6*" />
-          <DataGridTextColumn Header="{{value}}" Binding="{Binding Value}" Width="2*"/>
+          <DataGridTextColumn IsReadOnly="True" Header="{{reference}}" Binding="{Binding Reference}" Width="2*" />
+          <DataGridTextColumn IsReadOnly="True" Header="{{code}}" Binding="{Binding Code}" Width="2*" />
+          <DataGridTextColumn IsReadOnly="True" Header="{{type}}" Binding="{Binding Type}" Width="2*" />
+          <DataGridTextColumn IsReadOnly="True" Header="{{description}}" Binding="{Binding Description}" Width="6*" />
+          <DataGridTextColumn IsReadOnly="True" Header="{{value}}" Binding="{Binding Value}" Width="2*"/>
           {{for line in lines}}
-          <DataGridTextColumn Header="{{line}}" Binding="{Binding Lines[{{for.index}}]}" Width="2*"/>
+          <DataGridTextColumn IsReadOnly="True" Header="{{line}}" Binding="{Binding Lines[{{for.index}}]}" Width="2*"/>
           {{end}}
         </DataGrid.Columns>
       </DataGrid>
