@@ -60,16 +60,21 @@ namespace BomTool.NetCore.ViewModels
         private void ProcessFile(FileItem item, bool alreadyOpened = false) =>
              this.MainWindow.Waiting((statusBar) =>
                {
-                   ExcelDataReader reader = container.Get<ExcelDataReader>().Setup(r =>
-                   {
-                       r.Initialize(item.Location, msg => statusBar.Message = msg);
-                   });
-                   reader.Read();
                    if (!alreadyOpened)
                    {
                        sourceList.Add(item);
                    }
-                   FileContent.Add(item);
+                   if (FileContent.IsOpened(item))
+                   {
+                       return;
+                   }
+                   ExcelDataReader reader = container.Get<ExcelDataReader>().Setup(r =>
+                   {
+                       r.Initialize(item.Location, msg => statusBar.Message = msg);
+                   });
+                   ExcelData data = reader.Read();
+
+                   FileContent.Add(item, data);
                });
 
     }

@@ -3,13 +3,35 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:fx="clr-namespace:NooneUI.Framework;assembly=NooneUI"
+    xmlns:converters="clr-namespace:BomTool.NetCore.Converters;assembly=BomTool.NetCore"
     xmlns:local="clr-namespace:BomTool.NetCore.Views;assembly=BomTool.NetCore"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-  <StackPanel>
-    <TextBlock HorizontalAlignment="Center" FontWeight="Bold" FontSize="32">{{hello_text}}</TextBlock>
-    <TextBlock HorizontalAlignment="Center" FontWeight="Bold" FontSize="32" Text="{Binding Text}"/>
-  </StackPanel>
+  <Grid>
+    <Grid.Resources>
+      <converters:BoundedWidthConverter x:Key="BoundedWidthConverter" />
+    </Grid.Resources>
+    <ScrollViewer >
+      <DataGrid Items="{Binding BomData}"
+                Width="{Binding $parent[fx:DynamicViewBase].Bounds.Width,
+                                Converter={StaticResource BoundedWidthConverter},
+                                ConverterParameter=40}"
+                Margin="20"
+                CanUserResizeColumns="True"
+                CanUserReorderColumns="False">
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="{{reference}}" Binding="{Binding Reference}" Width="2*" />
+          <DataGridTextColumn Header="{{code}}" Binding="{Binding Code}" Width="2*" />
+          <DataGridTextColumn Header="{{type}}" Binding="{Binding Type}" Width="2*" />
+          <DataGridTextColumn Header="{{description}}" Binding="{Binding Description}" Width="6*" />
+          <DataGridTextColumn Header="{{value}}" Binding="{Binding Value}" Width="2*"/>
+          {{for line in lines}}
+          <DataGridTextColumn Header="{{line}}" Binding="{Binding Lines[{{for.index}}]}" Width="2*"/>
+          {{end}}
+        </DataGrid.Columns>
+      </DataGrid>
+    </ScrollViewer>
+  </Grid>
 </fx:DynamicViewBase>

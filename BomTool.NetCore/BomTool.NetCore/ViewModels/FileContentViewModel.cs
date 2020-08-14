@@ -49,20 +49,25 @@ namespace BomTool.NetCore.ViewModels
 
         }
 
-        public void Add(FileItem item)
+        public bool IsOpened(FileItem item)
         {
             TabContentViewModel vm = sourceList.Items.FirstOrDefault(o => item.Location == o.Location);
             if (vm != null)
             {
                 this.SelectedContent = vm;
-                return;
+                return true;
             }
 
+            return false;
+
+        }
+        public void Add(FileItem item, ExcelData data)
+        {
             sourceList.Add(container.Get<TabContentViewModel>().Setup(vm =>
             {
                 vm.Header = Path.GetFileName(item.Name);
                 vm.Location = item.Location;
-                vm.Content = container.Get<BomDataViewModel>();
+                vm.Content = container.Get<BomDataViewModel>().Setup(o => o.Initialize(data));
             }));
         }
 
