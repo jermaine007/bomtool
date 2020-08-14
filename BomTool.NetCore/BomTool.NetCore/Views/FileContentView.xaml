@@ -30,12 +30,11 @@
                             HorizontalAlignment="Right"
                             Text="x">
                             <i:Interaction.Behaviors>
-                            <ia:EventTriggerBehavior EventName="Tapped"
-                                                     SourceObject="{Binding #CloseButton}">
-                                <ia:InvokeCommandAction Command="{Binding $parent[fx:LightUserControlBase].DataContext.RemoveCommand}"
-                                                        CommandParameter="{Binding}" />
-                            </ia:EventTriggerBehavior>
-                        </i:Interaction.Behaviors>
+                                <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{Binding #CloseButton}">
+                                    <ia:InvokeCommandAction Command="{Binding $parent[fx:LightUserControlBase].DataContext.RemoveCommand}"
+                                                            CommandParameter="{Binding}" />
+                                </ia:EventTriggerBehavior>
+                            </i:Interaction.Behaviors>
                         </TextBlock>
 
                     </Grid>
@@ -45,8 +44,13 @@
                 <DataTemplate>
                     <DockPanel LastChildFill="True">
                         <Grid DockPanel.Dock="Bottom">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment = "Right">
-                              <Button Margin="11 10" HorizontalAlignment="Right" Content="Generate Bom" BorderThickness="0" />
+                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                <Button
+                                    Margin="11,10"
+                                    HorizontalAlignment="Right"
+                                    BorderThickness="0"
+                                    Content="Generate Bom"
+                                    Command="{Binding $parent[fx:LightUserControlBase].DataContext.GenerateBomCommand}"/>
                             </StackPanel>
                         </Grid>
                         <ContentControl Content="{Binding Content}" />

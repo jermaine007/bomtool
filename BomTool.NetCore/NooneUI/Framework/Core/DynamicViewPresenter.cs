@@ -14,12 +14,10 @@ namespace NooneUI.Framework.Core
         IDynamicViewPresenter
     {
         private readonly ITemplateEngine templateEngine;
-        private readonly IContainer container;
         private readonly ILogger logger;
 
         public DynamicViewPresenter()
         {
-            container = ((IContainerProvider)this).Container;
             logger = ((ILoggerProvider)this).Logger;
             templateEngine = ((ITemplateEngineProvider)this).TemplateEngine;
         }
