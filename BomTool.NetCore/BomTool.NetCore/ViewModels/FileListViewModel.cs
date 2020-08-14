@@ -17,13 +17,16 @@ namespace BomTool.NetCore.ViewModels
         private readonly SourceList<FileItem> sourceList;
         private readonly ReadOnlyObservableCollection<FileItem> files;
         private FileContentViewModel fileContent;
+
+        private MainWindowViewModel mainWindow;
+
         public ReadOnlyObservableCollection<FileItem> Files => files;
 
         public ReactiveCommand<FileItem, Unit> RemoveFileCommand { get; }
         public ReactiveCommand<FileItem, Unit> OpenFileCommand { get; }
 
-
-        public FileContentViewModel FileContent => fileContent ??= container.Get<MainWindowViewModel>().FileContent;
+        public FileContentViewModel FileContent => fileContent ??= this.MainWindow.FileContent;
+        public MainWindowViewModel MainWindow => mainWindow ??= container.Get<MainWindowViewModel>();
 
         public FileListViewModel()
         {
@@ -41,7 +44,7 @@ namespace BomTool.NetCore.ViewModels
                 FileContent.Remove(item);
             });
 
-            OpenFileCommand = ReactiveCommand.Create<FileItem>(item => FileContent.Add(item));
+            OpenFileCommand = ReactiveCommand.Create<FileItem>(item => ProcessFile(item, true));
         }
 
         public void AddFile(string file)
@@ -51,9 +54,23 @@ namespace BomTool.NetCore.ViewModels
                 return;
             }
             var item = FileItem.Create(file);
-
-            sourceList.Add(item);
-            FileContent.Add(item);
+            ProcessFile(item);
         }
+
+        private void ProcessFile(FileItem item, bool alreadyOpened = false) =>
+             this.MainWindow.Waiting((statusBar) =>
+               {
+                   ExcelDataReader reader = container.Get<ExcelDataReader>().Setup(r =>
+                   {
+                       r.Initialize(item.Location, msg => statusBar.Message = msg);
+                   });
+                   reader.Read();
+                   if (!alreadyOpened)
+                   {
+                       sourceList.Add(item);
+                   }
+                   FileContent.Add(item);
+               });
+
     }
 }

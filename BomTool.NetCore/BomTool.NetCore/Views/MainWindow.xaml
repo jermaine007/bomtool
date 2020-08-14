@@ -13,6 +13,7 @@
     Icon="/Assets/Icon.png"
     Logo="/Assets/Icon.png"
     MenuBar="{Binding MenuBar}"
+    StatusBar="{Binding StatusBar}"
     mc:Ignorable="d">
     <Design.DataContext>
         <vm:MainWindowViewModel />
@@ -42,5 +43,4 @@
             BorderThickness="1"
             Content="{Binding FileContent}" />
     </Grid>
-    <!-- <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/> -->
 </fx:LightWindowBase>

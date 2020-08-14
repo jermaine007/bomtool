@@ -18,14 +18,4 @@
     <converters:MessageBoxButtonsVisibilityConverter x:Key="MessageBoxButtonsVisibilityConverter" />
     <converters:MessageBoxIconsVisibilityConverter x:Key="MessageBoxIconsVisibilityConverter" />
   </Styles.Resources>
-
-  <Style Selector="Border.h1">
-    <Setter Property="Height" Value="30" />
-    <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush3}" />
-  </Style>
-  <Style Selector="Border.h1 &gt; TextBlock">
-    <Setter Property="FontWeight" Value="Bold" />
-    <Setter Property="Margin" Value="10 0" />
-    <Setter Property="VerticalAlignment" Value="Center" />
-  </Style>
 </Styles>
