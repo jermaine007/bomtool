@@ -18,7 +18,7 @@ namespace BomTool.NetCore.ViewModels
             OpenFileCommand = ReactiveCommand.Create<MainWindowViewModel>(async (mainViewModel) =>
             {
                 var files = await dialog.OpenFileDialogAsync("Select a excel file", "Excel files|xls;xlsx,All files|*");
-                if (files.Length == 0)
+                if ((files?.Length ?? 0) == 0)
                 {
                     return;
                 }
