@@ -32,10 +32,10 @@ namespace NooneUI.Framework.Core
             string template = vm.Template;
             logger.Debug($"Try to parse template {template}");
 
-            // Get template and datasource, check if both of them is not null. 
-            if (!File.Exists(template) || vm.DataSource == null)
+            // Get template, check if template is not null. 
+            if (!File.Exists(template))
             {
-                logger.Error("Template does not exist or data source is null");
+                logger.Error("Template does not exist is null");
                 return null;
             }
 

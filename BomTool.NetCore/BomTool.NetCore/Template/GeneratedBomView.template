@@ -1,0 +1,70 @@
+<fx:DynamicViewBase xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fx="clr-namespace:NooneUI.Framework;assembly=NooneUI"
+    xmlns:converters="clr-namespace:BomTool.NetCore.Converters;assembly=BomTool.NetCore"
+    xmlns:local="clr-namespace:BomTool.NetCore.Views;assembly=BomTool.NetCore"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Grid>
+        <Grid.Resources>
+            <converters:BoundedWidthConverter x:Key="BoundedWidthConverter" />
+        </Grid.Resources>
+        <ScrollViewer>
+            <ItemsControl Items="{Binding Data}"
+                Width="{Binding $parent[fx:DynamicViewBase].Bounds.Width, Converter={StaticResource BoundedWidthConverter}, ConverterParameter=24}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid RowDefinitions="*,*">
+                            <TextBlock HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Text="{Binding Line}" 
+                                FontSize="24"
+                                FontWeight="Bold"/>
+                            <DataGrid Grid.Row="1"
+                                BorderThickness="1"
+                                BorderBrush="{DynamicResource DarkBackgroundBrush1}"
+                                Items="{Binding Data}"
+                                Width="{Binding $parent[fx:DynamicViewBase].Bounds.Width, Converter={StaticResource BoundedWidthConverter}, ConverterParameter=24}"
+                                Margin="12"
+                                CanUserResizeColumns="True"
+                                CanUserReorderColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn IsReadOnly="True"
+                                        Header="Code"
+                                        Binding="{Binding Code}"
+                                        Width="2*" />
+                                    <DataGridTextColumn IsReadOnly="True"
+                                        Header="Description"
+                                        Binding="{Binding Description}"
+                                        Width="6*" />
+                                    <DataGridTextColumn IsReadOnly="True"
+                                        Header="Value"
+                                        Binding="{Binding Value}"
+                                        Width="2*"/>
+                                    <DataGridTextColumn IsReadOnly="True"
+                                        Header="Reference"
+                                        Binding="{Binding Reference}"
+                                        Width="2*" />
+                                    <DataGridTextColumn IsReadOnly="True"
+                                        Header="Count"
+                                        Binding="{Binding Count}"
+                                        Width="2*" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+        </ScrollViewer>
+    </Grid>
+</fx:DynamicViewBase>

@@ -13,7 +13,7 @@
     <Grid.Resources>
       <converters:BoundedWidthConverter x:Key="BoundedWidthConverter" />
     </Grid.Resources>
-    <ScrollViewer >
+    <ScrollViewer>
       <DataGrid BorderThickness="1" BorderBrush="{DynamicResource DarkBackgroundBrush1}" Items="{Binding BomData}"
                 Width="{Binding $parent[fx:DynamicViewBase].Bounds.Width,
                                 Converter={StaticResource BoundedWidthConverter},

@@ -9,6 +9,9 @@
     <Compile Update="**\*.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
+    <None Update="Template\*.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <AvaloniaResource Include="**\*.xaml" />
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
@@ -24,10 +27,5 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NooneUI\NooneUI.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Template\BomView.template">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 </Project>

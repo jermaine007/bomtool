@@ -50,7 +50,15 @@
                                     HorizontalAlignment="Right"
                                     BorderThickness="0"
                                     Content="Generate Bom"
-                                    Command="{Binding $parent[fx:LightUserControlBase].DataContext.GenerateBomCommand}"/>
+                                    IsVisible="{Binding !CanGeneratePdf}"
+                                    Command="{Binding GenerateBomCommand}"/>
+                                 <Button
+                                    Margin="11,10"
+                                    HorizontalAlignment="Right"
+                                    BorderThickness="0"
+                                    IsVisible="{Binding CanGeneratePdf}"
+                                    Content="Generate Pdf"
+                                    Command="{Binding GeneratePdfCommand}"/>
                             </StackPanel>
                         </Grid>
                         <ContentControl Content="{Binding Content}" />

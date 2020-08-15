@@ -8,9 +8,14 @@ namespace NooneUI.Framework
     {
         public string Render(string templateFile, object data)
         {
+
             string content = File.ReadAllText(templateFile);
-            Template template = Template.Parse(content);
-            return template.Render(data);
+            if (data != null)
+            {
+                Template template = Template.Parse(content);
+                return template.Render(data);
+            }
+            return content;
         }
     }
 }
