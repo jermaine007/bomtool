@@ -105,6 +105,7 @@ namespace BomTool.NetCore.ViewModels
             });
         }
 
+        // libgdiplus not found error, refer to https://github.com/mono/libgdiplus
         private async void GeneratePdf(PdfData data, string folder)
         {
             var template = data.UseSingleTemplate ? singleTemplate : multiTemplate;

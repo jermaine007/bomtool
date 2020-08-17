@@ -17,8 +17,6 @@ namespace BomTool.NetCore.ViewModels
 
         public FileListViewModel FileList { get; }
 
-        public AboutWindowViewModel AboutWindow { get; }
-
         public FileContentViewModel FileContent { get; }
 
         public StatusBarViewModel StatusBar { get; }
@@ -29,7 +27,6 @@ namespace BomTool.NetCore.ViewModels
         {
             this.MenuBar = container.Get<MenuViewModel>();
             this.FileList = container.Get<FileListViewModel>();
-            this.AboutWindow = container.Get<AboutWindowViewModel>();
             this.FileContent = container.Get<FileContentViewModel>();
             this.StatusBar = container.Get<StatusBarViewModel>();
             this.DispatcherService = container.Get<IDispatcherService>();

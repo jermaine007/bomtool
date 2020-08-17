@@ -10,27 +10,27 @@
     },
     {
       "name": "Avalonia.Xaml.Behaviors",
-      "url": "http://avaloniaui.net/"
+      "url": "https://github.com/wieslawsoltes/AvaloniaBehaviors"
     },
     {
       "name": "Ninject",
-      "url": "http://avaloniaui.net/"
+      "url": "http://www.ninject.org/"
     },
     {
       "name": "NLog",
-      "url": "http://avaloniaui.net/"
+      "url": "https://nlog-project.org/"
     },
     {
       "name": "DotNetCore.NPOI",
-      "url": "http://avaloniaui.net/"
+      "url": "https://github.com/dotnetcore/NPOI"
     },
     {
       "name": "Select.HtmlToPdf.NetCore",
-      "url": "http://avaloniaui.net/"
+      "url": "https://selectpdf.com/community-edition/"
     },
     {
       "name": "Scriban",
-      "url": "http://avaloniaui.net/"
+      "url": "https://github.com/lunet-io/scriban"
     }
   ]
 }

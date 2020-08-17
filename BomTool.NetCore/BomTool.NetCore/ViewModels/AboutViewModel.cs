@@ -4,7 +4,7 @@ using Noone.UI.ViewModels;
 
 namespace BomTool.NetCore.ViewModels
 {
-    public class AboutWindowViewModel : WindowViewModelBase
+    public class AboutViewModel : MessageBoxViewModel
     {
 
         private AboutInfo aboutInfo;

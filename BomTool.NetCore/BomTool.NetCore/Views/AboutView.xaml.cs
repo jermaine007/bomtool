@@ -4,9 +4,9 @@ using Noone.UI.Core;
 
 namespace BomTool.NetCore.Views
 {
-    public class AboutWindow : LightWindowBase
+    public class AboutView : LightUserControlBase
     {
-        public AboutWindow()
+        public AboutView()
         {
             InitializeComponent();
         }

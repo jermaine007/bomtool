@@ -36,7 +36,6 @@
                     Width="60"
                     Classes="subItem"
                     Command="{Binding ShowAboutCommand}"
-                    CommandParameter="{Binding $parent[local:MainWindow].DataContext.AboutWindow}"
                     Content="About" />
             </MenuItem>
         </Menu>

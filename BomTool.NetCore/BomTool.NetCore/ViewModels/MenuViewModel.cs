@@ -12,7 +12,7 @@ namespace BomTool.NetCore.ViewModels
     public class MenuViewModel : ViewModelBase
     {
         public ReactiveCommand<MainWindowViewModel, Unit> OpenFileCommand { get; }
-        public ReactiveCommand<AboutWindowViewModel, Unit> ShowAboutCommand { get; }
+        public ReactiveCommand<Unit, Unit> ShowAboutCommand { get; }
         public ReactiveCommand<Unit, Unit> MessageBoxCommand { get; }
 
         public MenuViewModel()
@@ -27,9 +27,13 @@ namespace BomTool.NetCore.ViewModels
                 mainViewModel.FileList.AddFile(files[0]);
             });
 
-            ShowAboutCommand = ReactiveCommand.CreateFromTask<AboutWindowViewModel>(async (window) =>
+            ShowAboutCommand = ReactiveCommand.CreateFromTask(async () =>
             {
-                await window?.ShowDialog();
+                await messagebox.ShowCustomizeAsync<AboutViewModel>(settings: container.Get<MessageBoxSettingsViewModel>().Setup(o => {
+                    o.Title = "About";
+                    o.Width = 520;
+                    o.Height = 310;
+                }));
             });
 
             MessageBoxCommand = ReactiveCommand.CreateFromTask(async () =>
