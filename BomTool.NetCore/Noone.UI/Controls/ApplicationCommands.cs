@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Noone.UI.Models;
 using ReactiveUI;
 using System.Reactive;
 
@@ -34,7 +35,7 @@ namespace Noone.UI.Controls
         /// <summary>
         /// Toggle windows
         /// </summary>
-        public static ReactiveCommand<LightWindowBase, Unit> ToggleWindow {get; private set;}
+        public static ReactiveCommand<LightWindowBase, Unit> ToggleWindow { get; private set; }
 
         static ApplicationCommands()
         {
@@ -50,7 +51,13 @@ namespace Noone.UI.Controls
             RestoreWindow = ReactiveCommand.Create<LightWindowBase>(window => window.WindowState = WindowState.Normal);
             MaximizeWindow = ReactiveCommand.Create<LightWindowBase>(window => window.WindowState = WindowState.Maximized);
             MinimizeWindow = ReactiveCommand.Create<LightWindowBase>(window => window.WindowState = WindowState.Minimized);
-            ToggleWindow = ReactiveCommand.Create<LightWindowBase>(window => window.WindowState ^= WindowState.Maximized);
+            ToggleWindow = ReactiveCommand.Create<LightWindowBase>(window =>
+            {
+                if (window.SystemButtons.HasFlag(SystemButtons.Maximize))
+                {
+                    window.WindowState ^= WindowState.Maximized;
+                }
+            });
         }
     }
 }

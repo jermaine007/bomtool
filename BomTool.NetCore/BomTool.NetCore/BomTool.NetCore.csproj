@@ -24,6 +24,7 @@
     <PackageReference Include="Ninject" Version="3.3.4" />
     <PackageReference Include="NLog" Version="4.7.0" />
     <PackageReference Include="DotNetCore.NPOI" Version="1.2.2" />
+    <PackageReference Include="Select.HtmlToPdf.NetCore" Version="20.1.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Noone.UI\Noone.UI.csproj" />

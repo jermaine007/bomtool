@@ -1,5 +1,6 @@
 using Noone.UI.Models;
 using Noone.UI.ViewModels;
+using System;
 using System.Threading.Tasks;
 
 namespace Noone.UI
@@ -12,8 +13,8 @@ namespace Noone.UI
 
         Task<MessageBoxResults> ShowAsync(string title, string message, MessageBoxSettingsViewModel settings);
 
-        Task<MessageBoxResults> ShowCustomizeAsync(object customView);
+        Task<MessageBoxResults> ShowCustomizeAsync(object customView, MessageBoxSettingsViewModel settings = null);
 
-        Task<MessageBoxResults> ShowCustomizeAsync<TViewModel>() where TViewModel : IViewModel;
+        Task<MessageBoxResults> ShowCustomizeAsync<TViewModel>(Action<TViewModel> setup = null, MessageBoxSettingsViewModel settings = null) where TViewModel : MessageBoxViewModel;
     }
 }

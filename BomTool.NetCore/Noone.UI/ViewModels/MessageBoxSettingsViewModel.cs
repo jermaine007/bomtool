@@ -12,9 +12,10 @@ namespace Noone.UI.ViewModels
         private string title = string.Empty;
         private int width = 400;
         private int height = 200;
-        private MessageBoxButtons buttons = MessageBoxButtons.OK;
+        private MessageBoxButtons buttons = MessageBoxButtons.None;
         private MessageBoxIcons icons = MessageBoxIcons.None;
         private string message = string.Empty;
+        private bool isFixedPosition = true;
 
         /// <summary>
         /// Message Box title
@@ -68,6 +69,12 @@ namespace Noone.UI.ViewModels
         {
             get => message;
             set => this.RaiseAndSetIfChanged(ref message, value);
+        }
+
+        public bool IsFixedPosition
+        {
+            get => isFixedPosition;
+            set => this.RaiseAndSetIfChanged(ref isFixedPosition, value);
         }
     }
 }

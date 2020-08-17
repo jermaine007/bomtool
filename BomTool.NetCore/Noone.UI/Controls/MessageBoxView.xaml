@@ -36,23 +36,23 @@
             Orientation="Horizontal">
             <TextBlock
                 Classes="icon"
-                IsVisible="{Binding Settings.Icons,
+                IsVisible="{Binding $parent[controls:LightWindowBase].DataContext.Settings.Icons,
                                     Converter={StaticResource MessageBoxIconsVisibilityConverter},
                                     ConverterParameter={x:Static models:MessageBoxIcons.Information}}"
                 Text="&#xe724;" />
             <TextBlock
                 Classes="icon"
-                IsVisible="{Binding Settings.Icons,
+                IsVisible="{Binding $parent[controls:LightWindowBase].DataContext.Settings.Icons,
                                     Converter={StaticResource MessageBoxIconsVisibilityConverter},
                                     ConverterParameter={x:Static models:MessageBoxIcons.Question}}"
                 Text="&#xe7bf;" />
             <TextBlock
                 Classes="icon"
-                IsVisible="{Binding Settings.Icons,
+                IsVisible="{Binding $parent[controls:LightWindowBase].DataContext.Settings.Icons,
                                     Converter={StaticResource MessageBoxIconsVisibilityConverter},
                                     ConverterParameter={x:Static models:MessageBoxIcons.Error}}"
                 Text="&#xe607;" />
-            <TextBlock Classes="message" Text="{Binding Settings.Message}" />
+            <TextBlock Classes="message" Text="{Binding $parent[controls:LightWindowBase].DataContext.Settings.Message}" />
         </StackPanel>
         <StackPanel
             Grid.Row="2"
@@ -62,28 +62,28 @@
             <Button Content="OK"
                     Command="{Binding $parent[controls:LightWindowBase].DataContext.CloseCommand}"
                     CommandParameter="{x:Static models:MessageBoxResults.OK}"
-                    IsVisible="{Binding Settings.Buttons,
+                    IsVisible="{Binding $parent[controls:LightWindowBase].DataContext.Settings.Buttons,
                                         Converter={StaticResource MessageBoxButtonsVisibilityConverter},
                                         ConverterParameter={x:Static models:MessageBoxButtonsBase.OK}}" />
 
             <Button Content="Yes"
                     Command="{Binding $parent[controls:LightWindowBase].DataContext.CloseCommand}"
                     CommandParameter="{x:Static models:MessageBoxResults.Yes}"
-                    IsVisible="{Binding Settings.Buttons,
+                    IsVisible="{Binding $parent[controls:LightWindowBase].DataContext.Settings.Buttons,
                                         Converter={StaticResource MessageBoxButtonsVisibilityConverter},
                                         ConverterParameter={x:Static models:MessageBoxButtonsBase.Yes}}" />
 
             <Button Content="No"
                     Command="{Binding $parent[controls:LightWindowBase].DataContext.CloseCommand}"
                     CommandParameter="{x:Static models:MessageBoxResults.No}"
-                    IsVisible="{Binding Settings.Buttons,
+                    IsVisible="{Binding $parent[controls:LightWindowBase].DataContext.Settings.Buttons,
                                         Converter={StaticResource MessageBoxButtonsVisibilityConverter},
                                         ConverterParameter={x:Static models:MessageBoxButtonsBase.No}}" />
 
             <Button Content="Cancel"
                     Command="{Binding $parent[controls:LightWindowBase].DataContext.CloseCommand}"
                     CommandParameter="{x:Static models:MessageBoxResults.Cancel}"
-                    IsVisible="{Binding Settings.Buttons,
+                    IsVisible="{Binding $parent[controls:LightWindowBase].DataContext.Settings.Buttons,
                                         Converter={StaticResource MessageBoxButtonsVisibilityConverter},
                                         ConverterParameter={x:Static models:MessageBoxButtonsBase.Cancel}}" />
         </StackPanel>

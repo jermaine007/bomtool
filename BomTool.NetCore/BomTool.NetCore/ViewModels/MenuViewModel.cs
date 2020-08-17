@@ -38,7 +38,7 @@ namespace BomTool.NetCore.ViewModels
                     container.Get<MessageBoxSettingsViewModel>().Setup(
                         settings =>
                         {
-                            settings.Buttons = MessageBoxButtons.OKCancel;
+                            settings.Buttons = MessageBoxButtons.OK;
                             settings.Icons = MessageBoxIcons.Information;
                         }
                 ));

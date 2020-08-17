@@ -9,6 +9,7 @@ namespace Noone.UI.Models
     [Flags]
     public enum MessageBoxButtons : ulong
     {
+        None = MessageBoxButtonsBase.None,
         /// <summary>
         ///  OK button
         /// </summary>
