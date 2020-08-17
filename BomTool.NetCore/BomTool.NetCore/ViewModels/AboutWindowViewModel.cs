@@ -1,4 +1,5 @@
-using NooneUI.Framework;
+using Noone.UI.Core;
+using Noone.UI.ViewModels;
 
 namespace BomTool.NetCore.ViewModels
 {

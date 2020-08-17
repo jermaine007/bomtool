@@ -1,9 +1,10 @@
-<fx:LightWindowBase
+<controls:LightWindowBase
     x:Class="BomTool.NetCore.Views.AboutWindow"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:fx="clr-namespace:NooneUI.Framework;assembly=NooneUI"
+    xmlns:models="clr-namespace:Noone.UI.Models;assembly=Noone.UI"
+    xmlns:controls="clr-namespace:Noone.UI.Controls;assembly=Noone.UI"
     xmlns:local="clr-namespace:BomTool.NetCore.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:BomTool.NetCore.ViewModels;assembly=BomTool.NetCore"
@@ -18,7 +19,7 @@
     BorderThickness="1"
     BorderBrush="{DynamicResource DarkBackgroundBrush1}"
     WindowStartupLocation="CenterOwner"
-    SystemButtons="{x:Static fx:SystemButtons.Close}"
+    SystemButtons="{x:Static models:SystemButtons.Close}"
     mc:Ignorable="d">
 
-</fx:LightWindowBase>
+</controls:LightWindowBase>

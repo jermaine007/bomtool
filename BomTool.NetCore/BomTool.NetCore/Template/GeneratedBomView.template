@@ -1,7 +1,7 @@
-<fx:DynamicViewBase xmlns="https://github.com/avaloniaui"
+<controls:DynamicViewBase xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:fx="clr-namespace:NooneUI.Framework;assembly=NooneUI"
+    xmlns:controls="clr-namespace:Noone.UI.Controls;assembly=Noone.UI"
     xmlns:converters="clr-namespace:BomTool.NetCore.Converters;assembly=BomTool.NetCore"
     xmlns:local="clr-namespace:BomTool.NetCore.Views;assembly=BomTool.NetCore"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -14,7 +14,7 @@
         </Grid.Resources>
         <ScrollViewer>
             <ItemsControl Items="{Binding Data}"
-                Width="{Binding $parent[fx:DynamicViewBase].Bounds.Width, Converter={StaticResource BoundedWidthConverter}, ConverterParameter=0}">
+                Width="{Binding $parent[controls:DynamicViewBase].Bounds.Width, Converter={StaticResource BoundedWidthConverter}, ConverterParameter=0}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel />
@@ -32,7 +32,7 @@
                                 BorderThickness="1"
                                 BorderBrush="{DynamicResource DarkBackgroundBrush1}"
                                 Items="{Binding Data}"
-                                Width="{Binding $parent[fx:DynamicViewBase].Bounds.Width, Converter={StaticResource BoundedWidthConverter}, ConverterParameter=28}"
+                                Width="{Binding $parent[controls:DynamicViewBase].Bounds.Width, Converter={StaticResource BoundedWidthConverter}, ConverterParameter=28}"
                                 Margin="12"
                                 CanUserResizeColumns="True"
                                 CanUserReorderColumns="False">
@@ -67,4 +67,4 @@
 
         </ScrollViewer>
     </Grid>
-</fx:DynamicViewBase>
+</controls:DynamicViewBase>

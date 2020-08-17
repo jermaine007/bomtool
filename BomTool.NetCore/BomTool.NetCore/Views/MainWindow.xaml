@@ -1,9 +1,9 @@
-<fx:LightWindowBase
+<controls:LightWindowBase
     x:Class="BomTool.NetCore.Views.MainWindow"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:fx="clr-namespace:NooneUI.Framework;assembly=NooneUI"
+    xmlns:controls="clr-namespace:Noone.UI.Controls;assembly=Noone.UI"
     xmlns:local="clr-namespace:BomTool.NetCore.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:BomTool.NetCore.ViewModels;assembly=BomTool.NetCore"
@@ -14,6 +14,7 @@
     Logo="/Assets/Icon.png"
     MenuBar="{Binding MenuBar}"
     StatusBar="{Binding StatusBar}"
+    IsEnabled="{Binding !StatusBar.IsBusy}"
     mc:Ignorable="d">
     <Design.DataContext>
         <vm:MainWindowViewModel />
@@ -43,4 +44,4 @@
             BorderThickness="1"
             Content="{Binding FileContent}" />
     </Grid>
-</fx:LightWindowBase>
+</controls:LightWindowBase>

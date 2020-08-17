@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using BomTool.NetCore.Models;
-using NooneUI.Framework;
+using Noone.UI.Core;
+using Noone.UI.ViewModels;
 
 namespace BomTool.NetCore.ViewModels
 {
@@ -11,7 +12,6 @@ namespace BomTool.NetCore.ViewModels
     {
         private readonly string template;
         private object dataSource;
-        private ExcelData excelData;
         private List<BomData> bomData;
 
         public override string Template => template;
@@ -27,7 +27,6 @@ namespace BomTool.NetCore.ViewModels
 
         public void Initialize(ExcelData data)
         {
-            this.excelData = data;
             this.dataSource = data.BomData.First();
             this.bomData = data.BomData.Skip(1).ToList();
         }

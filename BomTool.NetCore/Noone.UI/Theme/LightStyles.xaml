@@ -1,0 +1,19 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:fx="clr-namespace:Noone.UI.Core"
+    xmlns:sys="clr-namespace:System;assembly=netstandard">
+    <!-- include Avalonia ui default theme -->
+    <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml" />
+    <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseDark.xaml" />
+    <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Default.xaml"/>
+    <!-- Include Noone ui styles -->
+    <StyleInclude Source="avares://Noone.UI/Theme/BaseStyles.xaml" />
+    <StyleInclude Source="avares://Noone.UI/Theme/MenuStyles.xaml" />
+    <StyleInclude Source="avares://Noone.UI/Theme/ButtonStyles.xaml" />
+    <StyleInclude Source="avares://Noone.UI/Theme/ScrollBarStyles.xaml" />
+    <StyleInclude Source="avares://Noone.UI/Theme/TabControlStyles.xaml" />
+    <StyleInclude Source="avares://Noone.UI/Theme/LightWindowBaseStyles.xaml" />
+    <StyleInclude Source="avares://Noone.UI/Theme/DataGridStyles.xaml" />
+
+</Styles>

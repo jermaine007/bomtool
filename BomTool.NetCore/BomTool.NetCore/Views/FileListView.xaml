@@ -1,9 +1,9 @@
-<fx:LightUserControlBase
+<controls:LightUserControlBase
     x:Class="BomTool.NetCore.Views.FileListView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Noone.UI.Controls;assembly=Noone.UI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:fx="clr-namespace:NooneUI.Framework;assembly=NooneUI"
     xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
     xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -60,7 +60,7 @@
                     <Grid Name="FileContainer" ColumnDefinitions="*,Auto">
                         <i:Interaction.Behaviors>
                             <ia:EventTriggerBehavior EventName="DoubleTapped" SourceObject="{Binding #FileContainer}">
-                                <ia:InvokeCommandAction Command="{Binding $parent[fx:LightUserControlBase].DataContext.OpenFileCommand}" CommandParameter="{Binding}" />
+                                <ia:InvokeCommandAction Command="{Binding $parent[controls:LightUserControlBase].DataContext.OpenFileCommand}" CommandParameter="{Binding}" />
                             </ia:EventTriggerBehavior>
                         </i:Interaction.Behaviors>
                         <TextBlock
@@ -73,7 +73,7 @@
                             VerticalAlignment="Center"
                             Background="Transparent"
                             BorderThickness="0"
-                            Command="{Binding $parent[fx:LightUserControlBase].DataContext.RemoveFileCommand}"
+                            Command="{Binding $parent[controls:LightUserControlBase].DataContext.RemoveFileCommand}"
                             CommandParameter="{Binding}">
                             <TextBlock HorizontalAlignment="Right" Text="x" />
                         </Button>
@@ -82,4 +82,4 @@
             </ListBox.ItemTemplate>
         </ListBox>
     </StackPanel>
-</fx:LightUserControlBase>
+</controls:LightUserControlBase>

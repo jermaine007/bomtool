@@ -1,9 +1,9 @@
-<fx:LightUserControlBase
+<controls:LightUserControlBase
     x:Class="BomTool.NetCore.Views.FileContentView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:fx="clr-namespace:NooneUI.Framework;assembly=NooneUI"
+    xmlns:controls="clr-namespace:Noone.UI.Controls;assembly=Noone.UI"
     xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
     xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
     xmlns:local="clr-namespace:BomTool.NetCore.Views;assembly=BomTool.NetCore"
@@ -31,7 +31,7 @@
                             Text="x">
                             <i:Interaction.Behaviors>
                                 <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{Binding #CloseButton}">
-                                    <ia:InvokeCommandAction Command="{Binding $parent[fx:LightUserControlBase].DataContext.RemoveCommand}"
+                                    <ia:InvokeCommandAction Command="{Binding $parent[controls:LightUserControlBase].DataContext.RemoveCommand}"
                                                             CommandParameter="{Binding}" />
                                 </ia:EventTriggerBehavior>
                             </i:Interaction.Behaviors>
@@ -67,5 +67,5 @@
             </TabControl.ContentTemplate>
         </TabControl>
     </Grid>
-</fx:LightUserControlBase>
+</controls:LightUserControlBase>
 

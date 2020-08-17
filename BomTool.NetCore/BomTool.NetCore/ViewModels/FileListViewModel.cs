@@ -6,7 +6,9 @@ using System.Linq;
 using System.Reactive;
 using BomTool.NetCore.Models;
 using DynamicData;
-using NooneUI.Framework;
+using Noone.UI;
+using Noone.UI.Core;
+using Noone.UI.ViewModels;
 using ReactiveUI;
 
 namespace BomTool.NetCore.ViewModels

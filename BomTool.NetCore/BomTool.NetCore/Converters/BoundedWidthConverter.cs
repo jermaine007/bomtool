@@ -10,10 +10,13 @@ namespace BomTool.NetCore.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-
             try
             {
-                Double.TryParse((string)parameter, out var margin);
+                double margin = 0;
+                if (parameter != null)
+                {
+                    Double.TryParse((string)parameter, out margin);
+                }
                 return Math.Max((double)value - margin, 0);
             }
             catch

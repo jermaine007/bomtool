@@ -1,6 +1,8 @@
 using BomTool.NetCore.Models;
 using DynamicData;
-using NooneUI.Framework;
+using Noone.UI;
+using Noone.UI.Core;
+using Noone.UI.ViewModels;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;

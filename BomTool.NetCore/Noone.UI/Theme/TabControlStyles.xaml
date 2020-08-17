@@ -1,0 +1,64 @@
+<Styles xmlns="https://github.com/avaloniaui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:converters="clr-namespace:Noone.UI.Converters"
+  xmlns:fx="clr-namespace:Noone.UI.Core"
+  xmlns:sys="clr-namespace:System;assembly=netstandard">
+
+  <Style Selector="TabControl WrapPanel">
+    <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush3}" />
+  </Style>
+
+  <Style Selector="TabItem">
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="Height" Value="30" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush2}" />
+    <Setter Property="Foreground" Value="{DynamicResource DarkForegroundBrush}" />
+    <Setter Property="Margin" Value="0" />
+  </Style>
+  <Style Selector="TabItem /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush2}"/>
+    <Setter Property="Margin" Value="0" />
+  </Style>
+
+  <Style Selector="TabItem:pointerover">
+    <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush1}" />
+  </Style>
+  <Style Selector="TabItem:focus">
+    <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush1}" />
+  </Style>
+  <Style Selector="TabItem:selected">
+    <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush1}" />
+  </Style>
+  <Style Selector="TabItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush1}"/>
+    <Setter Property="Margin" Value="0" />
+  </Style>
+  <Style Selector="TabItem:focus /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush1}"/>
+    <Setter Property="Margin" Value="0" />
+  </Style>
+  <Style Selector="TabItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush1}" />
+    <Setter Property="Margin" Value="0" />
+  </Style>
+
+  <!-- <Style Selector="TabItem:focus">
+        <Setter Property="Foreground" Value="#2B579A" />
+        <Setter Property="Margin" Value="0 0 0 0" />
+        <Setter Property="Padding" Value="10 0" />
+    </Style>
+    <Style Selector="TabItem:focus /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="#f0f0f0" />
+    </Style>
+
+    <Style Selector="TabItem:selected">
+        <Setter Property="Foreground" Value="#2B579A" />
+        <Setter Property="Margin" Value="0 0 0 0" />
+        <Setter Property="Padding" Value="10 0" />
+    </Style>
+    <Style Selector="TabItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="#f0f0f0" />
+    </Style> -->
+
+</Styles>

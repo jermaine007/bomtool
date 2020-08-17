@@ -1,8 +1,8 @@
-<fx:DynamicViewBase
+<controls:DynamicViewBase
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:fx="clr-namespace:NooneUI.Framework;assembly=NooneUI"
+    xmlns:controls="clr-namespace:Noone.UI.Controls;assembly=Noone.UI"
     xmlns:converters="clr-namespace:BomTool.NetCore.Converters;assembly=BomTool.NetCore"
     xmlns:local="clr-namespace:BomTool.NetCore.Views;assembly=BomTool.NetCore"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -15,7 +15,7 @@
     </Grid.Resources>
     <ScrollViewer>
       <DataGrid BorderThickness="1" BorderBrush="{DynamicResource DarkBackgroundBrush1}" Items="{Binding BomData}"
-                Width="{Binding $parent[fx:DynamicViewBase].Bounds.Width,
+                Width="{Binding $parent[controls:DynamicViewBase].Bounds.Width,
                                 Converter={StaticResource BoundedWidthConverter},
                                 ConverterParameter=24}"
                 Margin="12"
@@ -34,4 +34,4 @@
       </DataGrid>
     </ScrollViewer>
   </Grid>
-</fx:DynamicViewBase>
+</controls:DynamicViewBase>

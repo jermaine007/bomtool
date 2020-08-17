@@ -1,9 +1,9 @@
-<fx:LightUserControlBase
+<controls:LightUserControlBase
     x:Class="BomTool.NetCore.Views.MenuView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:fx="clr-namespace:NooneUI.Framework;assembly=NooneUI"
+    xmlns:controls="clr-namespace:Noone.UI.Controls;assembly=Noone.UI"
     xmlns:local="clr-namespace:BomTool.NetCore.Views;assembly=BomTool.NetCore"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
@@ -46,4 +46,4 @@
             </MenuItem>
         </Menu>
     </Panel>
-</fx:LightUserControlBase>
+</controls:LightUserControlBase>

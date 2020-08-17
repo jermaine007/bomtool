@@ -4,7 +4,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Threading;
 using NLog.Fluent;
-using NooneUI.Framework;
+using Noone.UI;
+using Noone.UI.Core;
+using Noone.UI.ViewModels;
 
 namespace BomTool.NetCore.ViewModels
 {

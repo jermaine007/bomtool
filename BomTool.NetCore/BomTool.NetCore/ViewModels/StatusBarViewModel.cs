@@ -1,5 +1,6 @@
 using System;
-using NooneUI.Framework;
+using Noone.UI.Core;
+using Noone.UI.ViewModels;
 using ReactiveUI;
 
 namespace BomTool.NetCore.ViewModels

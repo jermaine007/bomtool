@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using BomTool.NetCore.Models;
-using NooneUI.Framework;
+using Noone.UI.Core;
+using Noone.UI.ViewModels;
 
 namespace BomTool.NetCore.ViewModels
 {
