@@ -22,7 +22,7 @@ namespace BomTool.NetCore.ViewModels
 
         public BomDataViewModel()
         {
-            template = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Template", "BomView.template");
+            template = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Template", "BomView.xaml.template");
         }
 
         public void Initialize(ExcelData data)

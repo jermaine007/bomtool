@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<title>BOM PDF</title>
+	<style type="text/css">
+		body {
+			width: 1191px;
+			height: 842px;
+			margin: 0px;
+			padding: 28.4px;
+			box-sizing: border-box;
+			font: 10px arial, verdna;
+		}
+		.container {
+			width: 100%;
+			height: 100%;
+			border: 2px solid black;
+		}
+		.box {
+			width: 50%;
+			padding-left: 1%;
+			padding-right: 1%;
+			box-sizing: border-box;
+		}
+	
+		.wrap {
+			padding: 3px;
+			margin: 3px;
+			word-break: break-all;
+		}
+
+		.bom-table {
+			line-height: 10px;
+		}
+
+		.bom-header {
+			text-align: left;
+			padding-bottom: 10px;
+			/* margin-top: 3px; */
+			font-weight: bold;
+			border-bottom: 3px dashed black;
+		}
+
+		.nowrap {
+			padding: 3px;
+			margin: 3px;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
+		}
+
+		.float-left {
+			float: left;
+		}
+
+		.float-clear {
+			clear: both;
+		}
+
+		.content-fit {
+			width: 100%
+		}
+
+		.img-fit {
+			width: 85%;
+			height: 85%;
+		}
+		.referenceParagraph{
+			position: absolute;
+			bottom: 105px;
+			right: 38px;
+		}
+		.right-fixed {
+			height: 80px;
+			border: 1px solid black;
+			box-sizing: border-box;
+			position: absolute;
+			bottom: 25.4px;
+			right: 25.4px;
+		}
+		.logo-img{
+			width: 93.6px;
+			height: 80px;
+			background-color: blue;
+		}
+		.table-modification{
+			text-align: center;
+			border-spacing: 0px;
+			height: 80px;
+			border-collapse: collapse;
+			font-size: 6px;
+			font-weight: 100;
+		}
+		.modification-history{
+			border: 1px solid black;
+			border-top: none;
+			box-sizing: border-box;
+		}	
+		.modification-bottom{
+			border: 1px solid black;
+			border-bottom: none;
+			box-sizing: border-box;
+		}
+		.table-wrap{
+			height: 80px;
+			/* border-left: 1px solid black; */
+			/* border-right: 1px solid black; */
+			box-sizing: border-box;
+		}
+		.table-item{
+			text-align: left;
+			border-spacing: 0px;
+			border-collapse: collapse;
+			font-size: 6px;
+			width: 100%;
+			height: 80px;	
+		}
+		.tr-item{
+			height: 20px;
+			border-bottom: 1px solid black;
+			box-sizing: border-box;
+		}
+		.div-bottom-wrap{
+			height: 20px;
+			width: 100%;
+		}
+		.div-bottom-label{
+			width: 22px;
+			height: 20px;
+			line-height: 6px;
+			text-align: left;
+			font-size: 6px;
+			padding-left: 1px;
+			box-sizing: border-box;
+			padding-top: 4px;
+			float: left;
+		}
+		.div-bottom-content{
+			height: 18px;
+			line-height: 18px;
+			font-size: 5px;
+			float: left;
+		}
+		.border-right{
+			border-right: 1px solid black;
+			box-sizing: border-box;
+		}
+		.div-space-wrap{
+			width: 2px;
+			height: 80px;
+			float: left;
+		}
+		.div-space-item{
+			width: 100%;
+			height: 20px;
+			border-bottom: 1px solid black;
+			box-sizing: border-box;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="float-left box">
+			<div id="diagramContainer"><img class="img-fit" src="{{info.picture}}" /></div>
+			{{ firstItem = (bom| array.first) }}
+			<table id="firstBomTable" class="content-fit bom-table">
+				<tr>
+					<th class="bom-header" colspan="3"><b>{{firstItem.line}}</b></th>
+				</tr>
+				{{ for subItem in firstItem.data}}
+				<tr>
+					<td class="nowrap" style="width: 85px;">{{subItem.code}}</td>
+					<td class="nowrap" style="width: 284px;">{{subItem.description}}</td>
+					<td class="wrap">{{subItem.reference}}</td>
+				</tr>
+				{{ end }}
+			</table>
+		</div>
+		<div class="float-left box" style="margin-top: 10px;">
+			{{ for item in (bom | array.offset 1 )}}
+			<table class="content-fit bom-table">
+				<tr>
+					<th class="bom-header" colspan="3"><b>{{item.line}}</b></th>
+				</tr>
+				{{ for subItem in item.data}}
+				<tr>
+					<td class="nowrap" style="width: 85px;">{{subItem.code}}</td>
+					<td class="nowrap" style="width: 284px;">{{subItem.description}}</td>
+					<td class="wrap" style="width: 170px;">{{subItem.reference}}</td>
+				</tr>
+				{{ end }}
+			</table>
+			{{ end }}
+		</div>
+		<div class="float-clear"></div>
+		<p class="referenceParagraph">REFERENCE DIAGRAM H006S001R1</p>
+		<div class="right-fixed">
+			<div class="float-left logo-img">
+				<img src="logo.png" />
+			</div>
+
+			<div class="div-space-wrap">
+				<div class="div-space-item" style="height: 21px;"></div>
+				<div class="div-space-item"></div>
+				<div class="div-space-item"></div>
+				<div class="div-space-item" style="border-bottom: none;"></div>
+			</div>
+
+			<div class="float-left table-wrap">
+				<table class="table-modification">
+					{{for o in history}}
+					<tr style="height: 20px;">
+						<td class="modification-history" style="width: 34px;">
+							{{o.version}}
+						</td>
+						<td class="modification-history" style="width: 110.6px;">
+							{{o.reason}}
+						</td>
+						<td class="modification-history" style="width: 34px;">
+							{{o.date}}
+						</td>
+						<td class="modification-history" style="width: 45.5px;">
+							{{o.signature}}
+						</td>
+					</tr>
+					{{end}}
+					<tr style="height: 20px;">
+						<td class="modification-bottom" style="width: 34px;">
+							Var.<br/>Var.
+						</td>
+						<td class="modification-bottom" style="width: 110.6px;">
+							Modifica-Change
+						</td>
+						<td class="modification-bottom" style="width: 34px;">
+							Data<br/>Date
+						</td>
+						<td class="modification-bottom" style="width: 45.4px;">
+							Firma<br/>Sign
+						</td>
+					</tr>
+				</table>
+			</div>
+		
+			<div class="div-space-wrap">
+				<div class="div-space-item" style="height: 21px;"></div>
+				<div class="div-space-item"></div>
+				<div class="div-space-item"></div>
+				<div class="div-space-item" style="border-bottom: none;"></div>
+			</div>
+
+			<div class="float-left table-wrap" style="width: 110px;border-left: 1px solid black;border-right: 1px solid black;box-sizing: border-box;">
+				<table class="table-item">
+					<tr class="tr-item">
+						<td>Progetto<br/>Project</td>
+						<td>H006</td>
+					</tr>
+					<tr class="tr-item">
+						<td>Descr.<br/>Descr.</td>
+						<td>PJEZ30A</td>
+					</tr>
+					<tr class="tr-item">
+						<td>Disegno nr.<Br/>Drawing nr.</td>
+						<td>{{info.drawing_no}}</td>
+					</tr>
+				</table>
+				<div class="div-bottom-wrap">
+					<div class="div-bottom-label">
+						Codice<br/>Code
+					</div>
+					<div class="div-bottom-content border-right" style="width: 44.6px;">
+						98H006SD01
+					</div>
+					<div class="div-bottom-label">
+						Rev.<br/>Rev.
+					</div>
+					<div class="div-bottom-content" style="width: 14.9px;">
+						{{info.version}}
+					</div>
+				</div>
+			</div>
+
+			<div class="div-space-wrap">
+				<div class="div-space-item" style="height: 21px;"></div>
+				<div class="div-space-item"></div>
+				<div class="div-space-item"></div>
+				<div class="div-space-item" style="border-bottom: none;"></div>
+			</div>
+
+			<div class="float-left table-wrap" style="width: 85px;border-left: 1px solid black;">
+				<table class="table-item">
+					<tr class="tr-item">
+						<td>Redattore<br/>Made by</td>
+						<td>{{info.prepared_by}}</td>
+					</tr>
+					<tr class="tr-item">
+						<td>Approvato<br/>Check bby</td>
+						<td>{{info.approver}}</td>
+					</tr>
+					<tr class="tr-item">
+						<td>Data<Br/>Date</td>
+						<td>{{info.approve_date}}</td>
+					</tr>
+				</table>
+				<div class="div-bottom-wrap">
+					<div class="div-bottom-label">
+						Scala<br/>Scale
+					</div>
+					<div class="div-bottom-content border-right" style="width: 20px;">
+						1.5
+					</div>
+					<div class="div-bottom-label">
+						Foglio<br/>Sheet
+					</div>
+					<div class="div-bottom-content" style="width: 19px;">
+						1/1
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var FULL_HEIGHT = document.body.clientHeight - 14;
+		var FULL_WIDTH = document.body.clientHeight - 14;
+		var HALF_HEIGHT = FULL_HEIGHT / 2;
+		var HALF_WIDTH = FULL_WIDTH / 2;
+
+		var resizeImg = function () {
+			var firstBomTable = document.getElementById('firstBomTable');
+			var diagramContainer = document.getElementById('diagramContainer');
+			var tableHeight = firstBomTable.clientHeight;
+			if (tableHeight > HALF_HEIGHT) {
+				diagramContainer.style.height = (FULL_HEIGHT - tableHeight) + 'px';
+			} else {
+				diagramContainer.style.height = HALF_WIDTH + 'px';
+				//firstBomTable.style.height = HALF_WIDTH + 'px';
+			}
+		};
+
+		resizeImg();
+		
+	</script>
+</body>
+</html>

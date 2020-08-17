@@ -13,11 +13,11 @@ namespace BomTool.NetCore.ViewModels
     {
         public ReactiveCommand<MainWindowViewModel, Unit> OpenFileCommand { get; }
         public ReactiveCommand<AboutWindowViewModel, Unit> ShowAboutCommand { get; }
-        public ReactiveCommand<Unit, Task> MessageBoxCommand { get; }
+        public ReactiveCommand<Unit, Unit> MessageBoxCommand { get; }
 
         public MenuViewModel()
         {
-            OpenFileCommand = ReactiveCommand.Create<MainWindowViewModel>(async (mainViewModel) =>
+            OpenFileCommand = ReactiveCommand.CreateFromTask<MainWindowViewModel>(async (mainViewModel) =>
             {
                 var files = await dialog.OpenFileDialogAsync("Select a excel file", "Excel files|xls;xlsx,All files|*");
                 if ((files?.Length ?? 0) == 0)
@@ -27,12 +27,12 @@ namespace BomTool.NetCore.ViewModels
                 mainViewModel.FileList.AddFile(files[0]);
             });
 
-            ShowAboutCommand = ReactiveCommand.Create<AboutWindowViewModel>(async (window) =>
+            ShowAboutCommand = ReactiveCommand.CreateFromTask<AboutWindowViewModel>(async (window) =>
             {
                 await window?.ShowDialog();
             });
 
-            MessageBoxCommand = ReactiveCommand.Create(async () =>
+            MessageBoxCommand = ReactiveCommand.CreateFromTask(async () =>
             {
                 var result = await messagebox.ShowAsync("系统消息", "尊敬的天笑哥，\r\n您在本店的娱乐金卡余额已不足，为了避免不必要的麻烦，\r\n以及能够享受到更好的服务，请尽快充值",
                     container.Get<MessageBoxSettingsViewModel>().Setup(

@@ -21,18 +21,13 @@
                 <Button
                     Width="105"
                     Classes="subItem"
-                    Command="{Binding ShowMe}"
-                    CommandParameter="{Binding $parent[local:MainWindow].DataContext}"
-                    Content="Generate Bom" />
+                    Command="{x:Static controls:ApplicationCommands.CloseWindow}"
+                    CommandParameter="{Binding $parent[local:MainWindow]}"
+                    Content="Exit" />
                 <Button
                     Width="105"
                     Classes="subItem"
-                    Command="{Binding ExitCommand}"
-                    CommandParameter="{Binding $parent[local:MainWindow].DataContext}"
-                    Content="Generate Pdf" />
-                <Button
-                    Width="105"
-                    Classes="subItem"
+                    IsVisible="False"
                     Command="{Binding MessageBoxCommand}"
                     Content="MessageBox" />
             </MenuItem>

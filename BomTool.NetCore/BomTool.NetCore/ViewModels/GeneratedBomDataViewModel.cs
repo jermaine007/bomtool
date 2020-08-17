@@ -10,7 +10,7 @@ namespace BomTool.NetCore.ViewModels
     public class GeneratedBomDataViewModel : DynamicViewModelBase
     {
         private readonly string template;
-        
+
         public IEnumerable<GrouppedBomData> Data {get; private set;}
 
         public override string Template => template;
@@ -19,7 +19,7 @@ namespace BomTool.NetCore.ViewModels
 
         public GeneratedBomDataViewModel()
         {
-            template = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Template", "GeneratedBomView.template");
+            template = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Template", "GeneratedBomView.xaml.template");
         }
 
         public void Initialize(IEnumerable<GrouppedBomData> data)
