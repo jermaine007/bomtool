@@ -1,0 +1,36 @@
+{
+  "name": "Bom Tool (.netcore edition)",
+  "Version": "1.0.0",
+  "author": "Jermaine007",
+  "email": "i77@idea7.top jermaine007@qq.com",
+  "credits": [
+    {
+      "name": "Avalonia UI",
+      "url": "http://avaloniaui.net/"
+    },
+    {
+      "name": "Avalonia.Xaml.Behaviors",
+      "url": "http://avaloniaui.net/"
+    },
+    {
+      "name": "Ninject",
+      "url": "http://avaloniaui.net/"
+    },
+    {
+      "name": "NLog",
+      "url": "http://avaloniaui.net/"
+    },
+    {
+      "name": "DotNetCore.NPOI",
+      "url": "http://avaloniaui.net/"
+    },
+    {
+      "name": "Select.HtmlToPdf.NetCore",
+      "url": "http://avaloniaui.net/"
+    },
+    {
+      "name": "Scriban",
+      "url": "http://avaloniaui.net/"
+    }
+  ]
+}

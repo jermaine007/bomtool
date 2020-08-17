@@ -2,24 +2,117 @@
     x:Class="BomTool.NetCore.Views.AboutWindow"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:models="clr-namespace:Noone.UI.Models;assembly=Noone.UI"
     xmlns:controls="clr-namespace:Noone.UI.Controls;assembly=Noone.UI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:BomTool.NetCore.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:Noone.UI.Models;assembly=Noone.UI"
     xmlns:vm="clr-namespace:BomTool.NetCore.ViewModels;assembly=BomTool.NetCore"
     Title="About"
+    Width="470"
+    Height="310"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    Width="600"
-    Height="450"
-    Icon="/Assets/Icon.png"
-    Logo="/Assets/Icon.png"
-    IsFixedPosition="True"
-    BorderThickness="1"
     BorderBrush="{DynamicResource DarkBackgroundBrush1}"
-    WindowStartupLocation="CenterOwner"
+    BorderThickness="1"
+    Icon="/Assets/Icon.png"
+    IsFixedPosition="True"
+    Logo="/Assets/Icon.png"
     SystemButtons="{x:Static models:SystemButtons.Close}"
+    WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
-
+    <Grid>
+        <ScrollViewer>
+            <Grid Margin="10" RowDefinitions="Auto,Auto">
+                <Grid ColumnDefinitions="100,*" RowDefinitions="24,20,20,20,20">
+                    <TextBlock
+                        Grid.ColumnSpan="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="14"
+                        FontWeight="Bold"
+                        Text="Information" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="Name:" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="{Binding Info.Name}" />
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="Version:" />
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="{Binding Info.Version}" />
+                    <TextBlock
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="Author:" />
+                    <TextBlock
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="{Binding Info.Author}" />
+                    <TextBlock
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="Email:" />
+                    <TextBlock
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="{Binding Info.Email}" />
+                </Grid>
+                <Grid Grid.Row="1" RowDefinitions="24,Auto">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="14"
+                        FontWeight="Bold"
+                        Text="Credits" />
+                    <ItemsControl Grid.Row="1" Items="{Binding Info.Credits}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="200,*">
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding Name}" />
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding Url}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
 </controls:LightWindowBase>

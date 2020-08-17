@@ -343,3 +343,4 @@ qt.tar.gz
 .ionide
 .vs
 .vscode
+*.code-workspace
