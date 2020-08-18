@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reactive;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -80,7 +81,8 @@ namespace BomTool.NetCore.ViewModels
                     this.Content = container.Get<GeneratedBomDataViewModel>().Setup(vm =>
                     {
                         vm.Initialize(writer.GrouppedData);
-                        this.CanGeneratePdf = true;
+                        // workaround for nonwindows platform
+                        this.CanGeneratePdf = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
                     });
                 });
             });
@@ -106,6 +108,9 @@ namespace BomTool.NetCore.ViewModels
         }
 
         // libgdiplus not found error, refer to https://github.com/mono/libgdiplus
+        // It's a piece of shit that Select.HtmlToPdf.NetCore is Windows only, WTF!!!
+        // https://selectpdf.com/docs/Installation.htm 
+        // https://stackoverflow.com/questions/56275154/selectpdf-net-core-2-2-exception-conversion-failure-unable-to-load-shared-li
         private async void GeneratePdf(PdfData data, string folder)
         {
             var template = data.UseSingleTemplate ? singleTemplate : multiTemplate;
