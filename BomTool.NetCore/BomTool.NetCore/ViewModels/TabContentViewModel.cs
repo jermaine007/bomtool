@@ -130,7 +130,8 @@ namespace BomTool.NetCore.ViewModels
             // close pdf document
             doc.Close();
 
-            MessageBoxResults result = await messagebox.ShowAsync("", "Do you want to preview the pdf file?", container.Get<MessageBoxSettingsViewModel>().Setup(o =>
+            MessageBoxResults result = await messagebox.ShowAsync("", "Do you want to preview the pdf file?",
+             container.Get<MessageBoxSettingsViewModel>().Setup(o =>
             {
                 o.Buttons = MessageBoxButtons.YesNo;
             }));

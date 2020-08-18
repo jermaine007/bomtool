@@ -29,11 +29,13 @@ namespace BomTool.NetCore.ViewModels
 
             ShowAboutCommand = ReactiveCommand.CreateFromTask(async () =>
             {
-                await messagebox.ShowCustomizeAsync<AboutViewModel>(settings: container.Get<MessageBoxSettingsViewModel>().Setup(o => {
-                    o.Title = "About";
-                    o.Width = 520;
-                    o.Height = 310;
-                }));
+                await messagebox.ShowCustomizeAsync<AboutViewModel>(settings: container.Get<MessageBoxSettingsViewModel>()
+                    .Setup(o =>
+                    {
+                        o.Title = "About";
+                        o.Width = 535;
+                        o.Height = 360;
+                    }));
             });
 
             MessageBoxCommand = ReactiveCommand.CreateFromTask(async () =>

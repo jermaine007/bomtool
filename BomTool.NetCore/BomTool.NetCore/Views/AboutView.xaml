@@ -4,6 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:Noone.UI.Controls;assembly=Noone.UI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+    xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
     xmlns:local="clr-namespace:BomTool.NetCore.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:Noone.UI.Models;assembly=Noone.UI"
@@ -14,7 +16,7 @@
     <Grid>
         <ScrollViewer>
             <Grid Margin="10" RowDefinitions="Auto,Auto">
-                <Grid ColumnDefinitions="100,*" RowDefinitions="24,20,20,20,20">
+                <Grid ColumnDefinitions="100,*" RowDefinitions="28,20,20,20,20">
                     <TextBlock
                         Grid.ColumnSpan="2"
                         HorizontalAlignment="Center"
@@ -71,7 +73,7 @@
                         VerticalAlignment="Center"
                         Text="{Binding Info.Email}" />
                 </Grid>
-                <Grid Grid.Row="1" RowDefinitions="24,Auto">
+                <Grid Grid.Row="1" RowDefinitions="28,Auto">
                     <TextBlock
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
@@ -92,11 +94,25 @@
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
                                         Text="{Binding Name}" />
-                                    <TextBlock
+
+                                    <TextBox
+                                        Height="20"
+                                        Margin="2"
+                                        Name="LinkText"
+                                        Background="Transparent"
+                                        BorderThickness="0 0 0 1"
+                                        Padding="0"
+                                        BorderBrush="{DynamicResource DarkBackgroundBrush1}"
                                         Grid.Column="1"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Text="{Binding Url}" />
+                                        Text="{Binding Url}">
+                                        <i:Interaction.Behaviors>
+                                            <ia:EventTriggerBehavior EventName="Tapped" SourceObject="{Binding #LinkText}">
+                                                <ia:InvokeCommandAction Command="{Binding $parent[controls:LightUserControlBase].DataContext.OpenUrlCommand}" CommandParameter="{Binding #LinkText.Text}" />
+                                            </ia:EventTriggerBehavior>
+                                        </i:Interaction.Behaviors>
+                                    </TextBox>
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

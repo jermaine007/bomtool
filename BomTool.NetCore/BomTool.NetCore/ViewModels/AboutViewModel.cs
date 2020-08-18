@@ -1,6 +1,9 @@
 using BomTool.NetCore.Models;
+using ReactiveUI;
 using Noone.UI.Core;
 using Noone.UI.ViewModels;
+using System.Reactive;
+using System.Diagnostics;
 
 namespace BomTool.NetCore.ViewModels
 {
@@ -8,6 +11,18 @@ namespace BomTool.NetCore.ViewModels
     {
 
         private AboutInfo aboutInfo;
-        public AboutInfo Info  => aboutInfo??= AboutInfo.Load();
+        public AboutInfo Info => aboutInfo ??= AboutInfo.Load();
+        public ReactiveCommand<string, Unit> OpenUrlCommand { get; }
+        public AboutViewModel()
+        {
+            OpenUrlCommand = ReactiveCommand.Create<string>((url) =>
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    UseShellExecute = true,
+                    FileName = url
+                });
+            });
+        }
     }
 }
