@@ -16,7 +16,7 @@ namespace Noone.UI.ViewModels
         /// <summary>
         /// <inheritdoc cref="IDynamicViewModel.DataSource"/>
         /// </summary>
-        public abstract object DataSource { get; }
+        public virtual object DataSource { get; }
 
     }
 }

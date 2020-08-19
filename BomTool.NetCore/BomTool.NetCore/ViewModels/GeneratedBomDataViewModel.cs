@@ -15,8 +15,6 @@ namespace BomTool.NetCore.ViewModels
 
         public override string Template => template;
 
-        public override object DataSource => null;
-
         public GeneratedBomDataViewModel()
         {
             template = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Template", "GeneratedBomView.xaml.template");
