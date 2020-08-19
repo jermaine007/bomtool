@@ -109,7 +109,7 @@ namespace BomTool.NetCore.ViewModels
 
         // libgdiplus not found error, refer to https://github.com/mono/libgdiplus
         // It's a piece of shit that Select.HtmlToPdf.NetCore is Windows only, WTF!!!
-        // https://selectpdf.com/docs/Installation.htm 
+        // https://selectpdf.com/docs/Installation.htm
         // https://stackoverflow.com/questions/56275154/selectpdf-net-core-2-2-exception-conversion-failure-unable-to-load-shared-li
         private async void GeneratePdf(PdfData data, string folder)
         {
@@ -124,7 +124,6 @@ namespace BomTool.NetCore.ViewModels
             // set converter options
             converter.Options.PdfPageSize = PdfPageSize.A3;
             converter.Options.PdfPageOrientation = PdfPageOrientation.Landscape;
-            converter.Options.AutoFitWidth = HtmlToPdfPageFitMode.AutoFit;
             converter.Options.AutoFitWidth = HtmlToPdfPageFitMode.AutoFit;
             // create a new pdf document converting an html string
             var doc = converter.ConvertHtmlString(html);
