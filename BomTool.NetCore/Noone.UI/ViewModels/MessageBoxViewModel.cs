@@ -1,7 +1,3 @@
-using Noone.UI.Core;
-using Noone.UI.Models;
-using ReactiveUI;
-
 namespace Noone.UI.ViewModels
 {
     /// <summary>

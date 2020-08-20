@@ -1,9 +1,8 @@
+using BomTool.NetCore.Models;
+using Noone.UI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using BomTool.NetCore.Models;
-using Noone.UI.Core;
-using Noone.UI.ViewModels;
 
 namespace BomTool.NetCore.ViewModels
 {
@@ -11,7 +10,7 @@ namespace BomTool.NetCore.ViewModels
     {
         private readonly string template;
 
-        public IEnumerable<GrouppedBomData> Data {get; private set;}
+        public IEnumerable<GrouppedBomData> Data { get; private set; }
 
         public override string Template => template;
 

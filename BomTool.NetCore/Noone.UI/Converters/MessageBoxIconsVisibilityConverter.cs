@@ -1,7 +1,7 @@
-using System;
-using System.Globalization;
 using Avalonia.Data.Converters;
 using Noone.UI.Models;
+using System;
+using System.Globalization;
 
 namespace Noone.UI.Converters
 {

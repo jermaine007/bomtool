@@ -1,8 +1,6 @@
 using Avalonia.Data.Converters;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 
 namespace BomTool.NetCore.Converters
 {
@@ -15,7 +13,7 @@ namespace BomTool.NetCore.Converters
                 double margin = 0;
                 if (parameter != null)
                 {
-                    Double.TryParse((string)parameter, out margin);
+                    double.TryParse((string)parameter, out margin);
                 }
                 return Math.Max((double)value - margin, 0);
             }

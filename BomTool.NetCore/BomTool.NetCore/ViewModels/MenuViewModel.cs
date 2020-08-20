@@ -1,11 +1,8 @@
-using System;
-using System.Reactive;
-using System.Threading.Tasks;
 using Noone.UI;
-using Noone.UI.Core;
 using Noone.UI.Models;
 using Noone.UI.ViewModels;
 using ReactiveUI;
+using System.Reactive;
 
 namespace BomTool.NetCore.ViewModels
 {

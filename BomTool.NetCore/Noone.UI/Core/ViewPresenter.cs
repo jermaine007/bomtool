@@ -1,8 +1,6 @@
 using Avalonia.Controls;
 using Noone.UI.Controls;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Noone.UI.Core

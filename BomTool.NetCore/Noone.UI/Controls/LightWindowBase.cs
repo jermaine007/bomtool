@@ -1,16 +1,14 @@
-using System;
-using System.Diagnostics;
-using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Data;
 using Avalonia.Input;
-using Avalonia.Markup.Xaml;
 using Avalonia.Media.Imaging;
 using Avalonia.Styling;
 using Avalonia.VisualTree;
 using Noone.UI.Core;
 using Noone.UI.Models;
+using System;
+using System.Diagnostics;
+using System.Linq;
 
 namespace Noone.UI.Controls
 {

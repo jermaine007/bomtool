@@ -1,5 +1,4 @@
 using Avalonia.Markup.Xaml;
-using Noone.UI.Core;
 
 namespace Noone.UI.Controls
 {

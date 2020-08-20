@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Noone.UI;
+﻿using Noone.UI;
 using Noone.UI.Models;
+using System;
+using System.Linq;
 
 namespace BomTool.NetCore.Models
 {

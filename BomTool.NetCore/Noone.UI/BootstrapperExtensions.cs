@@ -1,10 +1,10 @@
+using Avalonia;
+using Ninject.Infrastructure.Language;
+using Noone.UI.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Avalonia;
-using Ninject.Infrastructure.Language;
-using Noone.UI.Core;
 
 namespace Noone.UI
 {

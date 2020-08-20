@@ -1,5 +1,3 @@
-using System;
-using Noone.UI.Core;
 using Noone.UI.ViewModels;
 using ReactiveUI;
 

@@ -1,5 +1,4 @@
 using Noone.UI;
-using Noone.UI.Core;
 using Noone.UI.Models;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
@@ -8,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace BomTool.NetCore.Models
 {
@@ -16,13 +15,11 @@ namespace BomTool.NetCore.Models
     /// Bom data reader
     /// </summary>
     public class ExcelDataReader : ModelBase,
-        IContainerProvider,
-        ILoggerProvider
+        IContainerProvider
     {
         public static readonly string InsertType = "INSERT";
         public static readonly string SurfaceType = "SURFACE";
         private readonly IContainer container;
-        private readonly ILogger logger;
 
         /// <summary>
         /// Excel path
@@ -37,7 +34,6 @@ namespace BomTool.NetCore.Models
         public ExcelDataReader()
         {
             container = ((IContainerProvider)this).Container;
-            logger = ((ILoggerProvider)this).Logger;
         }
 
         public void Initialize(string xlsPath, Action<string> Log)
@@ -63,7 +59,7 @@ namespace BomTool.NetCore.Models
             }
             int rowCount = worksheet.LastRowNum;
             var lastColumnIndex = FindLastColumnIndex(startRowIndex, worksheet);
-            logger.Debug($"Last column:{lastColumnIndex}");
+            Log($"Last column:{lastColumnIndex}");
 
             for (int row = startRowIndex; row <= rowCount; row++)
             {
@@ -90,7 +86,7 @@ namespace BomTool.NetCore.Models
                 {
                     data.Lines.Add(GetValue(rowData.GetCell(columnIndex), evaluator));
                 }
-                logger.Debug($"Read data: {data}");
+                Log($"Read data: {data}");
                 result.Add(data);
             }
 
@@ -113,7 +109,7 @@ namespace BomTool.NetCore.Models
         /// <returns></returns>
         private Information ReadInformation(IWorkbook workbook, IFormulaEvaluator evaluator)
         {
-            logger.Debug("Read Information");
+            Log("Read Information");
             var worksheet = workbook.GetSheetAt(1);
             var startRowIndex = FindStartRowIndex("Information", worksheet);
             if (startRowIndex == -1)
@@ -133,7 +129,7 @@ namespace BomTool.NetCore.Models
                 o.Version = GetValue(worksheet.GetRow(index + 6).GetCell(1), evaluator);
             });
 
-            logger.Debug($"Read information: {info}");
+            Log($"Read information: {info}");
             return info;
         }
 
@@ -169,7 +165,7 @@ namespace BomTool.NetCore.Models
                     o.Signature = GetValue(row.GetCell(2), evaluator);
                     o.Date = GetValue(row.GetCell(3), evaluator, true);
                 });
-                logger.Debug(data.ToString());
+                Log(data.ToString());
                 result.Add(data);
 
             }
@@ -210,10 +206,9 @@ namespace BomTool.NetCore.Models
         /// Read all data
         /// </summary>
         /// <returns></returns>
-        public ExcelData Read()
+        public Task<ExcelData> Read() => Task.Factory.StartNew(() =>
         {
             Log($"Opening {this.XlsPath} ...");
-            logger.Debug($"Reading file {this.XlsPath} ..");
 
             IWorkbook workbook = Path.GetExtension(this.XlsPath) == ".xls" ?
                 (IWorkbook)new HSSFWorkbook(File.OpenRead(this.XlsPath)) : new XSSFWorkbook(File.OpenRead(this.XlsPath));
@@ -229,7 +224,8 @@ namespace BomTool.NetCore.Models
             });
             Log("Opened successfully.");
             return result;
-        }
+        });
+
 
         /// <summary>
         /// Find last column index
@@ -247,13 +243,13 @@ namespace BomTool.NetCore.Models
         /// <returns></returns>
         private int FindStartRowIndex(string identity, ISheet worksheet)
         {
-            logger.Debug($"Try to find the start row.");
+            Log($"Try to find the start row.");
             int rowCount = worksheet.LastRowNum;
             for (int row = 0; row <= rowCount; row++)
             {
                 if (worksheet.GetRow(row).GetCell(0)?.StringCellValue == identity)
                 {
-                    logger.Debug($"Start row found: {row}");
+                    Log($"Start row found: {row}");
                     return row;
                 }
             }

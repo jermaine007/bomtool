@@ -15,14 +15,14 @@ namespace Noone.UI.Models
         /// </summary>
         OK = MessageBoxButtonsBase.OK,
 
-         /// <summary>
+        /// <summary>
         ///  Cancel button
         /// </summary>
         Cancel = MessageBoxButtonsBase.Cancel,
         /// <summary>
         /// OK and Cancel button
         /// </summary>
-        OKCancel = MessageBoxButtonsBase.OK | MessageBoxButtonsBase.Cancel ,
+        OKCancel = MessageBoxButtonsBase.OK | MessageBoxButtonsBase.Cancel,
         /// <summary>
         /// Yes and No button
         /// </summary>

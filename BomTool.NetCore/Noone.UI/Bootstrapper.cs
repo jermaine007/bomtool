@@ -1,7 +1,6 @@
-using System;
 using Avalonia;
 using Noone.UI.Controls;
-using Noone.UI.Core;
+using System;
 
 namespace Noone.UI
 {

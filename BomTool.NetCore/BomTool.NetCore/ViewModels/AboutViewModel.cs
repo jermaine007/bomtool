@@ -1,9 +1,8 @@
 using BomTool.NetCore.Models;
-using ReactiveUI;
-using Noone.UI.Core;
 using Noone.UI.ViewModels;
-using System.Reactive;
+using ReactiveUI;
 using System.Diagnostics;
+using System.Reactive;
 
 namespace BomTool.NetCore.ViewModels
 {

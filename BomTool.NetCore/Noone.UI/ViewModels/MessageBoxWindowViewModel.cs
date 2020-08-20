@@ -1,4 +1,3 @@
-using Noone.UI.Core;
 using Noone.UI.Models;
 using ReactiveUI;
 using System.Reactive;

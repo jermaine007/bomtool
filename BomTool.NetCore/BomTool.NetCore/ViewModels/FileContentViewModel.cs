@@ -1,7 +1,6 @@
 using BomTool.NetCore.Models;
 using DynamicData;
 using Noone.UI;
-using Noone.UI.Core;
 using Noone.UI.ViewModels;
 using ReactiveUI;
 using System;
@@ -10,7 +9,6 @@ using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Threading.Tasks;
 
 namespace BomTool.NetCore.ViewModels
 {
@@ -38,7 +36,7 @@ namespace BomTool.NetCore.ViewModels
             sourceList.Connect().Bind(out items).Subscribe();
 
             RemoveCommand = ReactiveCommand.Create<TabContentViewModel>(vm => sourceList.Remove(vm));
-           
+
         }
 
         public void Remove(FileItem item)

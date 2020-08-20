@@ -1,4 +1,3 @@
-using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 
@@ -31,7 +30,7 @@ namespace Noone.UI.Core
             }
             if (view == null)
             {
-               return new TextBlock { Text = $"Found no view for {data}"};
+                return new TextBlock { Text = $"Found no view for {data}" };
             }
             return view;
         }

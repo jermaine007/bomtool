@@ -1,21 +1,18 @@
-using Noone.UI;
-using Noone.UI.Core;
 using Noone.UI.Models;
 using NPOI.HSSF.UserModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace BomTool.NetCore.Models
 {
     /// <summary>
     /// Excel writer, to generate bom data
     /// </summary>
-    public class ExcelWriter : ModelBase, ILoggerProvider
+    public class ExcelWriter : ModelBase
     {
-        private readonly ILogger logger;
         /// <summary>
         /// Destination folder
         /// </summary>
@@ -49,20 +46,18 @@ namespace BomTool.NetCore.Models
             this.Log = Log;
         }
 
-        public ExcelWriter() => logger = ((ILoggerProvider)this).Logger;
-
-
         /// <summary>
         /// Write the new bom data to xls
         /// </summary>
-        public void Write()
+        public Task Write() => Task.Factory.StartNew(() =>
         {
             Log("Generating BOM...");
             this.GrouppedData = this.Data.Group(Log);
 
             WriteData(this.GrouppedData);
             Log("Generated BOM successfully.");
-        }
+        });
+
 
         /// <summary>
         /// WriteData
@@ -72,12 +67,12 @@ namespace BomTool.NetCore.Models
         {
             var path = Path.Combine(Folder, $"Bom-{DateTime.Now:yyyyMMddHHmmss}.xls");
             var workbook = new HSSFWorkbook();
-            logger.Debug($"Generate file to : {path}");
+            Log($"Generate file to : {path}");
 
             foreach (var data in grouppedData)
             {
                 var name = $"{data.Line}@Col{data.ColumnIndex}";
-                logger.Debug($"Writing worksheet: {name}");
+                Log($"Writing worksheet: {name}");
                 var sheet = workbook.CreateSheet(name);
                 var headerRow = sheet.CreateRow(0);
 

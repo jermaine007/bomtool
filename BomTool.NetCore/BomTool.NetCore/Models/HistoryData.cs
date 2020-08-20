@@ -1,8 +1,5 @@
-using Noone.UI.Core;
 using Noone.UI.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BomTool.NetCore.Models
 {
@@ -24,6 +21,6 @@ namespace BomTool.NetCore.Models
             $"Date: {Date}"
 
         });
-       
+
     }
 }

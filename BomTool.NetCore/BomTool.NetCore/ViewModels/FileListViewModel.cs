@@ -1,15 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Reactive;
 using BomTool.NetCore.Models;
 using DynamicData;
 using Noone.UI;
-using Noone.UI.Core;
 using Noone.UI.ViewModels;
 using ReactiveUI;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reactive;
 
 namespace BomTool.NetCore.ViewModels
 {
@@ -60,7 +58,7 @@ namespace BomTool.NetCore.ViewModels
         }
 
         private void ProcessFile(FileItem item, bool alreadyOpened = false) =>
-             this.MainWindow.Waiting((statusBar) =>
+             this.MainWindow.Waiting(async (statusBar, callback) =>
                {
                    if (!alreadyOpened)
                    {
@@ -68,15 +66,17 @@ namespace BomTool.NetCore.ViewModels
                    }
                    if (FileContent.IsOpened(item))
                    {
+                       callback();
                        return;
                    }
                    ExcelDataReader reader = container.Get<ExcelDataReader>().Setup(r =>
                    {
-                       r.Initialize(item.Location, msg => statusBar.Message = msg);
+                       r.Initialize(item.Location, msg => this.MainWindow.Output(msg));
                    });
-                   ExcelData data = reader.Read();
+                   ExcelData data = await reader.Read();
 
                    FileContent.Add(item, data);
+                   callback();
                });
 
     }

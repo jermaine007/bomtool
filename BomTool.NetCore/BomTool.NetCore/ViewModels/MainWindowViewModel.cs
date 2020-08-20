@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Avalonia.Threading;
-using NLog.Fluent;
 using Noone.UI;
 using Noone.UI.Core;
 using Noone.UI.ViewModels;
+using System;
 
 namespace BomTool.NetCore.ViewModels
 {
@@ -32,18 +27,16 @@ namespace BomTool.NetCore.ViewModels
             this.DispatcherService = container.Get<IDispatcherService>();
         }
 
-        public async void Waiting(Action<StatusBarViewModel> action)
+        public void Waiting(Action<StatusBarViewModel, Action> action)
         {
-            try
-            {
-                this.StatusBar.IsBusy = true;
-                await this.DispatcherService.InvokeAsync(() => action(this.StatusBar));
-            }
-            finally
-            {
-                this.StatusBar.IsBusy = false;
-            }
+            this.StatusBar.IsBusy = true;
+            action(this.StatusBar, () => this.StatusBar.IsBusy = false);
+        }
 
+        internal void Output(string message)
+        {
+            logger.Debug(message);
+            this.StatusBar.Message = message;
         }
 
     }

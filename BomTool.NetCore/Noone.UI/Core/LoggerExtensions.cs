@@ -1,8 +1,3 @@
-using NLog.Fluent;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Noone.UI.Core
 {
     public static class LoggerExtensions

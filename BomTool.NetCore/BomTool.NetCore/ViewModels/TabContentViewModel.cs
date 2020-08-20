@@ -1,24 +1,20 @@
 using BomTool.NetCore.Models;
 using Noone.UI;
-using Noone.UI.Core;
 using Noone.UI.Models;
 using Noone.UI.ViewModels;
 using ReactiveUI;
 using SelectPdf;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reactive;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BomTool.NetCore.ViewModels
 {
     public class TabContentViewModel : ViewModelBase, ITemplateEngineProvider
     {
-
         private MainWindowViewModel mainWindow;
         private readonly ITemplateEngine templateEngine;
         private readonly string singleTemplate;
@@ -71,19 +67,20 @@ namespace BomTool.NetCore.ViewModels
                 {
                     return;
                 }
-                MainWindow.Waiting((statusBar) =>
+                MainWindow.Waiting(async (statusBar, callback) =>
                 {
                     ExcelWriter writer = container.Get<ExcelWriter>().Setup(o =>
                     {
-                        o.Initialize(ExcelData.BomData, folder, msg => statusBar.Message = msg);
+                        o.Initialize(ExcelData.BomData, folder, msg => this.MainWindow.Output(msg));
                     });
-                    writer.Write();
+                    await writer.Write();
                     this.Content = container.Get<GeneratedBomDataViewModel>().Setup(vm =>
                     {
                         vm.Initialize(writer.GrouppedData);
                         // workaround for nonwindows platform
                         this.CanGeneratePdf = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
                     });
+                    callback();
                 });
             });
 
@@ -94,14 +91,29 @@ namespace BomTool.NetCore.ViewModels
                 {
                     return;
                 }
-                MainWindow.Waiting((statusBar) =>
+                MainWindow.Waiting(async (statusBar, callback) =>
                 {
                     PdfDataGenerator generator = container.Get<PdfDataGenerator>().Setup(o =>
                     {
-                        o.Initialize(ExcelData, msg => statusBar.Message = msg);
+                        o.Initialize(ExcelData, msg => this.MainWindow.Output(msg));
                     });
                     PdfData pdf = generator.Generate();
-                    GeneratePdf(pdf, folder);
+                    var pdfFile = await GeneratePdf(pdf, folder);
+
+                    MessageBoxResults result = await messagebox.ShowAsync("", "Do you want to preview the pdf file?",
+                    container.Get<MessageBoxSettingsViewModel>().Setup(o =>
+                    {
+                        o.Buttons = MessageBoxButtons.YesNo;
+                    }));
+                    if (result == MessageBoxResults.Yes)
+                    {
+                        Process.Start(new ProcessStartInfo
+                        {
+                            UseShellExecute = true,
+                            FileName = pdfFile
+                        });
+                    }
+                    callback();
                 });
 
             });
@@ -111,8 +123,9 @@ namespace BomTool.NetCore.ViewModels
         // It's a piece of shit that Select.HtmlToPdf.NetCore is Windows only, WTF!!!
         // https://selectpdf.com/docs/Installation.htm
         // https://stackoverflow.com/questions/56275154/selectpdf-net-core-2-2-exception-conversion-failure-unable-to-load-shared-li
-        private async void GeneratePdf(PdfData data, string folder)
+        private Task<string> GeneratePdf(PdfData data, string folder) => Task.Factory.StartNew(() =>
         {
+            this.MainWindow.Output("Generating pdf file...");
             var template = data.UseSingleTemplate ? singleTemplate : multiTemplate;
             string html = templateEngine.Render(template, data);
             var pdfFile = Path.Combine(folder,
@@ -133,20 +146,9 @@ namespace BomTool.NetCore.ViewModels
 
             // close pdf document
             doc.Close();
+            this.MainWindow.Output("Generate pdf file sucessfully.");
+            return pdfFile;
+        });
 
-            MessageBoxResults result = await messagebox.ShowAsync("", "Do you want to preview the pdf file?",
-             container.Get<MessageBoxSettingsViewModel>().Setup(o =>
-            {
-                o.Buttons = MessageBoxButtons.YesNo;
-            }));
-            if (result == MessageBoxResults.Yes)
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    UseShellExecute = true,
-                    FileName = pdfFile
-                });
-            }
-        }
     }
 }
