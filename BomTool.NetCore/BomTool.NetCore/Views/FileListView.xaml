@@ -11,8 +11,8 @@
     d:DesignWidth="800"
     Background="{DynamicResource DarkBackgroundBrush2}"
     mc:Ignorable="d">
-    <StackPanel Orientation="Vertical">
-        <StackPanel.Styles>
+    <Grid RowDefinitions="Auto,*">
+        <Grid.Styles>
             <Style Selector="Border.h1">
                 <Setter Property="Height" Value="30" />
                 <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush3}" />
@@ -50,22 +50,22 @@
             <Style Selector="ListBoxItem:selected:focus:pointerover /template/ ContentPresenter">
                 <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush1}" />
             </Style>
-        </StackPanel.Styles>
+        </Grid.Styles>
         <Border Classes="h1">
-            <TextBlock Text="Recent Opened" />
+            <TextBlock Text="RECENT" />
         </Border>
-        <ListBox Name="FileList" Items="{Binding Files}">
+        <ListBox Grid.Row="1" Name="FileList" Items="{Binding Files}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Name="FileContainer" ColumnDefinitions="*,Auto">
+                    <Grid Name="FileContainer" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ColumnDefinitions="*,Auto">
                         <i:Interaction.Behaviors>
                             <ia:EventTriggerBehavior EventName="DoubleTapped" SourceObject="{Binding #FileContainer}">
                                 <ia:InvokeCommandAction Command="{Binding $parent[controls:LightUserControlBase].DataContext.OpenFileCommand}" CommandParameter="{Binding}" />
                             </ia:EventTriggerBehavior>
                         </i:Interaction.Behaviors>
                         <TextBlock
-                            Margin="5"
-                            Text="{Binding Name}"
+                            Margin="5 5 20 5"
+                            Text="{Binding Location}"
                             ToolTip.Tip="{Binding Location}" />
                         <Button
                             Margin="0"
@@ -81,5 +81,5 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-    </StackPanel>
+    </Grid>
 </controls:LightUserControlBase>

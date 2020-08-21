@@ -72,9 +72,10 @@ namespace BomTool.NetCore.ViewModels
             sourceList.Add(container.Get<TabContentViewModel>().Setup(vm =>
             {
                 vm.ExcelData = data;
-                vm.Header = Path.GetFileName(item.Name);
+                vm.Header = item.Name;
                 vm.Location = item.Location;
                 vm.Content = container.Get<BomDataViewModel>().Setup(o => o.Initialize(data));
+
             }));
         }
 
