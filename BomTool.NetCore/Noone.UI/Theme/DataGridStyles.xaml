@@ -29,4 +29,8 @@
   <!-- <Style Selector="DataGridRow:selected">
     <Setter Property="Foreground" Value="{DynamicResource HighlightForegroundBrush}" />
   </Style> -->
+  <Style Selector="ProgressBar">
+    <Setter Property="Background" Value="{DynamicResource DarkBackgroundBrush3}" />
+    <Setter Property="Foreground" Value="{DynamicResource DarkBackgroundBrush1}" />
+  </Style>
 </Styles>
