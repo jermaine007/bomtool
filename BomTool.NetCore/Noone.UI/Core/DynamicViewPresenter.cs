@@ -45,8 +45,10 @@ namespace Noone.UI.Core
 
             try
             {
+                // https://github.com/verybadcat/CSharpMath/pull/149
+                // moved into the separate package: Avalonia.Markup.Xaml.Loader
                 // dynamically load xaml
-                object view = AvaloniaXamlLoader.Parse(xaml);
+                object view = AvaloniaRuntimeXamlLoader.Parse(xaml);
 
                 if (view is IView control)
                 {

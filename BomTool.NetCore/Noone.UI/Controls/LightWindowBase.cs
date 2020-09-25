@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Media.Imaging;
 using Avalonia.Styling;
@@ -83,7 +84,9 @@ namespace Noone.UI.Controls
             container = ((IContainerProvider)this).Container;
 
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            this.HasSystemDecorations = false;
+            //this.HasSystemDecorations = false;
+            this.ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.NoChrome;
+            this.ExtendClientAreaToDecorationsHint = true;
 
             EnableDevelopTools();
 
@@ -99,6 +102,8 @@ namespace Noone.UI.Controls
             }
         }
 
+        // https://github.com/AvaloniaUI/Avalonia/pull/3462
+        // Move into seprated package Avalonia.Diagnostics
         [Conditional(DEBUG)]
         protected void EnableDevelopTools() => this.AttachDevTools();
 
@@ -121,8 +126,21 @@ namespace Noone.UI.Controls
                 && this.SystemButtons.HasFlag(SystemButtons.Close);
         }
 
-        protected override void OnTemplateApplied(Avalonia.Controls.Primitives.TemplateAppliedEventArgs e)
+        //protected override void OnTemplateApplied(Avalonia.Controls.Primitives.TemplateAppliedEventArgs e)
+        //{
+        //    var buttons = this.GetVisualDescendants().OfType<Button>().ToList();
+        //    minimizeButton = buttons.FirstOrDefault(x => x.Name == "MinimizeButton");
+        //    maximizeButton = buttons.FirstOrDefault(x => x.Name == "MaximizeButton");
+        //    restoreButton = buttons.FirstOrDefault(x => x.Name == "RestoreButton");
+        //    closeButton = buttons.FirstOrDefault(x => x.Name == "CloseButton");
+        //    SystemButtonsProperty.Changed.AddClassHandler<LightWindowBase>((o, e) => this.HandleSystemButtons());
+        //    WindowStateProperty.Changed.AddClassHandler<LightWindowBase>((o, e) => this.HandleSystemButtons());
+        //    HandleSystemButtons();
+        //}
+
+        protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
+            base.OnApplyTemplate(e);
             var buttons = this.GetVisualDescendants().OfType<Button>().ToList();
             minimizeButton = buttons.FirstOrDefault(x => x.Name == "MinimizeButton");
             maximizeButton = buttons.FirstOrDefault(x => x.Name == "MaximizeButton");

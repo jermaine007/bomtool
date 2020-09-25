@@ -1,5 +1,4 @@
 using Avalonia;
-using Avalonia.Logging.Serilog;
 using Avalonia.ReactiveUI;
 using BomTool.NetCore.Views;
 using Noone.UI;
