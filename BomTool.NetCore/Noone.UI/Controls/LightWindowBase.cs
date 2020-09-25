@@ -85,8 +85,9 @@ namespace Noone.UI.Controls
 
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             //this.HasSystemDecorations = false;
-            this.ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.NoChrome;
-            this.ExtendClientAreaToDecorationsHint = true;
+            // this.ExtendClientAreaToDecorationsHint = false;
+            // this.ExtendClientAreaChromeHints = Avalonia.Platform.ExtendClientAreaChromeHints.SystemChrome;
+            this.SystemDecorations = SystemDecorations.None;
 
             EnableDevelopTools();
 
@@ -125,18 +126,6 @@ namespace Noone.UI.Controls
             closeButton.IsVisible = this.SystemButtons != SystemButtons.None
                 && this.SystemButtons.HasFlag(SystemButtons.Close);
         }
-
-        //protected override void OnTemplateApplied(Avalonia.Controls.Primitives.TemplateAppliedEventArgs e)
-        //{
-        //    var buttons = this.GetVisualDescendants().OfType<Button>().ToList();
-        //    minimizeButton = buttons.FirstOrDefault(x => x.Name == "MinimizeButton");
-        //    maximizeButton = buttons.FirstOrDefault(x => x.Name == "MaximizeButton");
-        //    restoreButton = buttons.FirstOrDefault(x => x.Name == "RestoreButton");
-        //    closeButton = buttons.FirstOrDefault(x => x.Name == "CloseButton");
-        //    SystemButtonsProperty.Changed.AddClassHandler<LightWindowBase>((o, e) => this.HandleSystemButtons());
-        //    WindowStateProperty.Changed.AddClassHandler<LightWindowBase>((o, e) => this.HandleSystemButtons());
-        //    HandleSystemButtons();
-        //}
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
